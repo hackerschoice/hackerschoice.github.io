@@ -4,13 +4,16 @@ We do IT security work. We are not for hire. All our work is for the public.
 
 We research and publish tools and academic papers to expose fishy IT security that just isn’t secure.  We also develop and publish tools to help the IT Security movement.
 
-## Active Projects
+## Active Projects (2020)
 
-- [https://github.com/AFLplusplus/AFLplusplus](AFL++)
-- [https://github.com/hackerschoice/thc-rfs-client](Remote Encrypted File System)
-- [https://github.com/hackerschoice/thc-rfs-client](Remote Encrypted File System)
-- [https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet](THC's favourite Tips, Tricks  & Hacks)
-- [https://tiny.cc/thcstfu](IT Security and Privacy for the rebellions of the world)
+- [AFL++](https://github.com/AFLplusplus/AFLplusplus)
+- [Remote Encrypted File System](https://github.com/hackerschoice/thc-rfs-client)
+- [THC's favourite Tips, Tricks  & Hacks](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet)
+- [IT Security and Privacy for the rebellions of the world](https://tiny.cc/thcstfu)
+
+
+Releases: [https://www.github.com/hackerschoice](https://www.github.com/hackerschoice)  
+Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanhauser-thc/THC-Archive/)
 
 ## Our Greatest Hit’s:
 
@@ -36,16 +39,10 @@ The best way to meet us is to catch us at an IETF meeting or a hacker convention
 
 Since 1995 we had 3 of our members arrested (0 convicted), we have been visited by the BKA, blackmailed by the British GCHQ and harassed and intimidated by many others. We do not see ourselves as criminals. 
 
-
-Hello World
-You can use the [editor on GitHub](https://github.com/hackerschoice/hackerschoice.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
 ### Contact
 
-Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)
-Telegram Channel: [https://t.me/thcorg](https://t.me/thcorg)
-Web: [https://www.thc.org](https://www.thc.org)
-E-Mail: members@thc.org
+Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
+Telegram Channel: [https://t.me/thcorg](https://t.me/thcorg)  
+Web: [https://www.thc.org](https://www.thc.org)  
+E-Mail: members@thc.org  
 
