@@ -8,6 +8,7 @@ We research and publish tools and academic papers to expose fishy IT security th
 
 - [https://github.com/AFLplusplus/AFLplusplus](AFL++)
 - [https://github.com/hackerschoice/thc-rfs-client](Remote Encrypted File System)
+- [https://github.com/hackerschoice/thc-rfs-client](Remote Encrypted File System)
 - [https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet](THC's favourite Tips, Tricks  & Hacks)
 - [https://tiny.cc/thcstfu](IT Security and Privacy for the rebellions of the world)
 
