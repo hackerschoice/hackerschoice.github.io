@@ -20,7 +20,7 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 
 ```
 1995 - Various phreaking tools and a credit card generator for DOS and Win95
-1998 - Reverse WWW shell as seen in Mr. Robot/TV
+1998 - Reverse WWW shell as seen on Mr. Robot/TV
 1999 - First Solaris Kernel Module Root Kit
 2000 - Hydra, world’s first parallelised network logon cracker
 2003 - Amap, world’s first application protocol scanner
