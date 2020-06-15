@@ -9,7 +9,8 @@ We research and publish tools and academic papers to expose fishy IT security th
 ## Active Projects (2020)
 
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
-- [thc-ipv6 attack tool kit](https://github.com/vanhauser-thc/thc-ipv6)
+- [Hydra](https://github.com/vanhauser-thc/thc-hydra)
+- [IPv6 attack tool kit](https://github.com/vanhauser-thc/thc-ipv6)
 - [Remote Encrypted File System](https://github.com/hackerschoice/thc-rfs-client)
 - [THC's favourite Tips, Tricks  & Hacks / Cheat Sheet](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet)
 - [IT Security and Privacy for the rebellions of the world](https://tiny.cc/thcstfu)
