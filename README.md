@@ -9,7 +9,7 @@ We research and publish tools and academic papers to expose fishy IT security th
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
 - [thc-ipv6 attack tool kit](https://github.com/vanhauser-thc/thc-ipv6)
 - [Remote Encrypted File System](https://github.com/hackerschoice/thc-rfs-client)
-- [THC's favourite Tips, Tricks  & Hacks](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet)
+- [THC's favourite Tips, Tricks  & Hacks / Cheat Sheet](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet)
 - [IT Security and Privacy for the rebellions of the world](https://tiny.cc/thcstfu)
 
 
@@ -30,7 +30,8 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 2008 - Tools to copy and forge an ePassport (RFID passport)
 2011 - SSL-DoS, a resource exhaustion attack to take down HTTPS servers
 2015 - AFLplusplus, a free and fast software fuzzer
-2019 - Security Advise for non-hackers
+2019 - Security advise for non-hackers and rebellions of the world
+2020 - THC's Cheat Sheet
 […]
 ```
 
