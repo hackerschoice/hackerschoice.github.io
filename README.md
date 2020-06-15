@@ -25,6 +25,7 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 1998 - Reverse WWW shell as seen on Mr. Robot/TV
 1999 - First Solaris Kernel Module Root Kit
 2000 - Hydra, world’s first parallelised network logon cracker
+2002 - Linux Kernel-level key logger
 2003 - Amap, world’s first application protocol scanner
 2004 - Various Microsoft ISS remote exploits
 2005 - IPv6 attack tools 
