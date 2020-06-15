@@ -1,6 +1,8 @@
-## What we do
+## Who we are and what we do
 
-We do IT security work. We are not for hire. All our work is for the public.
+We are a group of international hackers.
+
+We do IT security work. We are not for hire. All of our work is for the public.
 
 We research and publish tools and academic papers to expose fishy IT security that just isn’t secure.  We also develop and publish tools to help the IT Security movement.
 
