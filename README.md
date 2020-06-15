@@ -42,7 +42,8 @@ Since 1995 we had 3 of our members arrested (0 convicted), we have been visited 
 ### Contact
 
 Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
-Telegram Channel: [https://t.me/thcorg](https://t.me/thcorg)  
+Telegram: [https://t.me/thcorg](https://t.me/thcorg)  
 Web: [https://www.thc.org](https://www.thc.org)  
+Medium: [https://medium.com/@hackerschoice](https://medium.com/@hackerschoice)  
 E-Mail: members@thc.org  
 
