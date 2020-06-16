@@ -41,9 +41,9 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 
 Beside our public work we are engaged with some leading IT Security companies were we push security into the right and meaningful direction. We have been editor in chief of the phrack magazine. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organisations. 
 
-The best way to meet us is to come to one of the IETF meetings or a hacker convention such as HITB or the CCC Congress.
+The best way to meet us is at the IETF meetings or a hacker convention such as HITB or the CCC Congress.
 
-Since 1995 we have had 3 of our members arrested (0 convicted), we have had visits by the BKA (Germany's FBI), we got blackmailed by the British GCHQ and harassed and intimidated by many others. We do not see ourselves as criminals. 
+Since 1995 we have had 3 of our members arrested (0 convicted), we have had visits by the BKA (Germany's FBI), we were blackmailed by the British GCHQ and harassed and intimidated by many others. We do not see ourselves as criminals. If your security or policy is shit, and we point it out then it is you who is the criminal.
 
 ### Contact
 
