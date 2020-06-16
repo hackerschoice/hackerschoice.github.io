@@ -11,12 +11,12 @@ We research and publish tools and academic papers to expose fishy IT security th
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
 - [Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [IPv6 attack tool kit](https://github.com/vanhauser-thc/thc-ipv6)
-- [Cloud based Encrypted File System](https://github.com/hackerschoice/thc-rfs-client)
+- [Cloud based Encrypted File System](https://tiny.cc/thcrfs)
 - [THC's favourite Tips, Tricks  & Hacks / Cheat Sheet](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet)
 - [IT Security and Privacy for the rebellions of the world](https://tiny.cc/thcstfu)
 
 
-Releases: [https://www.github.com/hackerschoice](https://www.github.com/hackerschoice)  
+Releases: [https://github.com/hackerschoice](https://github.com/hackerschoice)  
 Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanhauser-thc/THC-Archive/)
 
 ## Our Greatest Hit’s:
