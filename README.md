@@ -11,7 +11,7 @@ We research and publish tools and academic papers to expose fishy IT security th
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
 - [Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [IPv6 attack tool kit](https://github.com/vanhauser-thc/thc-ipv6)
-- [Remote Encrypted File System](https://github.com/hackerschoice/thc-rfs-client)
+- [Cloud based Encrypted File System](https://github.com/hackerschoice/thc-rfs-client)
 - [THC's favourite Tips, Tricks  & Hacks / Cheat Sheet](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet)
 - [IT Security and Privacy for the rebellions of the world](https://tiny.cc/thcstfu)
 
@@ -22,21 +22,21 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 ## Our Greatest Hit’s:
 
 ```
-1995 - Various phreaking tools and a credit card generator for DOS and Win95
-1998 - Reverse WWW shell as seen on Mr. Robot/TV
-1999 - First Solaris Kernel Module Root Kit
-2000 - Hydra, world’s first parallelised network logon cracker
-2002 - Linux Kernel-level key logger
-2003 - Amap, world’s first application protocol scanner
-2004 - Various Microsoft ISS remote exploits
-2005 - IPv6 attack tools 
-2007 - Tools to receive GSM signals and to break and decode A5/1 encryption
-2008 - Tools to copy and forge an ePassport (RFID passport)
-2011 - SSL-DoS, a resource exhaustion attack to take down HTTPS servers
-2015 - AFLplusplus, a free and fast software fuzzer
-2019 - Security advise for non-hackers and rebellions of the world
 2020 - THC's Cheat Sheet
-[…]
+2019 - Security advise for non-hackers and rebellions of the world
+2015 - AFLplusplus, a free and fast software fuzzer
+2011 - SSL-DoS, a resource exhaustion attack to take down HTTPS servers
+2008 - Tools to copy and forge an ePassport (RFID passport)
+2007 - Tools to receive GSM signals and to break and decode A5/1 encryption
+2005 - IPv6 attack tools 
+2004 - Various Microsoft ISS remote exploits
+2003 - Amap, world’s first application protocol scanner
+2002 - Linux Kernel-level key logger
+2000 - Hydra, world’s first parallelised network logon cracker
+1999 - First Solaris Kernel Module Root Kit
+1998 - Reverse WWW shell as seen on Mr. Robot/TV
+1995 - Various phreaking tools and a credit card generator for DOS and Win95
+1994 - <redacted>
 ```
 
 Beside our public work we are engaged with some leading IT Security companies were we push security into the right and meaningful direction. We have been editor in chief of the phrack magazine. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organisations. 
