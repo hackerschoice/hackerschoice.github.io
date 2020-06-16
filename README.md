@@ -43,7 +43,7 @@ Beside our public work we are engaged with some leading IT Security companies we
 
 The best way to meet us is at the IETF meetings or a hacker convention such as HITB or the CCC Congress.
 
-Since 1995 we have had 3 of our members arrested (0 convicted), we have had visits by the BKA (Germany's FBI), we were blackmailed by the British GCHQ and harassed and intimidated by many others. We do not see ourselves as criminals. If your security or policy is shit, and we point it out then it is you who is the criminal.
+Since 1995 we have had 3 of our members arrested (0 convicted), we have had visits by the BKA (Germany's FBI), we were blackmailed by the British GCHQ and harassed and intimidated by many others. We do not see ourselves as criminals. If your security or policy is shit and we point it out then it is you who is the criminal.
 
 ### Contact
 
