@@ -39,11 +39,11 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 1994 - <redacted>
 ```
 
-Beside our public work we are engaged with some leading IT Security companies were we push security into the right and meaningful direction. We have been editor in chief of the phrack magazine. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organisations. 
+Beside our public work we engage with some leading IT Security companies were we push security into the right and meaningful direction. We have been editor in chief of the phrack magazine and occasionally speakers at conferences. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organisations. 
 
-The best way to meet us is at the IETF meetings or a hacker convention such as HITB or the CCC Congress.
+The best way to meet us is at one of the IETF meetings or a hacker convention such as HITB or the CCC Congress.
 
-Since 1995 we have had 3 of our members arrested (0 convicted), we have had visits by the BKA (Germany's FBI) and BND (Germany's NSA), we were blackmailed by the British GCHQ and harassed and intimidated by many others. We do not see ourselves as criminals. When your security or policy is shit and we point it out (free of charge) then it is you who should be the criminal.
+Since 1995 we have had 3 of our members arrested (0 convicted), we have had visits by the BKA (Germany's FBI) and BND (Germany's NSA), we were blackmailed by the British GCHQ and harassed and intimidated by many others. We do not see ourselves as criminals. We believe that those who write unsecure software that put citizens at risk should be held liable.
 
 ### Contact
 
