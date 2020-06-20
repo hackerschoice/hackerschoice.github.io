@@ -39,7 +39,7 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 1994 - <redacted>
 ```
 
-Beside our public work we engage with some leading IT Security companies were we push security into the right and meaningful direction. We have been editor in chief of the phrack magazine and occasionally speakers at conferences. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organisations. 
+Beside our public work we engage with some leading IT Security companies to push security into the right and meaningful direction. We have been editor in chief of the phrack magazine and occasionally speakers at conferences. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organisations. 
 
 The best way to meet us is at one of the IETF meetings or a hacker convention such as HITB or the CCC Congress.
 
