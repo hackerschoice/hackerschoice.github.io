@@ -4,7 +4,8 @@ Content-type: text/html; charset=UTF-8
 <HTML><HEAD><TITLE>Man page of BLITZ</TITLE>
 </HEAD><BODY>
 <H1>BLITZ</H1>
-<HR>
+Section: User Commands  (1)<BR><A HREF="#index">Index</A>
+<A HREF="http://hackerschoice.github.io/">Return to Main Contents</A><HR>
 <BR>BSD mandoc<BR>
 <A NAME="lbAB">&nbsp;</A>
 <H2>NAME</H2>
@@ -38,13 +39,19 @@ Content-type: text/html; charset=UTF-8
 
 ]
 
+[-<B>f </B><I>list</I>
+
+
+
+]
+
 [-<B>o </B><I>RSOPT=</I>
 
 
 
 ]
 
-[<I>files</I>
+[<I>files ...</I>
 
 ]
 
@@ -57,10 +64,10 @@ The
 <B>blitz</B>
 
 
-utility is a wrapper script for gs-netcat and rsync. It allows a user to send files to another user via the Global Socket Relay Network (GSRN).
+utility is a wrapper script for gs-netcat and rsync. It allows to send files from one workstation to another workstation via the Global Socket Relay Network (GSRN).
 <P>
 
-A typical use-case is when both users are separated by a Firewall or NAT without being able to establish a direct connection. 
+A typical use-case is where both workstations are separated by a Firewall or NAT and not able to establish a direct connection between each other. 
 <P>
 
 <A NAME="lbAE">&nbsp;</A>
@@ -69,6 +76,11 @@ A typical use-case is when both users are separated by a Firewall or NAT without
 <DL COMPACT>
 <P>
 
+<DT><B>-l</B>
+
+
+<DD>
+Server mode. The default mode is client.
 <DT><B>-s </B><I>secret</I>
 
 
@@ -76,25 +88,28 @@ A typical use-case is when both users are separated by a Firewall or NAT without
 
 <DD>
 A password chosen by the user. Both users need to use the same password to connect.
-<DT><B>-k </B><I>file</I>
+<DT><B>-k </B><I>FILE</I>
 
 
 
 
 <DD>
 A file containing the password.
-<DT><B>-l</B>
+<DT><B>-f </B><I>FILE</I>
+
+
 
 
 <DD>
-Server mode. The default mode is client.
+Read list of file names from FILE. If FILE is -, the list will be read from standard input.
 <DT><B>-o </B><I>RSOPT=</I>
 
 
 
 
 <DD>
-Options passed to rsync. See rsync(1)
+Options passed to rsync. See
+<A HREF="https://hackerschoice.github.io/rsync.1.html">rsync</A>(1)
 
 
 for available options.
@@ -156,6 +171,12 @@ Copy the entire root file-system:
  
 <P>
 
+Copy specific files read from standard input:
+
+<BLOCKQUOTE><TT>$ find&nbsp;. -name '*.conf' | blitz -s MySecret -f</TT></BLOCKQUOTE>
+ 
+<P>
+
 Run a permanent server (daemon) trough TOR:
 
 <BLOCKQUOTE><TT>$ blitz -s MySecret -l -D -T</TT></BLOCKQUOTE>
@@ -180,7 +201,10 @@ for a list of supported environment variables.
 <A HREF="https://hackerschoice.github.io/gs-sftp.1.html">gs-sftp</A>(1),
 
 
-rsync(1)
+<A HREF="https://hackerschoice.github.io/gs-mount.1.html">gs-mount</A>(1),
+
+
+<A HREF="https://hackerschoice.github.io/rsync.1.html">rsync</A>(1)
 
 
 <P>
@@ -212,5 +236,9 @@ Efforts have been made to have
 <DT><A HREF="#lbAI">BUGS</A><DD>
 </DL>
 <HR>
+This document was created by
+<A HREF="http://hackerschoice.github.io/">man2html</A>,
+using the manual pages.<BR>
+Time: 10:37:09 GMT, October 24, 2020
 </BODY>
 </HTML>

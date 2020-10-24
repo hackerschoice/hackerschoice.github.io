@@ -4,7 +4,8 @@ Content-type: text/html; charset=UTF-8
 <HTML><HEAD><TITLE>Man page of GS-MOUNT</TITLE>
 </HEAD><BODY>
 <H1>GS-MOUNT</H1>
-<HR>
+Section: User Commands  (1)<BR><A HREF="#index">Index</A>
+<A HREF="http://hackerschoice.github.io/">Return to Main Contents</A><HR>
 <BR>BSD mandoc<BR>
 <A NAME="lbAB">&nbsp;</A>
 <H2>NAME</H2>
@@ -22,7 +23,7 @@ Content-type: text/html; charset=UTF-8
 
 -words
 
-[-<B>lT</B>
+[-<B>lTR</B>
 
 ]
 
@@ -67,7 +68,7 @@ utility is a wrapper script for gs-netcat. It allows a user to mount and access 
 
 <DD>
 A password chosen by the user. Both users need to use the same password to connect.
-<DT><B>-k </B><I>file</I>
+<DT><B>-k </B><I>FILE</I>
 
 
 
@@ -79,6 +80,11 @@ A file containing the password.
 
 <DD>
 Server mode. The default mode is client.
+<DT><B>-R</B>
+
+
+<DD>
+Places server (-l) into a read-only mode. Attempts to open files for writing, as well as other operations that change the state of the filesystem, will be denied.
 <DT><B>-T</B>
 
 
@@ -135,7 +141,7 @@ for a list of supported environment variables.
 <A HREF="https://hackerschoice.github.io/blitz.1.html">blitz</A>(1),
 
 
-sshf(1)
+<A HREF="https://hackerschoice.github.io/sshfs.1.html">sshfs</A>(1)
 
 
 <P>
@@ -167,5 +173,9 @@ Efforts have been made to have
 <DT><A HREF="#lbAI">BUGS</A><DD>
 </DL>
 <HR>
+This document was created by
+<A HREF="http://hackerschoice.github.io/">man2html</A>,
+using the manual pages.<BR>
+Time: 10:37:09 GMT, October 24, 2020
 </BODY>
 </HTML>
