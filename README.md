@@ -9,6 +9,7 @@ We research and publish tools and academic papers to expose fishy IT security th
 ## Active Projects (2020)
 
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
+- [Global Socket Relay Network](https://github.com/hackerschoice/gsocket)
 - [Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [IPv6 attack tool kit](https://github.com/vanhauser-thc/thc-ipv6)
 - [Cloud based Encrypted File System](https://tiny.cc/thcrfs)
