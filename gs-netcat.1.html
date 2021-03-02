@@ -173,7 +173,7 @@ tool will connect via TOR to the GSRN. This requires TOR to be installed and run
 
 
 <DD>
-Server. Act as a Socks4/4a/5 server. Needs -l. The server acts as a Socks4/4a/5 proxy. It allows multiple
+Server. Act as a SOCKS4/4a/5 server. Needs -l. The server acts as a SOCKS4/4a/5 proxy. It allows multiple
 <B>gs-netcat</B>
 
 
@@ -342,12 +342,12 @@ Client to read 'warez.tar.gz' and pipe it to the server.
 
 <B>Example 5</B>
 
-- Server to act as a Socks4/4a/5 server:
+- Server to act as a SOCKS4/4a/5 server:
 
 <BLOCKQUOTE><TT>$ gs-netcat -s MySecret -l -S</TT></BLOCKQUOTE>
 <P>
 
-Client to listen on TCP port 1080 and forward any new connection to the server's Socks server:
+Client to listen on TCP port 1080 and forward any new connection to the server's SOCKS server:
 
 <BLOCKQUOTE><TT>$ gs-netcat -s MySecret -p 1080</TT></BLOCKQUOTE>
 <P>
@@ -499,6 +499,9 @@ The latest version is available from <A HREF="https://github.com/hackerschoice/g
 <A NAME="lbAL">&nbsp;</A>
 <H2>SEE ALSO</H2>
 
+<A HREF="https://hackerschoice.github.io/gs.1.html">gs</A>(1),
+
+
 <A HREF="https://hackerschoice.github.io/gs-sftp.1.html">gs-sftp</A>(1),
 
 
@@ -545,6 +548,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 16:59:04 GMT, February 23, 2021
+Time: 12:19:54 GMT, March 02, 2021
 </BODY>
 </HTML>
