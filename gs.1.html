@@ -14,7 +14,7 @@ Section: User Commands  (1)<BR><A HREF="#index">Index</A>
 
 <B>gs</B>
 
- - connect as if there was no firewall. Securely.
+ - connect like there is no firewall. Securely.
 
 <A NAME="lbAC">&nbsp;</A>
 <H2>SYNOPSIS</H2>
@@ -58,14 +58,14 @@ The
 <B>gs</B>
 
 
-tool can be used to enable a program to communicate trough a firewall in situations were it would not be possible to establish a direct connection to another host/workstation (NATed/firewalled). The typical scenario is two workstations that are on separate private networks and behind separate firewalls. The
+tool can be used to enable a program to communicate trough a firewall in situations where it would not be possible to establish a direct connection to another host/workstation (NATed/firewalled). The typical scenario is two workstations that are on separate private networks and behind separate firewalls. The
 <B>gs</B>
 
 
 tool hijacks the network library functions (such as connect() and accept()) of the program and encrypts and redirects the traffic through the Global Socket Relay Network (GSRN). 
 <P>
 
-Neither workstation needs to open a port in their firewall or accept incoming TCP connections.
+Neither workstation needs to open a port in their firewall nor accept incoming TCP connections.
 <P>
 
 The connection is end-2-end encrypted using SRP (RFC 5054) with AES-256 and a 4096 Prime. The GSRN sees only the encrypted traffic. 
@@ -95,21 +95,21 @@ and much, much more.
 <BR>&nbsp;...while&nbsp;both&nbsp;workstations&nbsp;are&nbsp;behind&nbsp;NAT&nbsp;and&nbsp;firewalled.
 <P>
 
-Abandon the thinking of IP addresses and port numbers: Two programs should be able to communicate with each other as long as they know the same secret (rather than each others IP address and port number). The
+Abandon the thought of IP addresses and port numbers: Two programs should be able to communicate with each other as long as they know the same secret (rather than each other's IP address and port number). The
 <B>gs</B>
 
 
-tools establishes a such connection regardless and independent of the local IP address or geographical location. It does so by analyzing the program and replacing the IP-Layer with its own transport via the GSRN. The connection is End-2-End encrypted. The GSRN sees only the encrypted traffic.
+tools establishes such a connection regardless and independent of the local IP address or geographical location. It does so by analyzing the program and replacing the IP Layer with its own transport through GSRN. The connection is end-2-end encrypted. The GSRN sees only the encrypted traffic.
 <P>
 
-The typical scenario is a client/server arrangement such as ssh and sshd: All connections to any hostname that end with '.gsocket' are redirected (via the GSRN) to the server on a separate network (as long as both programs use the same secret).
+The typical scenario is a client/server arrangement such as ssh and sshd: Connections by ssh to any hostname ending in '.gsocket' are redirected (through the GSRN) to the (firewalled) sshd server.  
 <P>
 
 The redirection is done per program (and limited to that program only). The
 <B>gs</B>
 
 
-tool does not change the routing table and does not change the NAT or firewall settings.
+tool does not change the routing table and does not change the NAT nor the firewall settings. It does not require superuser privileges either.
 <P>
 
 <A NAME="lbAE">&nbsp;</A>
@@ -150,7 +150,7 @@ Use TOR. The
 <B>gs</B>
 
 
-tool will connect via TOR to the GSRN. This requires TOR to be installed and running.
+tool will connect through TOR to the GSRN. This requires TOR to be installed and running.
 <DT><B>-p </B><I>port</I>
 
 
@@ -163,6 +163,10 @@ TCP port range of listening ports to redirect [default=all].
 
 <P>
 
+Connections to any hostname ending in '*.gsocket' or to the IP Address '127.31.33.7' are redirected through the GSRN.
+<P>
+
+Connections to any hostname ending in '*.thc' or to the IP Address '127.31.33.8' are first redirected through TOR and then through the GSRN.
 <A NAME="lbAF">&nbsp;</A>
 <H2>EXAMPLES</H2>
 
@@ -174,11 +178,9 @@ TCP port range of listening ports to redirect [default=all].
 Server:
 
 <BLOCKQUOTE><TT>$ gs -s MySecret /usr/sbin/sshd</TT></BLOCKQUOTE>
-<P>
-
 Client:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret ssh <A HREF="mailto:root@gsocket">root@gsocket</A></TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gs -s MySecret ssh <A HREF="mailto:xaitax@gsocket">xaitax@gsocket</A></TT></BLOCKQUOTE>
 <P>
 
 <B>Example 2</B>
@@ -207,7 +209,65 @@ Client:
 <BLOCKQUOTE><TT>$ gs -s MySecret openvpn --dev tun1 --proto tcp-client --ifconfig 10.9.8.2 10.9.8.1 --remote gsocket</TT></BLOCKQUOTE>
 <P>
 
+<B>Example 4</B>
+
+- IRCD between two firewalled workstations:
+<P>
+
+Server:
+
+<BLOCKQUOTE><TT>$ gs -s MySecret inspircd --nolog --nofork</TT></BLOCKQUOTE>
+Client:
+
+<BLOCKQUOTE><TT>$ gs -s MySecret irssi -c gsocket</TT></BLOCKQUOTE>
+<P>
+
+<B>Example 5</B>
+
+- Socat between two firewalled workstations:
+<P>
+
+Server:
+
+<BLOCKQUOTE><TT>$ gs -s MySecret socat - TCP_LISTEN:31337</TT></BLOCKQUOTE>
+Client:
+
+<BLOCKQUOTE><TT>$ gs -s MySecret socat - TCP:gsocket:31337</TT></BLOCKQUOTE>
+<P>
+
 <A NAME="lbAG">&nbsp;</A>
+<H2>SYSTEMCTL INSTALLATION</H2>
+
+It is possible to make any service/daemon accessible through any firewall. The service is then only acessible through the GSRN and only if the client knows the secret. No port or service is exposed to the public Internet and the existence of the service remains hidden. This example makes openssh-server (sshd) accessible through the GSRN. Nobody, not even the GSRN operators, have access to the port, daemon or service (they do not know the secret). The new service co-exists with the existing openssh-server and does not interfere with the existing openssh-server.
+<P>
+
+1. Copy /etc/systemd/system/sshd to /etc/systemd/system/gs-sshd
+<P>
+
+2. Edit /etc/systemd/system/gs-sshd and change this line:
+
+<BLOCKQUOTE><TT>ExecStart=/usr/sbin/sshd -D $SSHD_OPTS</TT></BLOCKQUOTE>
+to
+
+<BLOCKQUOTE><TT>ExecStart=gs -s MySecret /usr/sbin/sshd -D $SSHD_OPTS</TT></BLOCKQUOTE>
+<P>
+
+3. Start the newly created service
+
+<BLOCKQUOTE><TT># systemctl start gs-sshd</TT></BLOCKQUOTE>
+<P>
+
+4. Check the status
+
+<BLOCKQUOTE><TT># systemctl status gs-sshd</TT></BLOCKQUOTE>
+<P>
+
+5. Connect from any other host to the newly created (hidden) openssh-server:
+
+<BLOCKQUOTE><TT>$ gs -s MySecret ssh <A HREF="mailto:user@gsocket">user@gsocket</A></TT></BLOCKQUOTE>
+<P>
+
+<A NAME="lbAH">&nbsp;</A>
 <H2>ENVIRONMENT</H2>
 
 The following environment variables can be set to control the behavior of
@@ -232,8 +292,7 @@ The following environment variables can be set to control the behavior of
 
 
 <BLOCKQUOTE><TT>A string containing additional command line parameters. First the normal command line parameters are processed and then the command line parameters from GSOCKET_ARGS.</TT></BLOCKQUOTE>
-<P>
-<A NAME="lbAH">&nbsp;</A>
+<A NAME="lbAI">&nbsp;</A>
 <H2>SECURITY</H2>
 
 Passing the password as command line parameter is not secure. Consider using the -k option or GSOCKET_ARGS or enter the password when prompted:
@@ -251,7 +310,7 @@ Passing the password as command line parameter is not secure. Consider using the
 
 <B>1.</B>
 
-The security is end-2-end. This means from User-2-User (and not just to the GSRN). The GSRN relays only (encrypted) data to and from the users.
+The security is end-2-end. This means from user-2-user (and not just to the GSRN). The GSRN relays only (encrypted) data to and from the users.
 <P>
 
 <B>2.</B>
@@ -283,21 +342,21 @@ Assume Alice shares the same password with Bob and Malice. When Alice stops list
 
 SRP has Perfect Forward Secrecy. This means that past sessions can not be decrypted even if the password becomes known.
 <P>
-<A NAME="lbAI">&nbsp;</A>
+<A NAME="lbAJ">&nbsp;</A>
 <H2>NOTES</H2>
 
 The latest version is available from <A HREF="https://github.com/hackerschoice/gsocket/.">https://github.com/hackerschoice/gsocket/.</A>
 <P>
-<A NAME="lbAJ">&nbsp;</A>
+<A NAME="lbAK">&nbsp;</A>
 <H2>SEE ALSO</H2>
 
-<A HREF="https://hackerschoice.github.io/gs-netcat.1.html">gs-netcat</A>(1),
+gs-netcat1,
 
 
-<A HREF="https://hackerschoice.github.io/gs-sftp.1.html">gs-sftp</A>(1),
+gs-sftp1,
 
 
-<A HREF="https://hackerschoice.github.io/gs-mount.1.html">gs-mount</A>(1),
+gs-mount1,
 
 
 <A HREF="https://hackerschoice.github.io/blitz.1.html">blitz</A>(1),
@@ -310,7 +369,7 @@ The latest version is available from <A HREF="https://github.com/hackerschoice/g
 
 
 <P>
-<A NAME="lbAK">&nbsp;</A>
+<A NAME="lbAL">&nbsp;</A>
 <H2>BUGS</H2>
 
 Efforts have been made to have
@@ -328,16 +387,17 @@ Efforts have been made to have
 <DT><A HREF="#lbAD">DESCRIPTION</A><DD>
 <DT><A HREF="#lbAE">OPTIONS</A><DD>
 <DT><A HREF="#lbAF">EXAMPLES</A><DD>
-<DT><A HREF="#lbAG">ENVIRONMENT</A><DD>
-<DT><A HREF="#lbAH">SECURITY</A><DD>
-<DT><A HREF="#lbAI">NOTES</A><DD>
-<DT><A HREF="#lbAJ">SEE ALSO</A><DD>
-<DT><A HREF="#lbAK">BUGS</A><DD>
+<DT><A HREF="#lbAG">SYSTEMCTL INSTALLATION</A><DD>
+<DT><A HREF="#lbAH">ENVIRONMENT</A><DD>
+<DT><A HREF="#lbAI">SECURITY</A><DD>
+<DT><A HREF="#lbAJ">NOTES</A><DD>
+<DT><A HREF="#lbAK">SEE ALSO</A><DD>
+<DT><A HREF="#lbAL">BUGS</A><DD>
 </DL>
 <HR>
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 12:36:35 GMT, March 02, 2021
+Time: 07:03:58 GMT, March 07, 2021
 </BODY>
 </HTML>
