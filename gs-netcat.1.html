@@ -21,13 +21,11 @@ Section: User Commands  (1)<BR><A HREF="#index">Index</A>
 
 <B>gs-netcat</B>
 
-[-<B>rlgqwCTSDi </B>[-<B>s </B><I>secret</I>
-
-
+[-<B>rlgqwCTSDiu</B>
 
 ]
 
-
+[-<B>s </B><I>secret</I>
 
 
 
@@ -112,13 +110,45 @@ and much, much more.
 <DL COMPACT>
 <P>
 
-<DT><B>-s </B><I>secret</I>
+<DT><B>-C</B>
+
+
+<DD>
+Disable encryption and use clear-text instead. Use with caution.
+<DT><B>-d </B><I>ip</I>
 
 
 
 
 <DD>
-A password chosen by the user. Both users need to use the same password to connect.
+Destination IPv4 address for port forwarding.
+<DT><B>-D</B>
+
+
+<DD>
+Daemon &amp; Watchdog mode. Start
+<B>gs-netcat</B>
+
+
+as a background process and restart if killed.
+<DT><B>-e </B><I>cmd</I>
+
+
+
+
+<DD>
+Execute command and send output to the connected client. Needs -l.
+<DT><B>-g</B>
+
+
+<DD>
+Generate a secure random password and output it to standard output.
+<DT><B>-i</B>
+
+
+<DD>
+Interactive login shell. The server spawns a true PTY login shell. The client acts as a true PTY client (with Ctrl-C etc working). The client can terminate the session by typing 'Ctrl-e q' at any time or by typing 'exit'. The server supports multiple clients at the same time.
+<P>
 <DT><B>-k </B><I>file</I>
 
 
@@ -126,36 +156,51 @@ A password chosen by the user. Both users need to use the same password to conne
 
 <DD>
 A file containing the password.
-<DT><B>-g</B>
-
-
-<DD>
-Generate a secure random password and output it to standard output.
 <DT><B>-l</B>
 
 
 <DD>
-Server mode. The default mode is client.
+Server/Listening mode. The default mode is client.
+<DT><B>-L </B><I>file</I>
+
+
+
+
+<DD>
+Log file [defaut: standard out]
+<DT><B>-p </B><I>port</I>
+
+
+
+
+<DD>
+Port to listen on or to forward traffic to [1-65535].
 <DT><B>-q</B>
 
 
 <DD>
 Quiet mode. Do not output any warnings or errors.
-<DT><B>-w</B>
-
-
-<DD>
-Client to wait for the listening server to become available.
 <DT><B>-r</B>
 
 
 <DD>
 Receive-only. Do not send any data. Terminate when no more data is available for reading.
-<DT><B>-C</B>
+<DT><B>-s </B><I>secret</I>
+
+
 
 
 <DD>
-Disable encryption and use clear-text instead. Use with caution.
+A password chosen by the user. Both users need to use the same password to connect.
+<DT><B>-S</B>
+
+
+<DD>
+Act as a SOCKS4/4a/5 server. The server acts as a SOCKS4/4a/5 proxy. It allows multiple
+<B>gs-netcat</B>
+
+
+clients to (securely) relay traffic via the server. Needs -l.
 <DT><B>-T</B>
 
 
@@ -165,63 +210,27 @@ Use TOR. The
 
 
 tool will connect via TOR to the GSRN. This requires TOR to be installed and running. The IP and PORT of the TOR server can be set using environment variables.
-<DT><B>-S</B>
+<DT><B>-u</B>
 
 
 <DD>
-Server. Act as a SOCKS4/4a/5 server. Needs -l. The server acts as a SOCKS4/4a/5 proxy. It allows multiple
-<B>gs-netcat</B>
-
-
-clients to (securely) relay traffic via the server.
-<DT><B>-D</B>
+Use UDP instead of TCP for port forwarding. Needs -p. 
+<DT><B>-w</B>
 
 
 <DD>
-Server. Daemon &amp; Watchdog mode.
-<B>gs-netcat</B>
-
-
-will run as a background process and restart itself if killed.
-<DT><B>-e </B><I>cmd</I>
-
-
-
-
-<DD>
-Server. Execute command and send output to the connected client.
-<DT><B>-d </B><I>ip</I>
-
-
-
-
-<DD>
-IPv4 address for port forwarding.
-<DT><B>-p </B><I>port</I>
-
-
-
-
-<DD>
-TCP port to listen on or to forward traffic to.
-<DT><B>-i</B>
-
-
-<DD>
-Interactive login shell. The server spawns a true PTY login shell. The client acts as a true PTY client (with Ctrl-C etc working). The client can terminate the session by typing 'Ctrl-e q' at any time or by typing 'exit'. The server supports multiple clients at the same time.
+Client to wait for the listening server to become available.
 </DL>
 <P>
 
 <P>
-<P>
-
-<I>port</I>
-
-can be a numerical value between 1-65535.
 <A NAME="lbAF">&nbsp;</A>
 <H2>CONSOLE</H2>
 
-Pressing 'Ctrl-e c' (e for EEEElite) opens the command console. The command console displays the following information:
+The interactive login shell (
+<I>-i</I>
+
+) has a command console. Pressing 'Ctrl-e c' (e for EEEElite) opens the command console. The command console displays the following information:
 <P>
 
 <UL><P>
@@ -234,7 +243,7 @@ Latency (in milliseconds) to the remote host
 Warning when a user logs into the system or becomes active
 <LI>
 
-Data troughput
+Data throughput
 <LI>
 
 File transfer logs
@@ -544,6 +553,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 07:03:58 GMT, March 07, 2021
+Time: 13:35:02 GMT, March 20, 2021
 </BODY>
 </HTML>
