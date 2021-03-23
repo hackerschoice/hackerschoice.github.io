@@ -1,9 +1,9 @@
 Content-type: text/html; charset=UTF-8
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML><HEAD><TITLE>Man page of gs</TITLE>
+<HTML><HEAD><TITLE>Man page of gsocket</TITLE>
 </HEAD><BODY>
-<H1>gs</H1>
+<H1>gsocket</H1>
 Section: User Commands  (1)<BR><A HREF="#index">Index</A>
 <A HREF="http://hackerschoice.github.io/">Return to Main Contents</A><HR>
 <BR>BSD mandoc<BR>
@@ -177,10 +177,10 @@ Connections to any hostname ending in '*.thc' or to the IP Address '127.31.33.8'
 
 Server:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret /usr/sbin/sshd</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret /usr/sbin/sshd</TT></BLOCKQUOTE>
 Client:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret ssh <A HREF="mailto:xaitax@gsocket">xaitax@gsocket</A></TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret ssh <A HREF="mailto:xaitax@gsocket">xaitax@gsocket</A></TT></BLOCKQUOTE>
 <P>
 
 <B>Example 2</B>
@@ -190,10 +190,10 @@ Client:
 
 Server:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret nc -lp 31337</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret nc -lp 31337</TT></BLOCKQUOTE>
 Client:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret nc gsocket 31337</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret nc gsocket 31337</TT></BLOCKQUOTE>
 <P>
 
 <B>Example 3</B>
@@ -203,10 +203,10 @@ Client:
 
 Server:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret openvpn --dev tun1 --proto tcp-server --ifconfig 10.9.8.1 10.9.8.2</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret openvpn --dev tun1 --proto tcp-server --ifconfig 10.9.8.1 10.9.8.2</TT></BLOCKQUOTE>
 Client:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret openvpn --dev tun1 --proto tcp-client --ifconfig 10.9.8.2 10.9.8.1 --remote gsocket</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret openvpn --dev tun1 --proto tcp-client --ifconfig 10.9.8.2 10.9.8.1 --remote gsocket</TT></BLOCKQUOTE>
 <P>
 
 <B>Example 4</B>
@@ -216,10 +216,10 @@ Client:
 
 Server:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret inspircd --nolog --nofork</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret inspircd --nolog --nofork</TT></BLOCKQUOTE>
 Client:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret irssi -c gsocket</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret irssi -c gsocket</TT></BLOCKQUOTE>
 <P>
 
 <B>Example 5</B>
@@ -229,10 +229,10 @@ Client:
 
 Server:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret socat - TCP_LISTEN:31337</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret socat - TCP_LISTEN:31337</TT></BLOCKQUOTE>
 Client:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret socat - TCP:gsocket:31337</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret socat - TCP:gsocket:31337</TT></BLOCKQUOTE>
 <P>
 
 <A NAME="lbAG">&nbsp;</A>
@@ -249,7 +249,7 @@ It is possible to make any service/daemon accessible through any firewall. The s
 <BLOCKQUOTE><TT>ExecStart=/usr/sbin/sshd -D $SSHD_OPTS</TT></BLOCKQUOTE>
 to
 
-<BLOCKQUOTE><TT>ExecStart=gs -s MySecret /usr/sbin/sshd -D $SSHD_OPTS</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>ExecStart=gsocket -s MySecret /usr/sbin/sshd -D $SSHD_OPTS</TT></BLOCKQUOTE>
 <P>
 
 3. Start the newly created service
@@ -264,7 +264,7 @@ to
 
 5. Connect from any other host to the newly created (hidden) openssh-server:
 
-<BLOCKQUOTE><TT>$ gs -s MySecret ssh <A HREF="mailto:user@gsocket">user@gsocket</A></TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret ssh <A HREF="mailto:user@gsocket">user@gsocket</A></TT></BLOCKQUOTE>
 <P>
 
 <A NAME="lbAH">&nbsp;</A>
@@ -299,7 +299,7 @@ Passing the password as command line parameter is not secure. Consider using the
 <P>
 
 
-<BLOCKQUOTE><TT>$ gs -k &lt;file&gt;</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -k &lt;file&gt;</TT></BLOCKQUOTE>
 <P>
 
 
@@ -398,6 +398,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 08:21:46 GMT, March 23, 2021
+Time: 08:24:15 GMT, March 23, 2021
 </BODY>
 </HTML>
