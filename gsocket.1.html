@@ -12,14 +12,14 @@ Section: User Commands  (1)<BR><A HREF="#index">Index</A>
 
 
 
-<B>gs</B>
+<B>gsocket</B>
 
  - connect like there is no firewall. Securely.
 
 <A NAME="lbAC">&nbsp;</A>
 <H2>SYNOPSIS</H2>
 
-<B>gs</B>
+<B>gsocket</B>
 
 [-<B>qT</B>
 
@@ -55,11 +55,11 @@ Section: User Commands  (1)<BR><A HREF="#index">Index</A>
 <H2>DESCRIPTION</H2>
 
 The
-<B>gs</B>
+<B>gsocket</B>
 
 
 tool can be used to enable a program to communicate through a firewall in situations where it would not be possible to establish a direct connection to another host/workstation (NATed/firewalled). The typical scenario is two workstations that are on separate private networks and behind separate firewalls. The
-<B>gs</B>
+<B>gsocket</B>
 
 
 tool hijacks the network library functions (such as connect() and accept()) of the program and encrypts and redirects the traffic through the Global Socket Relay Network (GSRN). 
@@ -96,7 +96,7 @@ and much, much more.
 <P>
 
 Abandon the thought of IP addresses and port numbers: Two programs should be able to communicate with each other as long as they know the same secret (rather than each other's IP address and port number). The
-<B>gs</B>
+<B>gsocket</B>
 
 
 tools establishes such a connection regardless and independent of the local IP address or geographical location. It does so by analyzing the program and replacing the IP Layer with its own transport through GSRN. The connection is end-2-end encrypted. The GSRN sees only the encrypted traffic.
@@ -106,7 +106,7 @@ The typical scenario is a client/server arrangement such as ssh and sshd: Connec
 <P>
 
 The redirection is done per program (and limited to that program only). The
-<B>gs</B>
+<B>gsocket</B>
 
 
 tool does not change the routing table and does not change the NAT nor the firewall settings. It does not require superuser privileges either.
@@ -147,7 +147,7 @@ Quiet mode. Do not output any warnings or errors.
 
 <DD>
 Use TOR. The
-<B>gs</B>
+<B>gsocket</B>
 
 
 tool will connect through TOR to the GSRN. This requires TOR to be installed and running.
@@ -271,7 +271,7 @@ to
 <H2>ENVIRONMENT</H2>
 
 The following environment variables can be set to control the behavior of
-<B>gs</B>
+<B>gsocket</B>
 
 
 <P>
@@ -373,7 +373,7 @@ gs-mount1,
 <H2>BUGS</H2>
 
 Efforts have been made to have
-<B>gs</B>
+<B>gsocket</B>
 
 
 &quot;do the right thing&quot; in all its various modes. If you believe that it is doing the wrong thing under whatever circumstances, please notify me (<A HREF="mailto:skyper@thc.org">skyper@thc.org</A>) and tell me how you think it should behave.
@@ -398,6 +398,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 08:24:15 GMT, March 23, 2021
+Time: 17:03:52 GMT, March 27, 2021
 </BODY>
 </HTML>
