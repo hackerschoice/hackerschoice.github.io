@@ -102,7 +102,7 @@ Abandon the thought of IP addresses and port numbers: Two programs should be abl
 tools establishes such a connection regardless and independent of the local IP address or geographical location. It does so by analyzing the program and replacing the IP Layer with its own transport through GSRN. The connection is end-2-end encrypted. The GSRN sees only the encrypted traffic.
 <P>
 
-The typical scenario is a client/server arrangement such as ssh and sshd: Connections by ssh to any hostname ending in '.gsocket' are redirected (through the GSRN) to the (firewalled) sshd server.  
+The typical scenario is a client/server arrangement such as ssh and sshd: Connections by ssh to any hostname ending in '.gsocket' are redirected (through the GSRN) to the (firewalled) sshd server.
 <P>
 
 The redirection is done per program (and limited to that program only). The
@@ -341,12 +341,10 @@ Assume Alice shares the same password with Bob and Malice. When Alice stops list
 <B>7.</B>
 
 SRP has Perfect Forward Secrecy. This means that past sessions can not be decrypted even if the password becomes known.
-<P>
 <A NAME="lbAJ">&nbsp;</A>
 <H2>NOTES</H2>
 
 The latest version is available from <A HREF="https://github.com/hackerschoice/gsocket/.">https://github.com/hackerschoice/gsocket/.</A>
-<P>
 <A NAME="lbAK">&nbsp;</A>
 <H2>SEE ALSO</H2>
 
@@ -368,7 +366,6 @@ gs-mount1,
 <A HREF="https://hackerschoice.github.io/socat.1.html">socat</A>(1)
 
 
-<P>
 <A NAME="lbAL">&nbsp;</A>
 <H2>BUGS</H2>
 
@@ -398,6 +395,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 14:27:29 GMT, March 31, 2021
+Time: 17:54:49 GMT, April 07, 2021
 </BODY>
 </HTML>
