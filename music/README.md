@@ -1,6 +1,6 @@
 ## off the keyboard
 
-Our favorite tunes mixed by some talented friends of THC. This is what we listen to and it makes us hack harder. KEEP UP THE GOOD WORK.:
+Our favorite tunes by some very talented friends of THC. This is what we listen to. It makes us hack harder. KEEP UP THE GOOD WORK.
 
 Spoty's (#!ADM) monthly house music. Also *LIVE* every month in Paris.  
 [https://podcasts.apple.com/ch/podcast/](https://podcasts.apple.com/ch/podcast/l%C3%A0-o%C3%B9-vous-%C3%AAtes-a-dance-music-journey/id1512731887)
@@ -14,6 +14,7 @@ Our very own DJ RevMoon!
 Jim Geovedi (HERT/Phrack) mix  
 [http://soundcloud.com/geovedi](http://soundcloud.com/geovedi)
 
+*Feel like we missed your mix? Contact us*
 ### Contact
 
 Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
