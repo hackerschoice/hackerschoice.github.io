@@ -14,7 +14,6 @@ Our very own DJ RevMoon!
 Jim Geovedi (HERT/Phrack) mix  
 [http://soundcloud.com/geovedi](http://soundcloud.com/geovedi)
 
-*Feel like we missed your mix? Contact us*
 ### Contact
 
 Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
