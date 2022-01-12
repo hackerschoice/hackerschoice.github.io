@@ -1,3 +1,4 @@
-theme: jekyll-theme-cayman
 title: The Hacker's Choice
 description: Founded in 1995
+google_analytics:
+theme: jekyll-theme-cayman
