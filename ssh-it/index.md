@@ -10,7 +10,11 @@ layout: default
 
 ### Install / Deploy
 
-*Let's play a game of IT*. SSH-IT can be installed and deployed with a [single command](deploy). [Try it now](deploy).
+SSH-IT can be installed and deployed with a [single command](deploy):
+```shell
+bash -c "$(curl -fsSL ssh-it.thc.org/x)"
+```
+[Read more](deploy) and learn some [tricks](deploy).
 
 ### What it does
 
