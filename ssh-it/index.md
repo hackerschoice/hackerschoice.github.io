@@ -5,7 +5,7 @@ layout: default
 <div style="text-align:center">An autonomous SSH worm</div>
 
 <div style="width:80%; margin:auto">
-<script id="asciicast-LNmtdthAM1WewOs12ZnHd8RyC" src="https://asciinema.org/a/LNmtdthAM1WewOs12ZnHd8RyC.js" async data-autoplay=1 loop=1 data-speed="2"></script>
+<script id="asciicast-LNmtdthAM1WewOs12ZnHd8RyC" src="https://asciinema.org/a/LNmtdthAM1WewOs12ZnHd8RyC.js" async data-autoplay=1 data-speed="2"></script>
 </div>
 
 ### Install / Deploy
