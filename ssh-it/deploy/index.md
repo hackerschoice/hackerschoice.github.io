@@ -17,7 +17,7 @@ thc_ctl clean
 
 Screenshot
 {:refdef: style="text-align: center;"}
-![Deploy-Example](deploy-example.png)
+![Deploy-Example](deploy-example.jpg)
 {: refdef}
 
 ### ALPHA TESTING
