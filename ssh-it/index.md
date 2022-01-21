@@ -2,14 +2,15 @@
 layout: default
 ---
 
-<div style="text-align:center">An autonomous SSH worm.</div>
+<div style="text-align:center">An autonomous SSH worm</div>
 
 <div style="width:80%; margin:auto">
 <script id="asciicast-LNmtdthAM1WewOs12ZnHd8RyC" src="https://asciinema.org/a/LNmtdthAM1WewOs12ZnHd8RyC.js" async data-autoplay=1 loop=1></script>
 </div>
+
 ### Install / Deploy
 
-SSH-IT can be installed and deployed with a [single command](deploy). [Try it now](deploy).
+*Let's play a game of IT*. SSH-IT can be installed and deployed with a [single command](deploy). [Try it now](deploy).
 
 ### What it does
 
@@ -28,5 +29,3 @@ Telegram: [https://t.me/thcorg](https://t.me/thcorg)
 Web: [https://www.thc.org](https://www.thc.org)  
 Medium: [https://medium.com/@hackerschoice](https://medium.com/@hackerschoice)  
 E-Mail: members@thc.org  
-
-
