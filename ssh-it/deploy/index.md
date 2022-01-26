@@ -38,7 +38,7 @@ ALPHA DEFAULT SETTINGS:
 * ```THC_DEPTH=2``` The worm will stop spreading 2 hops from the host where it got deployed.
 
 {:refdef: style="text-align: center;"}
-![Deploy-Example](verbose-example.png)
+![Verbose-Example](verbose-example.png)
 {: refdef}
 
 Take off all safety and run SSH-IT in release mode (*with no warnings*):
