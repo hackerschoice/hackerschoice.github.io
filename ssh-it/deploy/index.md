@@ -59,6 +59,8 @@ chmod 755 ssh-it-deploy.sh && \
 ./ssh-it-deploy.sh
 ```
 
+Special thanks to BadAdvert1zer for ideas and testing.
+
 ### Contact
 
 Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
