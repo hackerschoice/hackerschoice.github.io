@@ -34,7 +34,7 @@ This is ALPHA STAGE. DO NOT SHARE.
 If you know about this then consider yourself special. Join us on [Telegram](https://t.me/thcorg).
 
 ALPHA DEFAULT SETTINGS:
-* ```THC_VERBOSE=1``` Display a warning when *ssh* is intercepted (in bold red).
+* ```THC_VERBOSE=1``` Display a warning when *ssh* is being intercepted (in bold red).
 * ```THC_DEPTH=2``` The worm will not spread further than 2 hops away from the current host.
 
 {:refdef: style="text-align: center;"}
