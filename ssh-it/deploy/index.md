@@ -89,7 +89,7 @@ chmod 755 ssh-it-deploy.sh && \
 ./ssh-it-deploy.sh
 ```
 
-Special thanks to BadAdvert1zer for ideas and testing.
+Special thanks to Gerald and BadAdvert1zer for ideas and testing.
 
 ### Contact
 
