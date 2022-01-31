@@ -90,7 +90,7 @@ chmod 755 ssh-it-deploy.sh && \
 ```
 
 #### Help the team
-Help us fix bug and send us ```thc.log``` if a boo-boo happens:
+Help us fix bugs and send us ```thc.log``` if a boo-boo happens:
 ```shell
 THC_DEBUG=1 THC_DEBUG_LOG=thc.log ssh user@yourhost "id"
 ```
