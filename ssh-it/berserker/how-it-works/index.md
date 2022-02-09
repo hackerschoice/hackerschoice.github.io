@@ -4,11 +4,11 @@ layout: default
 
 Random notes on how [The Berserker](../) works.
 
-***A recursive, non-intrusive and ephemeral tool to find password-less private ssh-keys and build a hirachical tree of reachable hosts***
+***A recursive, non-intrusive and ephemeral tool to find password-less private ssh-keys and build a hierarchical tree of reachable hosts***
 
 
 ### Executive Summary
-[The Berserker](../) is a bash script. At this point the reader either has a heart attack or multiple orgasms. There is no inbetween.
+[The Berserker](../) is a bash script. At this point the reader either has a heart attack or multiple orgasms. There is no in-between.
 
 ### General
 The Berserker looks for any password-less private ssh-key in ```~/.ssh``` and then gathers information from the User's shell history (```~/.bash_history```, ```.zsh_history``` and ```~/.history```) about any host the User connected to in the past. The Berserker then attempts to log into each host and injects itself into the remote's bash memory. It executes itself on the remote host and continues do do its deeds.
@@ -19,7 +19,7 @@ It keeps doing so until all ssh keys have been used and all hosts have been visi
 
 At this point the educated reader will realise that The Berserker is *deep penetrating* ```Uranus```, e.g. ```Uranus``` gets owned even if firewalled or not being accessible from the Internet (but accessible from ```Jupiter```).
 
-Berseker implements a text-based communication protocol via the stdin/stdout ssh-chain to send its findings back to ```Earth``` (the *origin* where The Berserker started).
+Berserker implements a text-based communication protocol via the stdin/stdout ssh-chain to send its findings back to ```Earth``` (the *origin* where The Berserker started).
 
 ### Bash In-Memory execution
 Bash has this tremendous ability to execute a script from memory and without the script needing to be stored on the target host.
@@ -41,13 +41,13 @@ ssh -Tn user@host.com "export SCRIPT='$S'; bash -c \"\$SCRIPT\""
 
 1. The ```ssh``` parameter ```-T``` stops the host from allocating a PTY but also stops the session from showing up in ```who``` and ```lastlog```. 
 
-1. The long string ```export SCRIPT='$S'; bash -c \"\$SCRIPT\"``` is passed as a command to ```ssh``` to execute on the remote host. Note that the ```$``` in ```\"\$SCRIPT\"``` is escaped to prevent the local shell from substituting the variable. We like the remote bash (not the local one) to substitue ```$SCRIPT```. This is only needed because The Berserker needs to access the source of its own script (now stored in ```$SCRIPT``` to spread to further hosts). Otherwise ```bash -c '$S'``` would work.
+1. The long string ```export SCRIPT='$S'; bash -c \"\$SCRIPT\"``` is passed as a command to ```ssh``` to execute on the remote host. Note that the ```$``` in ```\"\$SCRIPT\"``` is escaped to prevent the local shell from substituting the variable. We like the remote bash (not the local one) to substitute ```$SCRIPT```. This is only needed because The Berserker needs to access the source of its own script (now stored in ```$SCRIPT``` to spread to further hosts). Otherwise ```bash -c '$S'``` would work.
 
-At this point no data is written to the target's host harddrive. All is kept in memory.
+At this point no data is written to the target's host hard drive. All is kept in memory.
 
 ### Bash Command line parsing
 
-There is no efficient way to convert a command line string from ```~/.bash_history``` to an array in bash. The programm ```xargs``` comes to the rescue but it can only execute another programm with the command line string read from stdin. So we used ```xargs``` to call ```bash -c``` and output each command line argument in a separate line and then convert this into a bash array:
+There is no efficient way to convert a command line string from ```~/.bash_history``` to an array in bash. The programm ```xargs``` comes to the rescue but it can only execute another program with the command line string read from stdin. So we used ```xargs``` to call ```bash -c``` and output each command line argument in a separate line and then convert this into a bash array:
 ```shell
 line="$(echo "ssh -i ~/.ssh/id_dsa\ key.dat root@openbsd.org" | xargs bash -c 'n=0; while [[ $n -le ${#} ]]; do eval eval echo "\$${n}"; n=$((n+1)); done')"
 ```
@@ -95,7 +95,7 @@ echo "Content: ${MyArray[*]}"
 
 ### Bash stderr and $? catching
 
-The Berserker needs to check the error output of ```ssh``` _and_ also needs the exit-code of ```ssh```. The only way to do this in bash is to play filedescriptor bonanza:
+The Berserker needs to check the error output of ```ssh``` _and_ also needs the exit-code of ```ssh```. The only way to do this in bash is to play file descriptor bonanza:
 ```shell
 { err="$( { echo 1>&2 "Hello-STDERR"; exit 123; } 2>&1 1>&3 3>&- )"; } 3>&1 || ret=$?
 echo "Output ret=$ret err=$err"
