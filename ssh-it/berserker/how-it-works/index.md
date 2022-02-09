@@ -17,7 +17,7 @@ It keeps doing so until all ssh keys have been used and all hosts have been visi
 
 **Example**: User ```alice``` starts The Berserker on host ```Earth``` (the *origin*). The Berserker finds Alice's ssh-key and detects (from Alice's shell history) that ```alice``` frequently connects to ```Mars``` (as alice) and ```Jupiter``` (as root). The Berserker first connects to ```Mars``` and executes itself on ```Mars```. Let's assume The Berserker finds no further ssh-keys on ```Mars``` and so it will not spread beyond ```Mars```. Next it connects from ```Earth``` to ```Jupitor```. It's a root login to ```Jupitor``` and The Berserker finds many ssh-keys from various users. One such user is ```bob``` who frequently connects to ```Uranus``` and from there to ```Pluto```. Ultimately The Berserker will get to ```Pluto``` via a long ssh chain from ```Earth```->```Jupitor```->```Uranus```->```Pluto```.
 
-At this point the reader has very well realized that The Berserker is *deep penetrating* into ```Uranus``` even if ```Uranus``` is firewalled and not accessible from the Internet (but accessible from ```Jupitor```).
+At this point the educated reader will realized that The Berserker is *deep penetrating* ```Uranus```, e.g. ```Uranus``` gets owned even if firewalled or not being accessible from the Internet (but accessible from ```Jupitor```).
 
 Berseker implements a text-based protocol to communicate back its findings to the origin.
 
