@@ -11,15 +11,15 @@ Random notes on how [The Berserker](../) works.
 [The Berserker](../) is a bash script. At this point the reader either has a heart attack or multiple orgasms. There is no inbetween.
 
 ### General
-The Berserker looks for any password-less private ssh-key in ```~/.ssh``` and then gathers information from the User's shell history (```~/.bash_histoary```, ```.zsh_history``` and ```~/.history```) about any host the User connected to in the past. The Berserker then attempts to log into each host and injects itself into the remote's bash memory. It executes itself on the remote host and continues do do its deeds.
+The Berserker looks for any password-less private ssh-key in ```~/.ssh``` and then gathers information from the User's shell history (```~/.bash_history```, ```.zsh_history``` and ```~/.history```) about any host the User connected to in the past. The Berserker then attempts to log into each host and injects itself into the remote's bash memory. It executes itself on the remote host and continues do do its deeds.
 
 It keeps doing so until all ssh keys have been used and all hosts have been visited.
 
-**Example**: User ```alice``` starts The Berserker on host ```Earth``` (the *origin*). The Berserker finds Alice's ssh-key and detects (from Alice's shell history) that ```alice``` frequently connects to ```Mars``` (as alice) and ```Jupiter``` (as root). The Berserker first connects to ```Mars``` and executes itself on ```Mars```. Let's assume The Berserker finds no further ssh-keys on ```Mars``` and so it will not spread beyond ```Mars```. Next it connects from ```Earth``` to ```Jupitor```. It's a root login to ```Jupitor``` and The Berserker finds many ssh-keys from various users. One such user is ```bob``` who frequently connects to ```Uranus``` and from there to ```Pluto```. Ultimately The Berserker will get to ```Pluto``` via a long ssh chain from ```Earth```->```Jupitor```->```Uranus```->```Pluto```.
+**Example**: User ```alice``` starts The Berserker on host ```Earth``` (the *origin*). The Berserker finds Alice's ssh-key and detects (from Alice's shell history) that ```alice``` frequently connects to ```Mars``` (as alice) and ```Jupiter``` (as root). The Berserker first connects to ```Mars``` and executes itself on ```Mars```. Let's assume The Berserker finds no further ssh-keys on ```Mars``` and so it will not spread beyond ```Mars```. Next it connects from ```Earth``` to ```Jupiter```. It's a root login to ```Jupiter``` and The Berserker finds many ssh-keys from various users. One such user is ```bob``` who frequently connects to ```Uranus``` and from there to ```Pluto```. Ultimately The Berserker will get to ```Pluto``` via a long ssh chain from ```Earth```->```Jupiter```->```Uranus```->```Pluto```.
 
-At this point the educated reader will realized that The Berserker is *deep penetrating* ```Uranus```, e.g. ```Uranus``` gets owned even if firewalled or not being accessible from the Internet (but accessible from ```Jupitor```).
+At this point the educated reader will realise that The Berserker is *deep penetrating* ```Uranus```, e.g. ```Uranus``` gets owned even if firewalled or not being accessible from the Internet (but accessible from ```Jupiter```).
 
-Berseker implements a text-based protocol to communicate back its findings to the origin.
+Berseker implements a text-based communication protocol via the stdin/stdout ssh-chain to send its findings back to ```Earth``` (the *origin* where The Berserker started).
 
 ### Bash In-Memory execution
 Bash has this tremendous ability to execute a script from memory and without the script needing to be stored on the target host.
