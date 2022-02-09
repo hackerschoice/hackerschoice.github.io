@@ -75,7 +75,7 @@ cat >test.sh<<__EOF__
 cmdline2array()
 {
 	local line
-	# Double eval: 1st: To turn $1 to argument string. 2nd to turn ~/.ssh to /home/user/.ssh
+	# Double eval: 1st: To turn \$1 to argument string. 2nd to turn ~/.ssh to /home/user/.ssh
 	line="\$(echo "\$2" | xargs bash -c 'n=0; while [[ \$n -le \${#} ]]; do eval eval echo "\\\$\${n}"; n=\$((n+1)); done')"
 	# echo "LINES=\$line"
 	IFS=$'\n' eval "\${1}=(\\\$line)"
