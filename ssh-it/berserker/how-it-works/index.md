@@ -22,7 +22,7 @@ At this point the educated reader will realise that The Berserker is *deep penet
 Berserker implements a text-based communication protocol via the stdin/stdout ssh-chain to send its findings back to ```Earth``` (the *origin* where The Berserker started).
 
 ### Bash In-Memory execution
-Bash has this tremendous ability to execute a script from memory and without the script needing to be stored on the target host.
+Bash has this tremendous ability to load a script from a memory location and without the script needing to be stored on the target host.
 
 ```shell
 cat >e.sh<<__EOF__
@@ -43,7 +43,7 @@ ssh -Tn user@host.com "export SCRIPT='$S'; bash -c \"\$SCRIPT\""
 
 1. The long string ```export SCRIPT='$S'; bash -c \"\$SCRIPT\"``` is passed as a command to ```ssh``` to execute on the remote host. Note that the ```$``` in ```\"\$SCRIPT\"``` is escaped to prevent the local shell from substituting the variable. We like the remote bash (not the local one) to substitute ```$SCRIPT```. This is only needed because The Berserker needs to access the source of its own script (now stored in ```$SCRIPT``` to spread to further hosts). Otherwise ```bash -c '$S'``` would work.
 
-At this point no data is written to the target's host hard drive. All is kept in memory.
+No data is written to the target's host hard drive. All is kept in memory.
 
 ### Bash Command line parsing
 
