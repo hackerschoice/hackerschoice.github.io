@@ -76,7 +76,7 @@ ssh
 root@openbsd.org
 ```
 
-Note that the ```eval eval``` is needed. The first convert the ```${#}``` to the integer number of arguments passed to the bash by ```xargs``` and the second ```eval``` resolves the ```~/``` to the absolute directory name.
+Note that the ```eval eval``` is needed. The first one convert the ```${#}``` to the integer number of the arguments passed to the bash by ```xargs``` and the second ```eval``` resolves the ```~/``` to the absolute directory name.
 
 That format can now easily be split into an array like so:
 ```shell
@@ -111,15 +111,15 @@ echo "Content: ${MyArray[*]}"
 
 ### Bash stderr and $? catching
 
-The Berserker needs to check the error output of ```ssh``` _and_ also needs the exit-code of ```ssh```. The only way to do this in bash is to play file descriptor bonanza:
+The Berserker needs to check the error output of ```ssh``` _and_ also needs the exit-code of ```ssh``` _and_ the standard output must pass through. The only way to do this in bash is to play file descriptor bonanza:
 ```shell
 { err="$( { echo 1>&2 "Hello-STDERR"; exit 123; } 2>&1 1>&3 3>&- )"; } 3>&1 || ret=$?
-echo "Output ret=$ret err=$err"
+echo "ret=$ret, err=$err"
 ```
 * The ```echo 1>&2 "Hello-STDERR";``` generates some test output to STDERR.
 * The ```exit 123;``` is some test exit code (123).
 
-The output is ```Output ret=123 err=Hello-STDERR```.
+The output is ```ret=123, err=Hello-STDERR```.
 
 ### Transport Protocol via STDIN/STDOUT
 
