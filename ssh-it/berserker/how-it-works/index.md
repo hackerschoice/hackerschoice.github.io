@@ -47,7 +47,23 @@ SSH has a 128k limit for passing arguments. *That ought to be enough for everyon
 
 ### Bash Command line parsing
 
-There is no efficient way to convert a command line string from ```~/.bash_history``` to an array in bash. The programm ```xargs``` comes to the rescue but it can only execute another program with the command line string read from stdin. So we used ```xargs``` to call ```bash -c``` and output each command line argument in a separate line and then convert this into a bash array:
+There is no efficient way to convert a command line string from ```~/.bash_history``` to an array in bash.
+
+The history file contains the recently *typed* commands rather then the *executed* command. There is a fine difference. Bash records the input rather then what's passed to exec(2) system call. Let's illustrate the problem:
+
+```shell
+ls foo\ bar
+```
+
+The bash records ```ls foo\ bar``` rather than what it actually executes (```exec("ls", "foo bar")```; note the missing ```\```). This is a problem if there are history entries containing bash variables or escape sequences like ```$HOME``` or ```\ ``` in the file name:
+
+```shell
+ssh -i $HOME/.ssh/id_dsa\ key.dat root@openbsd.org
+```
+
+The command actually executed is ```exec("ssh", "-i", "/home/user/.ssh/id_dsa key.dat", "root@openbsd.org")``` and from the string above it's impossible to determine which argument is passed as 1st, 2nd or last parameter to exec(2) - only bash knows.
+
+The program ```xargs``` comes to the rescue to split the command line string into separate ARGV arguments the same way as bash would do. However, xargs executes another program (with the correctly split arguments). So we used ```xargs``` to call ```bash -c``` and output each command line argument in a separate line and then convert this into a bash array:
 ```shell
 line="$(echo "ssh -i ~/.ssh/id_dsa\ key.dat root@openbsd.org" | xargs bash -c 'n=0; while [[ $n -le ${#} ]]; do eval eval echo "\$${n}"; n=$((n+1)); done')"
 ```
