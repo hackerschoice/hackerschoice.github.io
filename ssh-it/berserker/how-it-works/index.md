@@ -49,7 +49,7 @@ SSH has a 128k limit for passing arguments. *That ought to be enough for everyon
 
 There is no efficient way to convert a command line string from ```~/.bash_history``` to an array in bash.
 
-The history file contains the recently *typed* commands rather then the *executed* command. There is a fine difference. Bash records the input rather then what's passed to exec(2) system call. Let's illustrate the problem:
+The history file contains the recently *typed* commands rather then the *executed* commands. There is a fine difference. Bash records the input rather then what's passed to exec(2) system call. Let's illustrate the problem:
 
 ```shell
 ls foo\ bar
