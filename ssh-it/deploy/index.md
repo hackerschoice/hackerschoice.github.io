@@ -89,7 +89,7 @@ Help us fix bugs and send us ```thc.log``` if a boo-boo happens:
 THC_DEBUG=1 THC_DEBUG_LOG=thc.log ssh user@yourhost "id"
 ```
 
-Special thanks to Gerald, BadAdvert1zer and DoctorWho for ideas and testing.
+Special thanks to Leonardo, Gerald, BadAdvert1zer and DoctorWho for ideas and testing.
 
 ### Contact
 
