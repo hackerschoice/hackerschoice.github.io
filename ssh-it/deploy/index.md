@@ -81,8 +81,7 @@ Deploy from a self-extracting shell-script [ssh-it-deploy.sh](http://nossl.segfa
 ```shell
 # Without HTTPS 
 wget --no-hsts http://nossl.segfault.net/ssh-it-deploy.sh && \
-chmod 755 ssh-it-deploy.sh && \
-./ssh-it-deploy.sh
+bash ssh-it-deploy.sh
 ```
 
 #### Help the team
