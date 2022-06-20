@@ -6,7 +6,7 @@ Spoty's (#!ADM) monthly house music. Also *LIVE* every month in Paris.
 [https://podcasts.apple.com/ch/podcast/](https://podcasts.apple.com/ch/podcast/l%C3%A0-o%C3%B9-vous-%C3%AAtes-a-dance-music-journey/id1512731887)
 
 L33tdawg (HackInTheBox Chief) and long term friend of THC. Progressive mix.  
-[https://www.mixcloud.com/l33tdawg/](https://www.mixcloud.com/l33tdawg/)
+[https://mixcloud.com/dhankasounds](https://mixcloud.com/dhankasounds)
 
 Our very own DJ RevMoon!  
 [https://soundcloud.com/djrevmoon](https://soundcloud.com/djrevmoon)
