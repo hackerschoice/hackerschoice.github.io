@@ -12,7 +12,7 @@ We research and publish tools and academic papers to expose fishy IT security th
 ## Active Projects (2022)
 
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
-- [Global Socket Relay Network](https://github.com/hackerschoice/gsocket)
+- [Global Socket Relay Network](https://www.gsocket.io)
 - [Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [IPv6 attack tool kit](https://github.com/vanhauser-thc/thc-ipv6)
 - [THC's favourite Tips, Tricks  & Hacks / Cheat Sheet](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet)
