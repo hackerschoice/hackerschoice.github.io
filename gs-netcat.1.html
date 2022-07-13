@@ -311,6 +311,20 @@ Log in to server's interactive shell:
 <BLOCKQUOTE><TT>$ gs-netcat -s MySecret -i</TT></BLOCKQUOTE>
 <P>
 
+Log in via TOR:
+
+<BLOCKQUOTE><TT>$ gs-netcat -s MySecret -i -T</TT></BLOCKQUOTE>
+<P>
+
+Log in via a Socks5 Proxy:
+
+<BLOCKQUOTE><TT>$ export GSOCKET_SOCKS_IP=127.0.0.1</TT></BLOCKQUOTE>
+
+<BLOCKQUOTE><TT>$ export GSOCKET_SOCKS_PORT=1080</TT></BLOCKQUOTE>
+
+<BLOCKQUOTE><TT>$ gs-netcat -s MySecret -i -T</TT></BLOCKQUOTE>
+<P>
+
 <B>Example 3</B>
 
 - Execute a command when a client connects:
@@ -420,13 +434,13 @@ The following environment variables can be set to control the behavior of
 <B>GSOCKET_SOCKS_IP</B>
 
 
-<BLOCKQUOTE><TT>Specify the IP address of the TOR server (or any other SOCKS server). Default is 127.0.0.1.</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>Specify the IP address of the TOR server (or any other SOCKS server). Use together with -T. Default is 127.0.0.1.</TT></BLOCKQUOTE>
 <P>
 
 <B>GSOCKET_SOCKS_PORT</B>
 
 
-<BLOCKQUOTE><TT>The port number of the TOR server (or any other SOCKS server). Default is 9050.</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>The port number of the TOR server (or any other SOCKS server). Use together with -T. Default is 9050.</TT></BLOCKQUOTE>
 <P>
 
 <B>GSOCKET_ARGS</B>
@@ -537,6 +551,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 13:56:42 GMT, June 30, 2021
+Time: 06:28:44 GMT, July 10, 2022
 </BODY>
 </HTML>
