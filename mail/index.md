@@ -8,9 +8,9 @@ This projects allows users to set up an email forward from ```<yourname>@segfaul
 
 ### Setup
 
-This will forward any email to ```foobar@segfault.net``` to ```loucipher@tuto.io```:
+This will forward any email to ```foobar@segfault.net``` to ```hackbart@tuto.io```:
 ```shell
-curl 'https://mail.thc.org/register?name=foobar&to=loucipher@tuta.io'
+curl 'https://mail.thc.org/register?name=foobar&to=hackbart@tuta.io'
 ```
 
 ### Available domains
@@ -33,7 +33,7 @@ If you have a cool domain then please let us know and we will add it to the list
 
 ### Why
 
-Because we can. This project is maintained by [loucipher](https://t.me/thcorg).
+Because we can. This project is maintained by [hackbart](https://t.me/thcorg).
 
 THIS IS BETA TESTING AT THE MOMENT. TALK TO US IF YOU LIKE TO SEE ANY SPECIFIC FEATURES.
 
