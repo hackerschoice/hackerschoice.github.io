@@ -2,9 +2,9 @@
 layout: default
 ---
 
-<div style="text-align:center">A Free Mail Forwarder</div>
+<div style="text-align:center">A Free Mail Forwarding Service</div>
 
-This projects allows users to set up an email forward from ```<yourname>@segfault.net``` to any email address of your choosing.
+This projects allows users to set up an email forward from ```<yourname>@segfault.net``` to any email address of their choosing.
 
 ### Setup
 
