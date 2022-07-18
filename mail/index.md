@@ -35,6 +35,8 @@ If you have a cool domain then please let us know and we will add it to the list
 
 Because we can. This project is maintained by [loucipher](https://t.me/thcorg).
 
+THIS IS BETA TESTING AT THE MOMENT. TALK TO US IF YOU LIKE TO SEE ANY SPECIFIC FEATURES.
+
 ### Contact
 
 Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
