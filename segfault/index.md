@@ -13,6 +13,10 @@ layout: default
 ssh root@segfault.net # The password is 'segfault'
 ```
 
+{:refdef: style="text-align: center;"}
+![login screen](login-screen.png){:height="80%" width="80%"}
+{: refdef}
+
 ### What it does
 
 Segfault offers free unlimitd Root Servers. A new server (inside a Virtual Machine) is created for every SSH connection. 
