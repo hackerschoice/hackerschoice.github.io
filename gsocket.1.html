@@ -307,7 +307,13 @@ Internally the
 <B>gsocket</B>
 
 
-tool (on the client side) starts a gs-netcat client in the background and listens on 127.31.33.7 for TCP connections. Those are then forwarded (via the GSRN) to the server. Instead of using the `blah.gsocket` domain it's also possible to specify 127.31.33.7 (for testing):
+tool (on the client side) forks a background gs-netcat process listening on 127.31.33.7 on a random TCP port. The
+<B>gsocket</B>
+
+
+tool then detects `nc` trying to resolve `blah.gsocket` and returns 127.31.33.7 to `nc`. The `nc` process then connects to 127.31.33.7 instead and the gs-netcat process (that got started automatically) takes the connection and forwards the traffic via the GSRN. The `nc` tool can also directly connect to 127.31.33.7 instead of blah.gsocket (for testing):
+<P>
+
 Client:
 
 <BLOCKQUOTE><TT>$ gsocket -s MySecret nc -n 127.31.33.7 1234</TT></BLOCKQUOTE>
@@ -340,10 +346,10 @@ Client:
 
 <B>Test 4</B>
 
-- SSH via gsocket
+- SSH via gsocket:
 <P>
 
-On the server start a gs-netcat port forward to forward incoming GSRN connection to the SSHD on localhost:
+On the server start a gs-netcat port forward to forward incoming GSRN connections to the SSHD on localhost:
 <P>
 
 Server:
@@ -483,6 +489,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 07:18:09 GMT, July 30, 2022
+Time: 07:35:48 GMT, July 30, 2022
 </BODY>
 </HTML>
