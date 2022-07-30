@@ -277,20 +277,28 @@ The
 tool uses the LD_PRELOAD method to hijack network calls from the calling process. It then concatenates the port number to the secret and spwans a gs-netcat process to forward the TCP connection. The setup can be tested with gs-netcat.
 <P>
 
-1. This example uses gsocket to spawn a server and gs-netcat to test the connection:
+<B>Test 1</B>
+
+- gsocket server and gs-netcat client:
 <P>
 
+Server:
 
-<BLOCKQUOTE><TT>$ gsocket -s MySecret nc -lp 1234</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gsocket -s MySecret nc -lp 1234 # TCP port is 1234</TT></BLOCKQUOTE>
+Client:
 
-<BLOCKQUOTE><TT>$ gs-netcat -s 1234-MySecret</TT></BLOCKQUOTE>
+<BLOCKQUOTE><TT>$ gs-netcat -s 1234-MySecret      # Notice `&lt;port&gt;-&lt;SECRET&gt;`</TT></BLOCKQUOTE>
 <P>
 
-2. This example uses gs-netcat to spawn a server and gsocket to test the connection:
+<B>Test 2</B>
+
+- gsocket client and gs-netcat server:
 <P>
 
+Server:
 
 <BLOCKQUOTE><TT>$ gs-netcat -s 1234-MySecret -l</TT></BLOCKQUOTE>
+Client:
 
 <BLOCKQUOTE><TT>$ gsocket -s MySecret nc blah.gsocket 1234</TT></BLOCKQUOTE>
 <P>
@@ -299,21 +307,21 @@ Internally the
 <B>gsocket</B>
 
 
-tool detects the connectiong to blah.gsocket and redirects it to 127.31.33.7, which can also be used directly (for testing):
+tool (on the client side) starts a gs-netcat client in the background and listens on 127.31.33.7 for TCP connections. Those are then forwarded (via the GSRN) to the server. Instead of using the `blah.gsocket` domain it's also possible to specify 127.31.33.7 (for testing):
+Client:
 
 <BLOCKQUOTE><TT>$ gsocket -s MySecret nc -n 127.31.33.7 1234</TT></BLOCKQUOTE>
 <P>
 
-3. This example starts a SSHD via gsocket:
+<B>Test 3</B>
+
+- SSHD via gsocket:
 <P>
 
+Server:
 
 <BLOCKQUOTE><TT>$ gsocket -s MySecret /usr/sbin/sshd -D -p 1234</TT></BLOCKQUOTE>
-<P>
-
-Test the connection with gs-netcat:
-<P>
-
+Client:
 
 <BLOCKQUOTE><TT>$ gs-netcat -s 1234-MySecret</TT></BLOCKQUOTE>
 
@@ -323,10 +331,27 @@ Test the connection with gs-netcat:
 Use gs-netcat as a port-forwarder and ssh to connect:
 <P>
 
+Client:
 
 <BLOCKQUOTE><TT>$ gs-netcat -s 1234-MySecret -p 44222</TT></BLOCKQUOTE>
 
 <BLOCKQUOTE><TT>$ ssh -p 44222 <A HREF="mailto:user@127.1">user@127.1</A></TT></BLOCKQUOTE>
+<P>
+
+<B>Test 4</B>
+
+- SSH via gsocket
+<P>
+
+On the server start a gs-netcat port forward to forward incoming GSRN connection to the SSHD on localhost:
+<P>
+
+Server:
+
+<BLOCKQUOTE><TT>$ gs-netcat -s 22-MySecret -l -d 127.0.0.1 -p 22</TT></BLOCKQUOTE>
+Client:
+
+<BLOCKQUOTE><TT>$ gsocket -s MySecret ssh <A HREF="mailto:user@gsocket">user@gsocket</A></TT></BLOCKQUOTE>
 <P>
 
 <A NAME="lbAI">&nbsp;</A>
@@ -458,6 +483,6 @@ Efforts have been made to have
 This document was created by
 <A HREF="http://hackerschoice.github.io/">man2html</A>,
 using the manual pages.<BR>
-Time: 18:17:20 GMT, July 13, 2022
+Time: 07:18:09 GMT, July 30, 2022
 </BODY>
 </HTML>
