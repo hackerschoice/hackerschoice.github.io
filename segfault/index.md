@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div style="text-align:center">A Free Root Shell Server</div>
+<div style="text-align:center">Throw-Away Root Servers</div>
 
 <div style="width:80%; margin:auto">
 </div>
@@ -24,16 +24,14 @@ Segfault offers free unlimitd Root Servers. A new server (inside a Virtual Machi
 * Dedicated ```Root Server``` for every user.
 * Pre-installed tools on Kali-Linux.
 * Outgoing traffic is routed through NordVPN/CryptoStorm/ProtonVPN.
-* Transparent TOR to connect to .onion addresses.
+* Transparent TOR to connect to ```.onion``` addresses.
 * Log in via ```.onion```, ```.gsocket``` or direct ```ssh```.
 * Encrypted DNS traffic (DNS over HTTPS).
-* Pre-configured .onion web server. Just put your files in /onion.
-* Encrypted storage in ```/sec``` and ```/home```. 
-* Encrypted storage unmounts immediately after log out.
+* Pre-configured ```.onion``` web server. Just put your files in /onion.
+* Encrypted storage in ```/sec``` and ```/home``` with your password. 
+* Encrypted storage is only accessible while you are logged in. Keys are wiped on log out.
 * Only the user can decrypt the data. We do not have the key.
 * No Logs.
-
-**We don't give you root access to our server. We give you root access to your personal server.**
 
 ### Show me!
 
@@ -60,24 +58,23 @@ echo "My First File Shared on The Onion Router (TOR) network" >/onion/helloworld
 Work the DarkNet:
 ```shell
 lynx http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqxzqd.onion/
-# or connect to an onion hidden shell service
 ssh root@ta6kb6vqm3vd7vlgvf7k4nbhfzst2yfy52t6dqzmz2plteewn7ynmtad.onion
 ```
 
-Connect to EFNet IRC:
+Connect to IRCNet:
 ```shell
-su user -c "irssi -c efnet -n MyNickName"
+ssh -t root@segfault.net 'su user -c "irssi -c ircnet -n MyNickName"'
 ```
+
 <!---
 We allow port forwarding and proxies:
 ```shell
-ssh -D root@segfault.net
+ssh -D 1080 root@segfault.net
 ```
 then from another Terminal on your workstation:
 ```shell
 curl -x socks5h://0 ipinfo.io
-# Or try an .onion address via a Segfault Root Server:
-curl -x socks5h://0 http://da7576dyrtn5a2xnfo6oqoigqvyv26q7475pwczihylhcia5c6y5ofid.onion/leafsword/ 
+curl -x socks5h://0 http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqxzqd.onion/ 
 ```
 --->
 ### How it works
