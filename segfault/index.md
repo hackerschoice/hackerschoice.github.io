@@ -69,9 +69,7 @@ ssh -t root@segfault.net 'su user -c "irssi -c ircnet -n MyNickName"'
 We allow port forwarding and proxies:
 ```shell
 ssh -D 1080 root@segfault.net
-```
-then from another Terminal on your workstation:
-```shell
+# then from another Terminal on your workstation:
 curl -x socks5h://0 ipinfo.io
 curl -x socks5h://0 http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqxzqd.onion/ 
 ```
