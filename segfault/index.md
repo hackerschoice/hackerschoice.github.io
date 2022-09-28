@@ -78,6 +78,8 @@ curl -x socks5h://0 http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqx
 
 To learn more catch me on [Telegram](https://t.me/thcorg) or read the source at [https://github.com/hackerschoice/segfault](https://github.com/hackerschoice/segfault).
 
+This is a **free service** and there are [some restrictions](youcheapfuck) in place. You may want to [pay for an upgrade and go unrestricted](buy-an-upgrade).
+
 ### Contact
 
 Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  

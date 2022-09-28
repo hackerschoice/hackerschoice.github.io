@@ -8,11 +8,14 @@ Spoty's (#!ADM) monthly house music. Also *LIVE* every month in Paris.
 L33tdawg (HackInTheBox Chief) and long term friend of THC. Progressive mix.  
 [https://mixcloud.com/dhankasounds](https://mixcloud.com/dhankasounds)
 
-Our very own DJ RevMoon!  
+Our very own DJ RevMoon/THC!  
 [https://soundcloud.com/djrevmoon](https://soundcloud.com/djrevmoon)
 
 Jim Geovedi (HERT/Phrack) mix  
 [http://soundcloud.com/geovedi](http://soundcloud.com/geovedi)
+
+Substance (#9x) elite progressive trance
+[https://tranceattic.com](https://tranceattic.com)
 
 ### Contact
 
