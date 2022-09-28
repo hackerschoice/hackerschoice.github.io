@@ -14,7 +14,7 @@ Our very own DJ RevMoon/THC!
 Jim Geovedi (HERT/Phrack) mix  
 [http://soundcloud.com/geovedi](http://soundcloud.com/geovedi)
 
-Substance (#9x) elite progressive trance  
+Substance (9x) elite progressive trance  
 [https://tranceattic.com](https://tranceattic.com)
 
 ### Contact
