@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div style="text-align:center">Throw-Away Root Servers</div>
+<div style="text-align:center">Disposable Root Servers</div>
 
 <div style="width:80%; margin:auto">
 </div>
