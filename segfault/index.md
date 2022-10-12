@@ -26,7 +26,7 @@ Segfault offers free unlimitd Root Servers. A new server (inside a Virtual Machi
 * Outgoing traffic is routed through NordVPN/CryptoStorm/Mullvad.
 * Reverse TCP/UDP port on a public IP.
 * Transparent TOR to connect to ```.onion``` addresses.
-* Log in via ```.onion```, ```.gsocket``` or direct ```ssh```.
+* Log in via ```.onion```, ```.gsocket``` or direct ```ssh``` (port 22 or 443).
 * Encrypted DNS traffic (DNS over HTTPS).
 * Pre-configured ```.onion``` web server. Just put your files in /onion.
 * Encrypted storage in ```/sec``` and ```/home``` with your password. 
@@ -53,18 +53,23 @@ ssh blah@anotherserver.com
 
 **Publish your webpage on the Darknet:**
 ```shell
+# Share files anonymously:
 echo "My First File Shared on The Onion Router (TOR) network" >/onion/helloworld.txt
+```
+```shell
+# Or publish a full webpage (using Markdown syntax):
+cd /sec/www && make html
 ```
 
 **Work the DarkNet:**
 ```shell
-lynx http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqxzqd.onion/
+w3m http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqxzqd.onion/
 ssh root@ta6kb6vqm3vd7vlgvf7k4nbhfzst2yfy52t6dqzmz2plteewn7ynmtad.onion
 ```
 
 **Connect to IRCNet:**
 ```shell
-ssh -t root@segfault.net 'su user -c "irssi -c ircnet -n MyNickName"'
+su user -c "irssi -c ircnet -n MyNickName"
 ```
 
 **We allow port forwarding and proxies:**
@@ -78,7 +83,7 @@ curl -x socks5h://0 http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqx
 **Connect to your own public PORT:**  
 ```shell
 # On your server:
-nc -vnlp 34868 # See your log in screen to find your IP & PORT
+nc -vnlp 34868 # Find your IP & PORT during first log in.
 ```
 ```shell
 # On another server start a connect back reverse shell to your IP & PORT:

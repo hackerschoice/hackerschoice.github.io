@@ -32,6 +32,8 @@ ssh -i ~/id_sf root@segfault.net
    You likely got `out of heap memory`, `resource temporarily unavailable` or `Disk quota exceeded`. The FREE service is [restricted](../youcheapfuck) and the outbound traffic is throttled. Upgrade your server and [enjoy unlimited resources](../buy-an-upgrade).
 1. **I get an SSH error**  
    Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`).
+1. **How can I install services or daemons**  
+   Take a look at `/sec/usr/etc/rc.local`. This file is excuted on bootup. There is no systemctl.
 
 ### Contact
 
