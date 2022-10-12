@@ -58,6 +58,7 @@ echo "My First File Shared on The Onion Router (TOR) network" >/onion/helloworld
 ```
 ```shell
 # Or publish a full webpage (using Markdown syntax):
+# Edit your webpage in /sec/www/content/*.md and then publish them:
 cd /sec/www && make html
 ```
 
