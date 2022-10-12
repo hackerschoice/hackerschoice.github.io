@@ -22,7 +22,7 @@ DRP7IewHgdMExwmoLY62AAAAAAECAwQF
 -----END OPENSSH PRIVATE KEY-----
 ```
 The same key is also available at /config/guest/id_ed25519. Thereafter use this command to log in:
-```
+```shell
 ssh -i ~/id_sf root@segfault.net
 ```
 1. **Why are my changes lost?**  
@@ -34,6 +34,11 @@ ssh -i ~/id_sf root@segfault.net
    Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`).
 1. **How can I install services or daemons**  
    Take a look at `/sec/usr/etc/rc.local`. This file is excuted on bootup. There is no systemctl.
+1. **How can I publish my Web Page**  
+   The Web Page is automatically generated using [Pelican](https://www.getpelican.com) and the awesome Markdown syntax. All you need to do is edit the files in `/sec/www/content` and then execute:
+   ```shell
+   cd /sec/www && make html
+   ```
 
 ### Contact
 
