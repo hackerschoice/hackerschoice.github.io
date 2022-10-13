@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div style="text-align:center">Disposable Root Servers</div>
+<div style="text-align:center"><h1>Disposable Root Servers</h1></div>
 
 <div style="width:80%; margin:auto">
 </div>
