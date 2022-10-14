@@ -40,7 +40,10 @@ GOODBYE          : Join us on Telegram - https://t.me/thcorg
    Immediately on log out. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). If you also want to destroy your encrypted data then you can `rm -rf /sec && halt`.
 
 1. **Why are my changes lost?**<a id="lost"></a>  
-   Data in your home directory and in /sec, /onion and /everyone is permanent and wont get lost (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. Chances are that you used `apt install` and got a warning. You can use `apt install` but the package can only be used until you log out. Instead tell us and we will install the package to the core system and make it permanentally available. Alternativly you can install any package to `/sec/usr` or [pay for an upgrade](../buy-an-upgrade).
+   Data in your home directory and in /sec, /onion and /everyone is permanent and wont get lost (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. Chances are that you used `apt install` and got a warning. You can use `apt install` but the package can only be used until you log out. Alternativly you can install any package to `/sec/usr` or [pay for an upgrade](../buy-an-upgrade).
+
+1. **Is there a list of tools**  
+   The server comes with around 8GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanentally).
 
 1. **Log in without password**  
 Save this SSH key to `~/.ssh/id_sf`. 
