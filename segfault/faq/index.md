@@ -39,6 +39,17 @@ ssh -i ~/.ssh/id_sf root@segfault.net
    ```shell
    cd /sec/www && make html
    ```
+1. **How do I change the password**  
+   You can not. The access password will always be `segfault`. However, nobody can access your server using `segfault` as a password: The system generates a unique and new `SECRET` for every new log in and then uses this SECRET to set up your private virtual server (isolated from all other servers). It is this SECRET that allows only you to access *your* server. Read the next paragraph...
+1. **How do I log back into my server**  
+   On log out you will see a *command* that allows to you log back into your server. It contains a `SECRET` and it is this `SECRET` that allows you access your server. The log out screen may look like this:
+   ```
+Access with      : ssh -o "SetEnv SECRET=XXX..." root@de.segfault.net
+GOODBYE          : Join us on Telegram - https://t.me/thcorg 
+```
+   It's this `ssh -o "SetEnv SECRET=XXX...` command that you need to use to log back in to your server. If you do not use the secret and just do `ssh root@segfault.net` then a new server will be created for you.
+1. **When does it self-destruct**  
+   Immediately on log out. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). If you also want to destroy your encrypted data then you can `rm -rf /sec && halt`.
 
 ### Contact
 
