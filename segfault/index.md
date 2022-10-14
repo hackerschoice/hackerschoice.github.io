@@ -97,6 +97,18 @@ Read the [FAQ](faq) and join us on [Telegram](https://t.me/thcorg) or read the s
 
 This is a **free service** and there are [some restrictions](youcheapfuck) in place. You may want to [pay for an upgrade and go unrestricted](buy-an-upgrade).
 
+### Similar Services
+
+- [SDF Public Access Unix](http://sdf.org/)
+- [FreeShell](https://freeshell.de/)
+- [Oracle Cloud Free Tier](https://www.oracle.com/uk/cloud/free/)
+- [Play With Docker](https://www.docker.com/play-with-docker/)
+- [Trash.net](https://www.trash.net/)
+
+### Love Research. Hate Abuse.
+
+We do not tolerate abuse. Contact us on [Telegram](https://t.me/thcorg) or email root at thc.org if you have any concerns.
+
 ### Contact
 
 Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
