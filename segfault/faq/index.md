@@ -17,7 +17,7 @@ layout: default
    Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`). Alternatively you can try `SECRET=XXX ssh -o "SendEnv SECRET" root@segfault.net` (where XXX is your _SECRET_).
 
 1. **How can I install services or daemons**  
-   Take a look at `/sec/usr/etc/rc.local`. This file is excuted on bootup. There is no systemctl.
+   Take a look at `/sec/usr/etc/rc.local`. This file is executed on bootup. There is no systemctl.
 
 1. **How can I publish my Web Page**  
    The Web Page is automatically generated using [Pelican](https://www.getpelican.com) and the awesome Markdown syntax. All you need to do is edit the files in `/sec/www/content` and then execute:
@@ -40,10 +40,10 @@ GOODBYE          : Join us on Telegram - https://t.me/thcorg
    Immediately on log out. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). Type `rm -rf /sec && halt` if you also want to destroy your encrypted data.
 
 1. **Why are my changes lost?**<a id="lost"></a>  
-   Data in your home directory and in /sec, /onion and /everyone is permanent and wont get lost (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. Chances are that you used `apt install` and got a warning. You can use `apt install` but the package can only be used until you log out. Alternativly you can install any package to `/sec/usr` or [pay for an upgrade](../buy-an-upgrade).
+   Data in your home directory and in /sec, /onion and /everyone is permanent and wont get lost (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. Chances are that you used `apt install` and got a warning. You can use `apt install` but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr` or [pay for an upgrade](../buy-an-upgrade).
 
 1. **Is there a list of tools**  
-   The server comes with around 8GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanentally).
+   The server comes with around 8GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanently).
 
 1. **Log in without password**  
 Save this SSH key to `~/.ssh/id_sf`. 
@@ -62,13 +62,13 @@ ssh -i ~/.ssh/id_sf root@segfault.net
 ```
 
 1. **How do I use reverse Port Forwarding**<a id="fwd"></a>  
-   Your server runs on a private IP space. You can connect out (to the Internet) but nobody can connect to back to your server. However, every server is assigned **one** PORT on a pbulic IP Address that is forwarded to your server. It's a different IP & PORT for every server. During log in you will see a message that looks like this (example):
+   Your server runs on a private IP space. You can connect out (to the Internet) but nobody can connect to back to your server. However, every server is assigned **one** PORT on a public IP Address that is forwarded to your server. It's a different IP & PORT for every server. During log in you will see a message that looks like this (example):
    ```
 [...]
 Reverse Port      : 185.117.118.23:1234
 [...]
 ```
-   That's your personal IP & PORT for reverse connctions. Any connection to 185.117.118.23 on Port 1234 is forwarded to your server on port 1234. You can listen for the connection like so:
+   That's your personal IP & PORT for reverse connections. Any connection to 185.117.118.23 on Port 1234 is forwarded to your server on port 1234. You can listen for the connection like so:
 ```
    nc -vnlp 1234
    # If this is for a connect-back shell then you likely like to press
