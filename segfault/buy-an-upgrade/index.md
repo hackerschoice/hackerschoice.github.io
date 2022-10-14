@@ -26,6 +26,7 @@ We can issue a VAT Invoice from a real company to keep your accountant happy. We
 ```
 BTC bc1qdp6mdje5f9x8ar8jg3uv425d4r2v5cmdygkknz
 ETH 0xb59fB528BFee42caba4A607AFD13444FB38d0820
+XMR 85RDZJfdGWX3BzUESZSBNtNicHeTJo3UseYH2Pk6XeW61hFF3JWSax9LkvHZPCYg8pHJfQxCEHfgsFXFWrFNiUVMGzFv9cx
 ```
 
 ### Contact
