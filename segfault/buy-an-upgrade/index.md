@@ -13,7 +13,11 @@ Paying users get exclusive benefits:
 * Faster HDD access
 * Unlimited storage
 
-After you have paid please talk to us on our [Telegram channel](https://t.me/thcorg). We shall then remove the restrictions from your server. A donation of $100 removes most restrictions.
+After you have paid please talk to us on our [Telegram channel](https://t.me/thcorg) and send us the output of this command:
+```shell
+echo "$SF_HOSTNAME $SF_LID $SF_FQDN"
+```
+We shall then remove the restrictions from your server. A donation of $100 removes most restrictions.
 
 Anyone donating more than $1,000 will also get a GOLDEN SHELL PROMPT.
 {:refdef: style="text-align: center;"}
