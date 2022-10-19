@@ -13,6 +13,7 @@ To configure winSCP to connect to segfault, press control+N to get to the window
 
 ![image](https://user-images.githubusercontent.com/84176052/196766269-3a872dc3-040c-4090-9259-539be97d0700.png)
 
+Run the below code:
 ```
 echo $SF_FQDN
 ```
