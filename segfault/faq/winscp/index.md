@@ -19,9 +19,7 @@ echo $SF_FQDN
 ```
 Change tabs to the winSCP screen, and enter the result of the code above as hostname. For me it came out to sg.segfault.net, and that is what I have entered in the hostname tab.
 
-Username is `root`
-
-Password is `segfault`. Save this for now, we’ll come back to this later.
+Username is `root` and password is `segfault`. Save this for now, we’ll come back to this later.
 
 When you ssh in for the first time, you will see some code like instructions at the top.
 
