@@ -97,6 +97,8 @@ Read the [FAQ](faq) and join us on [Telegram](https://t.me/thcorg) or read the s
 
 This is a **free service** and there are [some restrictions](youcheapfuck) in place. You may want to [pay for an upgrade and go unrestricted](buy-an-upgrade).
 
+The **PREMIUM* service has no restriction. Go premium by donating money or contact us - we give premium access to most users who work on a cool project or users who participate in our discussions.
+
 ### Similar Services
 
 - [SDF Public Access Unix](http://sdf.org/)
