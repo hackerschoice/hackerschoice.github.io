@@ -17,7 +17,7 @@ Run the below code in the server instance:
 ```
 echo $SF_FQDN
 ```
-Change tabs to the winSCP screen, and enter the result as hostname. For me it came out to sg.segfault.net, and that is what I have entered in the hostname tab.
+Change tabs to the winSCP screen, and enter the result of the code above as hostname. For me it came out to sg.segfault.net, and that is what I have entered in the hostname tab.
 
 Username is `root`
 
