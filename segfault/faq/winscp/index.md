@@ -56,7 +56,7 @@ host conductmesh
     IdentityFile ~/.ssh/id_sf-sg-segfault-net
     SetEnv SECRET=xxyyzz
 ```
-###### The .ssh folder below might not appear if you do not have hidden files checked. Do that, or alternatively, swap out (yourusername) with, you guessed it, your username, and put that in the file explorer’s address bar.
+###### The .ssh folder below might not appear if you do not have hidden files checked. Do that, or alternatively, swap out (yourusername) with, you guessed it, your windows username, and put that in the file explorer’s address bar.
 
 >The keen eyed among you will have noticed the file created in Part 1(aka the private key) is being called by the file we are naming config as IdentityFile
  
