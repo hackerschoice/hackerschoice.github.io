@@ -30,7 +30,7 @@ When you ssh in for the first time, you will see some code like instructions at 
 ## No part of this or this guide is optional, skipping/modifying carelessly causes problems.
 
 
-###### Make these files anywhere, we will be copying them to C:\Users\(yourusername)\.ssh
+###### Make these files anywhere, we will be copying both of them to C:\Users\(yourusername)\.ssh
 
 
 Part 1. For the first file, make a new file, called id_sf-de-segfault-net(name is important).
@@ -44,7 +44,7 @@ AAAEAs6YNqZSzAfZDl5/vDOB0vv7EZMxMUc/fEipuZ9A3eCHeOan/cnK9j0AGCOvHj6wGd
 DRP7IewHgdMExwmoLY62AAAAAAECAwQF
 -----END OPENSSH PRIVATE KEY-----
 ```
-###### Make these files anywhere, we will be copying them to C:\Users\(yourusername)\.ssh
+###### Make these files anywhere, we will be copying both of them to C:\Users\(yourusername)\.ssh
 
 
 For the second file, it’s largely the same.
