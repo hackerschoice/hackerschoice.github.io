@@ -7,7 +7,9 @@ You first have to download winSCP. Get it [here](https://winscp.net/eng/download
 Follow through with the install process after downloading.
  
  
-Connect to the segfault server for the first time via ssh. The command goes `ssh root@segfault.net`. Keep this open, we will need some info from the top of the screen. Each new connection without a secret key will create a new instance with new sets of files.
+Connect to the segfault server for the first time via ssh. The command goes `ssh root@segfault.net`. Keep this open, we will need some info from the top of the screen. 
+
+###### Each new connection without a secret key will create a new instance with new sets of files. By doing the `SetEnv SECRET=xxyyzz` part, we are ensuring that we log back into the old instance
  
 To configure winSCP to connect to segfault, press control+N to get to the window in screenshot.
 
