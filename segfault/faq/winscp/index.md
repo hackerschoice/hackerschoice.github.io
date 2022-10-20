@@ -91,6 +91,7 @@ Now select the *id_sf-sg-segfault-net* file that we just created at the beginnin
 
 **It will show an error that the openSSH format is not supported, and instead helpfully converts it to PuTTY format. Click on ok, that is desired.
 **
+
 ![image](https://user-images.githubusercontent.com/84176052/196769026-795cbf5d-3b4b-4080-bf55-279259f1b5bf.png)
 
 It will now open explorer one last time*, and you select this file that just got created.
