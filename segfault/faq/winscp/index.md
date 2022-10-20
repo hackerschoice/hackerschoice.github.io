@@ -27,7 +27,7 @@ When you ssh in for the first time, you will see some code like instructions at 
 
 
 
-######No part of this or this guide is optional, skipping/modifying carelessly causes problems.
+###### No part of this or this guide is optional, skipping/modifying carelessly causes problems.
 
 
 **Make these files anywhere, we will be copying them to C:\Users\(yourusername)\.ssh
