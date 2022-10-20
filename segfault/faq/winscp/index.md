@@ -2,11 +2,13 @@
 
 <div style="width:80%; margin:auto">
 </div>
+You first have to download winSCP. Get it [here](https://winscp.net/eng/downloads.php)
 
-You can type here.
-
-Check the main page how to import iamges and how to centre them and size them.
-
+Follow through with the install processafter downloading.
+ 
+ 
+Connect to the segfault server for the first time via ssh. The command goes `ssh root@segfault.net`. Keep this open, we will need some info from the top of the screen.
+ 
 To configure winSCP to connect to segfault, press control+N to get to the window in screenshot.
 
 ![image](https://user-images.githubusercontent.com/84176052/196766269-3a872dc3-040c-4090-9259-539be97d0700.png)
