@@ -26,10 +26,12 @@ When you ssh in for the first time, you will see some code like instructions at 
 ![image](https://user-images.githubusercontent.com/84176052/196767165-98b738d1-0d7e-4ca4-b186-a36076473d66.png)
 
 
-**No part of this or this guide is optional, skipping/modifying carelessly causes problems.**
+ ![#f03c15](No part of this or this guide is optional, skipping/modifying carelessly causes problems.) `#f03c15`
+
 
 **Make these files anywhere, we will be copying them to C:\Users\(yourusername)\.ssh
 **
+
 Part 1. For the first file, make a new file, called id_sf-de-segfault-net(name is important).
 The contents should look similar to this(**do not copy/paste, it will not work!**):
 ```
@@ -43,6 +45,7 @@ DRP7IewHgdMExwmoLY62AAAAAAECAwQF
 ```
 **Make these files anywhere, we will be copying them to C:\Users\(yourusername)\.ssh
 **
+
 For the second file, it’s largely the same.
 
 Part 2. Create a file called config, and inside that, put the code from your server’s login screen, shown in (of the picture above)
