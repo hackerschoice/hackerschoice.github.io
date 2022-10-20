@@ -27,11 +27,11 @@ When you ssh in for the first time, you will see some code like instructions at 
 
 
 
-###### No part of this or this guide is optional, skipping/modifying carelessly causes problems.
+## No part of this or this guide is optional, skipping/modifying carelessly causes problems.
 
 
-**Make these files anywhere, we will be copying them to C:\Users\(yourusername)\.ssh
-**
+###### Make these files anywhere, we will be copying them to C:\Users\(yourusername)\.ssh
+
 
 Part 1. For the first file, make a new file, called id_sf-de-segfault-net(name is important).
 The contents should look similar to this(**do not copy/paste, it will not work!**):
@@ -44,8 +44,8 @@ AAAEAs6YNqZSzAfZDl5/vDOB0vv7EZMxMUc/fEipuZ9A3eCHeOan/cnK9j0AGCOvHj6wGd
 DRP7IewHgdMExwmoLY62AAAAAAECAwQF
 -----END OPENSSH PRIVATE KEY-----
 ```
-**Make these files anywhere, we will be copying them to C:\Users\(yourusername)\.ssh
-**
+###### Make these files anywhere, we will be copying them to C:\Users\(yourusername)\.ssh
+
 
 For the second file, it’s largely the same.
 
@@ -58,7 +58,7 @@ host conductmesh
     IdentityFile ~/.ssh/id_sf-sg-segfault-net
     SetEnv SECRET=xxyyzz
 ```
-**The .ssh folder below might not appear if you do not have hidden files checked. Do that, or alternatively, swap out (yourusername) with, you guessed it, your username, and put that in the file explorer’s address bar.**
+###### The .ssh folder below might not appear if you do not have hidden files checked. Do that, or alternatively, swap out (yourusername) with, you guessed it, your username, and put that in the file explorer’s address bar.
 
 >The keen eyed among you will have noticed the file created in Part 1(aka the private key) is being called by the file we are naming config as IdentityFile
  
@@ -93,8 +93,8 @@ You have to select all files(filetype) according to the pictures.
 
 Now select the *id_sf-sg-segfault-net* file that we just created at the beginning.
 
-**It will show an error that the openSSH format is not supported, and instead helpfully converts it to PuTTY format. Click on ok, that is desired.
-**
+###### It will show an error that the openSSH format is not supported, and instead helpfully converts it to PuTTY format. Click on ok, that is desired.
+
 
 ![image](https://user-images.githubusercontent.com/84176052/196769026-795cbf5d-3b4b-4080-bf55-279259f1b5bf.png)
 
