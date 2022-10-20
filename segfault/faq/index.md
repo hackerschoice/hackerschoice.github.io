@@ -13,10 +13,10 @@ layout: default
 1. **Why do I get resource errors**<a id="quota"></a>  
    You likely got `out of heap memory`, `resource temporarily unavailable` or `Disk quota exceeded`. The FREE service is [restricted](../youcheapfuck) and the outbound traffic is throttled. Upgrade your server and [enjoy unlimited resources](../buy-an-upgrade). Upgrades are FREE for anyone working on a cool project.
 
-1. **My processes are getting killed**
+1. **My processes are getting killed**  
    Read above.
 
-1. **Can I scan**
+1. **Can I scan**  
    It is discouraged. The scan will slow to 2ports/second after the first 8,000 ports.
 
 1. **I get an SSH error**  
