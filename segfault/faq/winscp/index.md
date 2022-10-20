@@ -30,7 +30,7 @@ When you ssh in for the first time, you will see some code like instructions at 
 ## No part of this or this guide is optional, skipping/modifying carelessly causes problems.
 
 
-###### Make these files anywhere, we will be copying both of them to C:\Users\(yourusername)\.ssh
+###### Make these files anywhere, we will be copying both of them to `C:\Users\(yourusername)\.ssh`
 
 
 Part 1. For the first file, make a new file, called id_sf-de-segfault-net(name is important).
@@ -44,7 +44,7 @@ AAAEAs6YNqZSzAfZDl5/vDOB0vv7EZMxMUc/fEipuZ9A3eCHeOan/cnK9j0AGCOvHj6wGd
 DRP7IewHgdMExwmoLY62AAAAAAECAwQF
 -----END OPENSSH PRIVATE KEY-----
 ```
-###### Make these files anywhere, we will be copying both of them to C:\Users\(yourusername)\.ssh
+###### Make these files anywhere, we will be copying both of them to `C:\Users\(yourusername)\.ssh`
 
 
 For the second file, it’s largely the same.
@@ -63,7 +63,7 @@ host conductmesh
 >The keen eyed among you will have noticed the file created in Part 1(aka the private key) is being called by the file we are naming config as IdentityFile
  
 
-Finally, put the above made files(_id_sf-de-segfault-net_ and _config_) in C:\Users\(yourusername)\.ssh folder.
+Finally, put the above made files(_id_sf-de-segfault-net_ and _config_) in `C:\Users\(yourusername)\.ssh` folder.
 
 For the time being, we will go back to the *config* file we created, and there, we will copy a line of code going `SetEnv SECRET=xxyyzz`. If you do not have a clipboard manager, save this, we will need this line a while later(very important. Do not modify the line either.)
 
