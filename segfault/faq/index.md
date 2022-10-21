@@ -82,6 +82,8 @@ Reverse Port      : 185.117.118.23:1234
 ```
    (The IP & PORT are an example. You need to read the log in message when you log in to find out your IP and PORT).
 
+1. **How to SSH forward**  
+   You should be using `ssh -D1080 root@segfault.net` but if you insist on `ssh -L` style then be aware that you need to specify your server's ip (e.g 10.11.0.xxx) and not 127.0.0.1 to reach your server.
 
 ### Contact
 
