@@ -82,8 +82,19 @@ Reverse Port      : 185.117.118.23:1234
 ```
    (The IP & PORT are an example. You need to read the log in message when you log in to find out your IP and PORT).
 
-1. **How to SSH forward**  
+1. **How to SSH -L forward**  
    You should be using `ssh -D1080 root@segfault.net` but if you insist on `ssh -L` style then be aware that you need to specify your server's ip (e.g 10.11.0.xxx) and not 127.0.0.1 to reach your server.
+
+1. **How to SSH -R forward**  
+   This example forwards a reverse port directly to your workstation. The reverse IP and PORT is shown during log-in. As an example we assume the reverse port is 53052 and set up a forward to your workstation (127.0.0.1) on port 31338:
+   
+   ```
+   ssh -R31337:127.0.0.1:31338 root@segfault.net
+   # After login execute:
+   socat TCP4-LISTEN:53052 TCP4:172.22.0.22:31337
+   ```
+
+
 
 ### Contact
 
