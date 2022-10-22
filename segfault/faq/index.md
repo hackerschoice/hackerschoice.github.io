@@ -48,6 +48,9 @@ GOODBYE          : Join us on Telegram - https://t.me/thcorg
 1. **Why are my changes lost?**<a id="lost"></a>  
    Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pip install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr` or [pay for an upgrade](../buy-an-upgrade).
 
+1. **What EXIT IP is used**  
+   There are 3 or more _EXIT IP_ lines shown during log in. These are the VPN providers through which your outgoing traffic is routed. Each of your outgoing connections leaves through a different EXIT IP (multipath routing). The VPN Exit Nodes cycle every few days.
+
 1. **Is there a list of tools**  
    The server comes with around 8GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanently).
 
