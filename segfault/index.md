@@ -75,11 +75,12 @@ su user -c "irssi -c ircnet -n MyNickName"
 
 **We allow port forwarding and proxies:**
 ```shell
-ssh -D 127.1:1080 root@segfault.net
+ssh -D 127.0.0.1:1080 root@segfault.net
 # then from another Terminal on your workstation:
 curl -x socks5h://0 ipinfo.io
 curl -x socks5h://0 http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqxzqd.onion/ 
 ```
+<!-- Windows does not like -D 1080 and needs 127.0.0.1:1080 (and does not like 127.1:1080 either) -->
 
 **Connect to your own public PORT:**  
 ```shell
