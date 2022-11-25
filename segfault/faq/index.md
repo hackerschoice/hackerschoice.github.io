@@ -46,7 +46,7 @@ GOODBYE          : Join us on Telegram - https://t.me/thcorg
    Immediately on log out. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). Type `rm -rf /sec && halt` if you also want to destroy your encrypted data.
 
 1. **Why are my changes lost?**<a id="lost"></a>  
-   Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pip install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr` or [pay for an upgrade](../buy-an-upgrade).
+   Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pip install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
 
 1. **What EXIT IP is used?**  
    There are 3 or more _EXIT IP_ lines shown during log in. These are the VPN providers through which your outgoing traffic is routed. Each of your outgoing connections leaves through a different EXIT (multipath routing). The VPN Exit Nodes cycle every few days.
