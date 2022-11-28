@@ -16,10 +16,13 @@ Consider to [upgrade your server](../buy-an-upgrade) and get some neat benefits.
 
 If you can not pay for an upgrade then [talk to us](https://t.me/thcorg) and there is a good chance that we will remove all restrictions from your server; especially if we like what you are doing.
 
+
 ### Contact
 
-Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
+~~Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)~~  
+Mastodon: [@thc@infosec.exchange](https://infosec.exchange/@thc)  
 Telegram: [https://t.me/thcorg](https://t.me/thcorg)  
 Web: [https://www.thc.org](https://www.thc.org)  
 Medium: [https://medium.com/@hackerschoice](https://medium.com/@hackerschoice)  
 E-Mail: members@thc.org  
+

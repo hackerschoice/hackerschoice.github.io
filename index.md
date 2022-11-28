@@ -46,27 +46,19 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 1994 - <redacted>
 ```
 
-Beside our public work we engage with some leading IT Security companies to push security into the right and meaningful direction. We have been editor in chief of the phrack magazine and occasionally speakers at conferences. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organisations. 
+Beside our public work we engage with some leading IT Security companies to push security into the right and meaningful direction. We have been editor in chief of the phrack magazine and occasionally we speak at conferences. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organisations. We are a major donor to the [EFF](https://www.eff.org).
 
 The best way to meet us is at one of the IETF meetings or a hacker convention such as HITB or the CCC Congress.
 
-Since 1995 we have had 3 of our members arrested (0 convicted), we have had visits by the BKA (Germany's FBI) and BND (Germany's NSA), we were blackmailed by the British GCHQ and harassed and intimidated by many others. We do not see ourselves as criminals. We believe that those who write unsecure software that put citizens at risk should be held liable.
+Since 1995, three of our members got arrested (0 convicted), one got raided, two received visits by the BKA (Germany's FBI) and BND (Germany's NSA) and one got blackmailed by the British GCHQ. Yet the same organizations listen when we speak at conferences. And use our tools. We see ourselves as artists. We believe in Freedom, Diversity, Privacy, Security and rights for the citizens.
+
+*(We are not anti-government. We are anti-stupdity. Unfortuntley there seems to be a significant overlap.)*
 
 ### Contact
 
-Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
+~~Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)~~  
+Mastodon: [@thc@infosec.exchange](https://infosec.exchange/@thc)  
 Telegram: [https://t.me/thcorg](https://t.me/thcorg)  
 Web: [https://www.thc.org](https://www.thc.org)  
 Medium: [https://medium.com/@hackerschoice](https://medium.com/@hackerschoice)  
 E-Mail: members@thc.org  
-
-
-
-
-
-
-
-
-
-
-

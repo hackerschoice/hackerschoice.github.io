@@ -101,7 +101,8 @@ Reverse Port      : 185.117.118.23:1234
 
 ### Contact
 
-Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
+~~Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)~~  
+Mastodon: [@thc@infosec.exchange](https://infosec.exchange/@thc)  
 Telegram: [https://t.me/thcorg](https://t.me/thcorg)  
 Web: [https://www.thc.org](https://www.thc.org)  
 Medium: [https://medium.com/@hackerschoice](https://medium.com/@hackerschoice)  
