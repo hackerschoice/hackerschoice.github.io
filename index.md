@@ -50,9 +50,10 @@ Beside our public work we engage with some leading IT Security companies to push
 
 The best way to meet us is at one of the IETF meetings or a hacker convention such as HITB or the CCC Congress.
 
-Since 1995, three of our members got arrested (0 convicted), one got raided, two received visits by the BKA (Germany's FBI) and BND (Germany's NSA) and one got blackmailed by the British GCHQ. Yet the same organizations listen when we speak at conferences. And use our tools. We see ourselves as artists. We believe in Freedom, Diversity, Privacy, Security and rights for the citizens.
+Since 1995, three of our members got arrested (0 convicted), one got raided, two received visits by the BKA (Germany's FBI) and BND (Germany's NSA) and one got blackmailed by the British GCHQ. Yet the very same organizations listen when we speak at conferences. And use our tools. We see ourselves as artists. We believe in Freedom, Diversity, Privacy, Security and rights for the citizens.
 
-*(We are not anti-government. We are anti-stupdity. Unfortuntley there seems to be a significant overlap.)*
+*(We are not anti-government. We are anti-stupdity. Unfortuntley there seems to be considerable overlap.)*
+
 
 ### Contact
 
