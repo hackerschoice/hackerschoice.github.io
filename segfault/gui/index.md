@@ -47,7 +47,7 @@ xpra start ssh://root@FluffyBunny/ --exit-with-client=yes --start='xterm -bg bla
 
 ### IT'S SHIT
 
-Some appliations won't work. Chances are that your server does not have enough memory. Consider [buying an upgrade](../buy-an-upgrade) to make all applications work flawlessly.
+Some applications won't work. Chances are that your server does not have enough memory. Be a badass and [buy an upgrade](../buy-an-upgrade) to make all applications work flawlessly.
 
 ### Contact
 
