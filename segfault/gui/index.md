@@ -15,6 +15,17 @@ Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favourite applicat
 
 ---
 
+{:refdef: style="text-align: center;"}
+# THIS IS BETA TESTING. IT ONLY WORKS ON:
+# beta.segfault.net
+{: refdef}
+
+```shell
+ssh root@beta.segfault.net # Password is 'segfault'
+```
+
+---
+
 There are a few ways to access a GUI.
 
 ### GUI via VNC
@@ -33,7 +44,7 @@ Log in to your [root server](../) and type:
 startxpra
 ```
 
-Thereafter use your Web Browser and go to http://127.0.0.1:2000.
+Thereafter use your Web Browser and go to [http://127.0.0.1:2000](http://127.0.0.1:2000).
 
 ### GUI via XPRA
 
