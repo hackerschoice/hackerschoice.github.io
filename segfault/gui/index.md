@@ -19,7 +19,7 @@ There are a few ways to access a GUI.
 
 ### GUI via VNC
 
-Log in to your root server and type:
+Log in to your [root server](../) and type:
 ```shell
 startvnc
 ```
@@ -28,7 +28,7 @@ Thereafter use your favourite VNC Client and connect to `127.0.0.1:5900`.
 
 ### GUI via Web
 
-Log in to your root server and type:
+Log in to your [root server](../) and type:
 ```shell
 startxpra
 ```
@@ -37,13 +37,13 @@ Thereafter use your Web Browser and go to http://127.0.0.1:2000.
 
 ### GUI via XPRA
 
-Install [XPRA](https://xpra.org/) on your workstation (not server) and then log in:
+Install [XPRA](https://xpra.org/) on your workstation (not server).
 
 ```shell
 xpra start ssh://root@FluffyBunny/ --exit-with-client=yes --start='xterm -bg black -fg gray' --resize-display=1280x1024 --ssh=ssh --ssh-upgrade=no
 ```
 
-(replace `FluffyBunny` with the name of your root server)
+(replace `FluffyBunny` with the name of your [root server](../))
 
 ### IT'S SHIT
 
