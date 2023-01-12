@@ -7,7 +7,7 @@ layout: default
 <div style="width:80%; margin:auto">
 </div>
 
-Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favourite applications on a remote desktop.
+Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favourite applications on a remote desktop. All outbound traffic is routed via VPNs.
 
 {:refdef: style="text-align: center;"}
 ![gui](sf-gui.png){:height="80%" width="80%"}
@@ -41,7 +41,7 @@ Thereafter use your favourite VNC Client and connect to `127.0.0.1:5900`.
 
 Log in to your [root server](../) and type:
 ```shell
-startxpra
+startxweb
 ```
 
 Thereafter use your Web Browser and go to [http://127.0.0.1:2000](http://127.0.0.1:2000).
@@ -50,15 +50,21 @@ Thereafter use your Web Browser and go to [http://127.0.0.1:2000](http://127.0.0
 
 Install [XPRA](https://xpra.org/) on your workstation (not server).
 
+Connect to your existing [root server](../) (replace `FluffyBunny` with the name of your root server):
 ```shell
-xpra start ssh://root@FluffyBunny/ --exit-with-client=yes --start='xterm -bg black -fg gray' --resize-display=1280x1024 --ssh=ssh --ssh-upgrade=no
+xpra start ssh://root@FluffyBunny/ --start-child=xterm-dark 
 ```
 
-(replace `FluffyBunny` with the name of your [root server](../))
+Or start Firefox on a fresh new disposable [root server](../) (which will self-destruct when Firefox stops):
+```shell
+xpra start ssh://root@beta.segfault.net/ --start-child=firefox 
+```
 
-### IT'S SHIT
+*MacOS users may need to add `--ssh=ssh --ssh-upgrade=no`*
 
-Some applications won't work. Chances are that your server does not have enough memory. Be a badass and [buy an upgrade](../buy-an-upgrade) to make all applications work flawlessly.
+### IT'S BUGGERED
+
+Some applications may not work. Chances are that your server does not have enough memory. Be a badass and [buy an upgrade](../buy-an-upgrade) to make all applications work flawlessly.
 
 ### Contact
 
