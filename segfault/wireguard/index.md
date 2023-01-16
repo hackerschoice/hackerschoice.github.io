@@ -8,7 +8,7 @@ Configure your Root Server to send all traffic via another server you own</div>
 <div style="text-align:center"><h2>BETA TESTING. ONLY WORKS ON beta.segfault.net.</h2></div>  
 
 ---
-A typical use case is where you like to connect to workstations in a remote private LAN from your [Root Server](../) (e.g. with nmap, metasploit, smbscan, ...). A network interface will (magically) appear on your Root Server and that interface is *virtually* located in the remote private LAN.
+A typical use case is where you like to connect to workstations in a remote private LAN (e.g. with nmap, metasploit, smbscan, ...). A network interface will (magically) appear on your [Root Server](../) and that interface is *virtually* located inside the remote private LAN.
 
 Another often used scenario is to route all port scanning traffic via your own *Exit Node*.
 
