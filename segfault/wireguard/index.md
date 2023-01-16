@@ -2,47 +2,48 @@
 layout: default
 ---
 
-<div style="text-align:center"><h1>WireGuard Reverse Connection</h1></div>
+<div style="text-align:center"><h1>WireGuard Reverse Connection</h1>  
+Configure your Root Server to send all traffic via another server you own</div>
 
-<div style="width:80%; margin:auto">
-Configure your Root Server to send all traffic via another server you own.
-</div>
-  
+<div style="text-align:center"><h2>BETA TESTING. ONLY WORKS ON beta.segfault.net.</h2></div>  
+
 ---
-A typical use case is where you like to access a private LAN from Segfault's root server (e.g. with nmap, metasploit, smbscan, ...).
+A typical use case is where you like to access a private LAN from your [Root Server](../) (e.g. with nmap, metasploit, smbscan, ...).
 
-Another often used scenario is to route all port scanning activities via your own *Exit Node*.
+Another often used scenario is to route all port scanning traffic via your own *Exit Node*.
 
 The setup uses a *reverse connection* and the *Exit Node* can be behind a firewalled NAT gateway. The *Exit Node* can be Linux, Windows or OSX and no superuser privileges are needed.
 
 ---
-### On your root server
+### Step #1 - On your root server
 
-Create a WireGuard keypair and allocate a UDP Port to your Root Server:
+Create a WireGuard keypair and allocate a UDP Port to your [Root Server](../):
 ```shell
 curl rpc/net/init -d name=NameOfExit
 ```
-Write down the Wiretap or Wireguard configuration.
+In this example the UDP Port is 64050. Write down either the Wiretap or WireGuard configuration.
 {:refdef: style="text-align: center;"}
 ![login screen](wg-init.png){:height="80%" width="80%"}
 {: refdef}
 
 
-Bring up the Interface:
+Bring up the WireGuard Interface:
 ```shell
 curl rpc/net/up -d name=NameOfExit
 ip addr show
 ```
 
-### On the Exit Node
+(You should see the new network interface named *wgNameOfExit* on your [Root Server](../)).
+
+### Step #2 - On the Exit Node
 
 Use either Wiretap or WireGuard.
 
-1. Wiretap:  
-Install the pre-compiled single [Wiretap binary](https://github.com/sandialabs/wiretap/releases/tag/v0.1.0) for Linux, Windows or OSX. Execute the Wiretap command as shown in the output from your *curl rpc/net/init* command.
+1. __Wiretap:__  
+Install the pre-compiled single [Wiretap binary](https://github.com/sandialabs/wiretap/releases/tag/v0.1.0) for Linux, Windows or OSX. Execute the Wiretap command as shown in the output from your *curl rpc/net/init* command in Step #1.
 
-1. WireGuard:  
-Install & configure [WireGuard](https://www.wireguard.com/)
+1. __WireGuard:__  
+Install & configure [WireGuard](https://www.wireguard.com/). Use the configuration as shown in the output from your *curl rpc/net/init* command in Step #1.
 
 
 On your root server check the connection:
@@ -50,41 +51,9 @@ On your root server check the connection:
 curl rpc/net/show
 ```
 
-### Pro Tip
+### More Shenanigans
 
-It is possible to install Wiretap on many many servers and only activate the Interface on Segfault if and when needed. 
-
-Step #1: Allocate a UDP port on Segfault.
-```shell
-curl rpc/net/init
-```
-Take a note of the *port*. Ignore the rest of the output.
-
-Step #2: Generate Keys on the Exit Node.
-```shell
-wiretap configure -e beta.segfault.net:<port> # Replace 'beta' with the segfault region you are using
-```
-
-Take note of the *PrivateKey* (Private1) and the *--private* key (Private2).
-{:refdef: style="text-align: center;"}
-![login screen](wt-nosf.png){:height="80%" width="80%"}
-{: refdef}
-
-Step 3: Start wiretap
-
-```shell
-wiretap serve --private <Private2> --public <...> --endpoint beta.segfault.net:<port>
-```
-
-Repeat Step #3 on other Exit Nodes.
-
-Step #4: Access the Network
-
-On your Root Server:
-```
-curl rpc/net/up -d name=Hacker3133 -d private=<Private1> -d peer_private=<Private2>
-```
-
+More *reverse* WireGuard [Hacks, Tips and Tricks](tricks.html).
 
 ### Contact
 
