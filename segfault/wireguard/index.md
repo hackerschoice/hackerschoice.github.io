@@ -28,6 +28,8 @@ Write down either the Wiretap or WireGuard configuration.
 
 ### Step #2 - On the Exit Node
 
+The Exit Node is any host (Linux, Windows, OSX) you have access to and which network you like to connect to from your [Root Server](../).  
+
 Use either Wiretap or WireGuard.
 
 1. __Wiretap:__  
@@ -37,14 +39,48 @@ Install the pre-compiled single [Wiretap binary](https://github.com/sandialabs/w
 Install & configure [WireGuard](https://www.wireguard.com/). Use the configuration as shown in the output from your *curl rpc/net/up* command in Step #1.
 
 
-On your root server check the connection:
+On your [Root Server](../) check the connection:
 ```shell
 curl rpc/net/show
 ```
 
 ### More Shenanigans
 
-More *reverse* WireGuard [Hacks, Tips and Tricks](tricks.html).
+Each command is executted on the [Root Server](../) (after the Exit Node has connected).
+
+Scan the remote private LAN:
+```
+nmap -n -sT -T4 -F --open --script=banner 192.168.0.0/24
+```
+
+Crackmapexec the LAN:
+```
+cme smb 192.168.0.0/24
+```
+
+Find Window shares on the LAN:
+```
+nbtscan 192.168.0.0/24
+```
+
+SNMP dump
+```
+snmp-check 192.168.0.250
+```
+
+RDP Remote Desktop (via VNC) to a workstation on the LAN:
+```
+startxweb
+remmina -c rdp://username@server
+```
+
+Poke [the lion](police-cars-police-chase.gif) and appear as originating from the LAN:
+```
+amass enum -d nsa.gov
+```
+
+
+...and other [Hacks, Tips and Tricks](tricks.html).
 
 ### Contact
 
