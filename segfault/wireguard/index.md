@@ -68,13 +68,13 @@ SNMP dump
 snmp-check 192.168.0.250
 ```
 
-RDP Remote Desktop (via VNC) to a workstation on the LAN:
+Log in to a workstation (Remote Desktop/RDP) on the LAN:
 ```
 startxweb
 remmina -c rdp://username@server
 ```
 
-Poke [the lion](police-cars-police-chase.gif) and appear as originating from the LAN:
+Poke [the lion](police-cars-police-chase.gif) and appear as if originating from the LAN:
 ```
 amass enum -d nsa.gov
 ```
