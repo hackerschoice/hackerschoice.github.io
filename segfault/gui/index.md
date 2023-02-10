@@ -57,10 +57,8 @@ xpra start ssh://root@FluffyBunny/ --start-child=xterm-dark
 
 Or start Firefox on a fresh new disposable [root server](../) (which will self-destruct when Firefox stops):
 ```shell
-xpra start ssh://root@beta.segfault.net/ --start-child=firefox 
+xpra start ssh://root@beta.segfault.net/ --start-child=firefox --ssh=ssh --ssh-upgrade=no
 ```
-
-*MacOS users may need to add `--ssh=ssh --ssh-upgrade=no`*
 
 ### IT'S BUGGERED
 
