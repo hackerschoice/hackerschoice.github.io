@@ -3,7 +3,7 @@ layout: default
 title: segfault - Buy an Upgrade or Donate
 ---
 
-<div style="text-align:center">Buy an Upgrade or Donate</div>
+<div style="text-align:center"><h1>Buy an Upgrade or Donate</h1></div>
 
 We run this [service for free](../youcheapfuck). You can buy an upgrade or donate and in some cases [you must pay](../youcheapfuck).
 
