@@ -1,5 +1,6 @@
 ---
 layout: default
+title: segfault - FAQ - PuTTy
 ---
 
 <div style="text-align:center"><h1>Putty</h1></div>

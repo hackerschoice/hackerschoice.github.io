@@ -1,8 +1,9 @@
 ---
 layout: default
+title: A Free Telegram Proxy
 ---
 
-<div style="text-align:center">A Free Telegram Proxy</div>
+<div style="text-align:center">{{ page.title }}</div>
 
 This projects allows users to bypass country blocks and add a extra layer of security to Telegram.
 

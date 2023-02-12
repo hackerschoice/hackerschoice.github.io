@@ -1,8 +1,9 @@
 ---
 layout: default
+title: A Free Mail Forwarding Service
 ---
 
-<div style="text-align:center">A Free Mail Forwarding Service</div>
+<div style="text-align:center">{{ page.title }}</div>
 
 This projects allows users to set up an email forward from ```<yourname>@segfault.net``` to any email address of their choosing.
 

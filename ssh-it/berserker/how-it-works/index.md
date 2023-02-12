@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Berserker - how it works
 ---
 {:refdef: style="text-align: center;"}
 ## **A recursive, non-intrusive and ephemeral tool to find password-less private ssh-keys and build a hierarchical tree of reachable hosts**
