@@ -1,5 +1,6 @@
 ---
 layout: default
+title: segfault - Buy an Upgrade or Donate
 ---
 
 <div style="text-align:center">Buy an Upgrade or Donate</div>

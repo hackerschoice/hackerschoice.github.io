@@ -1,3 +1,8 @@
+---
+layout: default
+title: segfault - FAQ - WinSCP
+---
+
 <div style="text-align:center"><h1>WinSCP Guide For File Sharing</h1></div>
 
 <div style="width:80%; margin:auto">

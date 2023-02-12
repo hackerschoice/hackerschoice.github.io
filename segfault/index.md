@@ -1,8 +1,9 @@
 ---
 layout: default
+title: Disposable Root Servers
 ---
 
-<div style="text-align:center"><h1>Disposable Root Servers</h1></div>
+<div style="text-align:center"><h1>{{ page.title }}</h1></div>
 
 <div style="width:80%; margin:auto">
 </div>

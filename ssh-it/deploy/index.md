@@ -1,5 +1,6 @@
 ---
 layout: default
+title: ssh-it - deploy
 ---
 
 Use either one of these commands to deploy:

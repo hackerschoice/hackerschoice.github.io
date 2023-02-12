@@ -1,5 +1,6 @@
 ---
 layout: default
+title: segfault - WireGuard - Tricks
 ---
 
 <div style="text-align:center"><h1>WireGuard Reverse Connection</h1>  

@@ -1,5 +1,6 @@
 ---
 layout: default
+title: segfault - Disclaimer
 ---
 
 <div style="text-align:center"><h1>This is a FREE service</h1></div>

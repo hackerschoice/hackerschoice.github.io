@@ -1,5 +1,6 @@
 ---
 layout: default
+title: segfault - GUI
 ---
 
 <div style="text-align:center"><h1>Graphical User Interface</h1></div>

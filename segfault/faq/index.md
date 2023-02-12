@@ -1,5 +1,6 @@
 ---
 layout: default
+title: segfault - FAQ
 ---
 
 <div style="text-align:center"><h1>Frequenty Asked Questions</h1></div>

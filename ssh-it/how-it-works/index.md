@@ -1,5 +1,6 @@
 ---
 layout: default
+title: ssh-it - how it works
 ---
 
 ### How it works
