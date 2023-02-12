@@ -1,6 +1,9 @@
 ---
 layout: default
+title: ""
+description: ""
 ---
+
 ## Who we are and what we do
 
 We are a group of international hackers.
