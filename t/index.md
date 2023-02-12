@@ -1,13 +1,10 @@
 ---
 layout: default
 title: A Free Telegram Proxy
+description: This projects allows users to bypass country blocks and add a extra layer of security to Telegram.
 ---
 
-<div style="text-align:center"><h1>{{ page.title }}</h1></div>
-
-This projects allows users to bypass country blocks and add a extra layer of security to Telegram.
-
-### Setup
+## Setup
 
 Simply click on the following link to use the Proxy:
 
@@ -21,13 +18,13 @@ Telegram will start upon clicking the link. Press ```Enable``` to accept the Pro
 ![t-proxy-logo](t-segfault.jpg){:height="50%" width="50%"}
 {: refdef}
 
-### Why
+## Why
 
 Because we can. This project is maintained by [LouCipher](https://t.me/thcorg).
 
 THIS IS BETA TESTING AT THE MOMENT. TALK TO US IF YOU LIKE TO SEE ANY SPECIFIC FEATURES.
 
-### Contact
+## Contact
 
 Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
 Telegram: [https://t.me/thcorg](https://t.me/thcorg)  
