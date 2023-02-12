@@ -58,7 +58,7 @@ Since 1995, three of our members got arrested (0 convicted), one got raided, two
 *(We are not anti-government. We are anti-stupdity. Unfortuntley there seems to be considerable overlap.)*
 
 
-### Contact
+## Contact
 
 ~~Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)~~  
 Mastodon: [@thc@infosec.exchange](https://infosec.exchange/@thc)  
