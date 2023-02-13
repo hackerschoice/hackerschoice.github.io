@@ -20,7 +20,7 @@ ssh root@segfault.net # The password is 'segfault'
 
 ### What it does
 
-Segfault offers free unlimitd Root Servers. A new server (inside a Virtual Machine) is created for every SSH connection. 
+Segfault offers free unlimited Root Servers. A new server (inside a Virtual Machine) is created for every SSH connection. 
 
 * Dedicated ```Root Server``` for every user.
 * Pre-installed tools on Kali-Linux.
@@ -117,9 +117,4 @@ We do not tolerate abuse. Contact us on [Telegram](https://t.me/thcorg) or email
 
 ### Contact
 
-~~Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)~~  
-Mastodon: [@thc@infosec.exchange](https://infosec.exchange/@thc)  
-Telegram: [https://t.me/thcorg](https://t.me/thcorg)  
-Web: [https://www.thc.org](https://www.thc.org)  
-Medium: [https://medium.com/@hackerschoice](https://medium.com/@hackerschoice)  
-E-Mail: members@thc.org  
+{% include contact-details.md %}

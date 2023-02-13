@@ -36,9 +36,4 @@ XMR 85RDZJfdGWX3BzUESZSBNtNicHeTJo3UseYH2Pk6XeW61hFF3JWSax9LkvHZPCYg8pHJfQxCEHfg
 
 ### Contact
 
-~~Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)~~  
-Mastodon: [@thc@infosec.exchange](https://infosec.exchange/@thc)  
-Telegram: [https://t.me/thcorg](https://t.me/thcorg)  
-Web: [https://www.thc.org](https://www.thc.org)  
-Medium: [https://medium.com/@hackerschoice](https://medium.com/@hackerschoice)  
-E-Mail: members@thc.org  
+{% include contact-details.md %}
