@@ -1,7 +1,7 @@
 ---
 layout: default
 title: A Free Telegram Proxy
-description: This projects allows users to bypass country blocks and add a extra layer of security to Telegram.
+description: This project allows users to bypass country blocks and add a extra layer of security to Telegram.
 ---
 
 ## Setup
