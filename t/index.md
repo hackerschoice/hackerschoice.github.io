@@ -26,6 +26,4 @@ THIS IS BETA TESTING AT THE MOMENT. TALK TO US IF YOU LIKE TO SEE ANY SPECIFIC F
 
 ## Contact
 
-Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)  
-Telegram: [https://t.me/thcorg](https://t.me/thcorg)  
-Web: [https://www.thc.org](https://www.thc.org)  
+{% include contact-details.md %}
