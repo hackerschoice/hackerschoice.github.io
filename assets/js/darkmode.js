@@ -4,7 +4,7 @@
     "use strict";
 
     // Patch version
-    const darkModePatchVersion = '0.1.0';
+    const darkModePatchVersion = '0.1.1';
 
     // Define theme colors
     const darkModeColors = {
@@ -15,7 +15,8 @@
         preDiv: '#111',
         preBackground: '#18181a',
         preBorders: '#474a4c',
-        preText: '#9eb2bb'
+        preText: '#9eb2bb',
+        preTextSpanBlue: '#a2a2f3'
     }
 
     // Show version on load
@@ -48,6 +49,7 @@
         const highlightedDiv = document.querySelectorAll('div.highlight');
         const highlightedPre = document.querySelectorAll('pre.highlight');
         const highlightedCode = document.querySelectorAll('pre.highlight code');
+        const highlightedCodeFix = document.querySelectorAll('pre.highlight code span.nt');
 
         body.style.backgroundColor = darkModeColors.background;
         body.style.color = darkModeColors.text;
@@ -69,6 +71,9 @@
         highlightedCode.forEach(element => {
             element.style.color = darkModeColors.preText;
         });
+        highlightedCodeFix.forEach(element => {
+            element.style.color = darkModeColors.preTextSpanBlue;
+        });
     }
 
     // Remove dark theme
@@ -79,6 +84,7 @@
         const highlightedDiv = document.querySelectorAll('div.highlight');
         const highlightedPre = document.querySelectorAll('pre.highlight');
         const highlightedCode = document.querySelectorAll('pre.highlight code');
+        const highlightedCodeFix = document.querySelectorAll('pre.highlight code span.nt');
 
         body.style.backgroundColor = '';
         body.style.color = '';
@@ -99,6 +105,9 @@
         });
         highlightedCode.forEach(element => {
             element.style.color = '';
+        });
+        highlightedCodeFix.forEach(element => {
+            element.style.color = darkModeColors.preTextSpanBlue;
         });
     }
 
