@@ -4,14 +4,18 @@
     "use strict";
 
     // Patch version
-    const darkModePatchVersion = '0.0.0';
+    const darkModePatchVersion = '0.1.0';
 
     // Define theme colors
     const darkModeColors = {
         background: '#111',
         headers: '#0beb7b',
         text: '#a8b2b7',
-        links: '#00b7ff'
+        links: '#00b7ff',
+        preDiv: '#111',
+        preBackground: '#18181a',
+        preBorders: '#474a4c',
+        preText: '#9eb2bb'
     }
 
     // Show version on load
@@ -41,6 +45,9 @@
         const body = document.querySelector('body');
         const headerTags = document.querySelectorAll('h2, h3');
         const links = document.querySelectorAll('a');
+        const highlightedDiv = document.querySelectorAll('div.highlight');
+        const highlightedPre = document.querySelectorAll('pre.highlight');
+        const highlightedCode = document.querySelectorAll('pre.highlight code');
 
         body.style.backgroundColor = darkModeColors.background;
         body.style.color = darkModeColors.text;
@@ -52,6 +59,16 @@
         links.forEach(element => {
             element.style.color = darkModeColors.links;
         });
+        highlightedDiv.forEach(element => {
+            element.style.backgroundColor = darkModeColors.preDiv;
+        });
+        highlightedPre.forEach(element => {
+            element.style.backgroundColor = darkModeColors.preBackground;
+            element.style.borderColor = darkModeColors.preBorders;
+        });
+        highlightedCode.forEach(element => {
+            element.style.color = darkModeColors.preText;
+        });
     }
 
     // Remove dark theme
@@ -59,6 +76,9 @@
         const body = document.querySelector('body');
         const headerTags = document.querySelectorAll('h2, h3');
         const links = document.querySelectorAll('a');
+        const highlightedDiv = document.querySelectorAll('div.highlight');
+        const highlightedPre = document.querySelectorAll('pre.highlight');
+        const highlightedCode = document.querySelectorAll('pre.highlight code');
 
         body.style.backgroundColor = '';
         body.style.color = '';
@@ -68,6 +88,16 @@
             }
         });
         links.forEach(element => {
+            element.style.color = '';
+        });
+        highlightedDiv.forEach(element => {
+            element.style.backgroundColor = '';
+        });
+        highlightedPre.forEach(element => {
+            element.style.backgroundColor = '';
+            element.style.borderColor = '';
+        });
+        highlightedCode.forEach(element => {
             element.style.color = '';
         });
     }
