@@ -4,7 +4,7 @@
     "use strict";
 
     // Patch version
-    const darkModePatchVersion = '0.1.2';
+    const darkModePatchVersion = '0.1.3';
 
     // Define theme colors
     const darkModeColors = {
@@ -16,7 +16,8 @@
         preBackground: '#18181a',
         preBorders: '#474a4c',
         preText: '#9eb2bb',
-        preTextSpanBlue: '#a2a2f3'
+        preTextFix1: '#a2a2f3',
+        preTextFix2: '#ff8383',
     }
 
     // Show version on load
@@ -49,7 +50,8 @@
         const highlightedDiv = document.querySelectorAll('div.highlight');
         const highlightedPre = document.querySelectorAll('pre.highlight');
         const highlightedCode = document.querySelectorAll('pre.highlight code');
-        const highlightedCodeFix = document.querySelectorAll('pre.highlight code span.nt');
+        const highlightedCodeFix1 = document.querySelectorAll('pre.highlight code span.nt');
+        const highlightedCodeFix2 = document.querySelectorAll('pre.highlight code span.o');
 
         body.style.backgroundColor = darkModeColors.background;
         body.style.color = darkModeColors.text;
@@ -71,8 +73,11 @@
         highlightedCode.forEach(element => {
             element.style.color = darkModeColors.preText;
         });
-        highlightedCodeFix.forEach(element => {
-            element.style.color = darkModeColors.preTextSpanBlue;
+        highlightedCodeFix1.forEach(element => {
+            element.style.color = darkModeColors.preTextFix1;
+        });
+        highlightedCodeFix2.forEach(element => {
+            element.style.color = darkModeColors.preTextFix2;
         });
     }
 
@@ -84,7 +89,8 @@
         const highlightedDiv = document.querySelectorAll('div.highlight');
         const highlightedPre = document.querySelectorAll('pre.highlight');
         const highlightedCode = document.querySelectorAll('pre.highlight code');
-        const highlightedCodeFix = document.querySelectorAll('pre.highlight code span.nt');
+        const highlightedCodeFix1 = document.querySelectorAll('pre.highlight code span.nt');
+        const highlightedCodeFix2 = document.querySelectorAll('pre.highlight code span.o');
 
         body.style.backgroundColor = '';
         body.style.color = '';
@@ -106,7 +112,10 @@
         highlightedCode.forEach(element => {
             element.style.color = '';
         });
-        highlightedCodeFix.forEach(element => {
+        highlightedCodeFix1.forEach(element => {
+            element.style.color = '';
+        });
+        highlightedCodeFix2.forEach(element => {
             element.style.color = '';
         });
     }
