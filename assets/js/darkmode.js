@@ -4,7 +4,7 @@
     "use strict";
 
     // Patch version
-    const darkModePatchVersion = '0.1.1';
+    const darkModePatchVersion = '0.1.2';
 
     // Define theme colors
     const darkModeColors = {
@@ -107,7 +107,7 @@
             element.style.color = '';
         });
         highlightedCodeFix.forEach(element => {
-            element.style.color = darkModeColors.preTextSpanBlue;
+            element.style.color = '';
         });
     }
 
