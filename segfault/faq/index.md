@@ -44,7 +44,10 @@ GOODBYE          : Join us on Telegram - https://t.me/thcorg
    Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you.
 
 1. **When does it self-destruct**  
-   Immediately on log out. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). Type `rm -rf /sec && halt` if you also want to destroy your encrypted data.
+   Immediately on log out or when you type `halt`. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). Type `rm -rf /sec && halt` if you also want to destroy your encrypted data.
+
+1. **How long will the server run**  
+   A server does not not shut down while you are logged in (active session). If nobody is logged in and there is no shell running (in tmux or screen) then the server shuts down after 1.5 days of inactivty. Otherwise the server shuts down if nobody logs in for 7 days. A server may shut down during major software upgrades or if abuse is detected. No data in /sec is ever deleted and your data becomes available again as soon as you log in (but you may have to start your background processes again). These limits to not apply for [paying users](../buy-an-upgrade/). 
 
 1. **Why are my changes lost?**<a id="lost"></a>  
    Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pip install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
