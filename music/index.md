@@ -1,4 +1,10 @@
-## off the keyboard
+---
+layout: default
+title: Off the keyboard
+description: Our favorite tunes by some very talented friends of THC.
+---
+
+## Off the keyboard
 
 Our favorite tunes by some very talented friends of THC. This is what we listen to. It makes us hack harder. KEEP UP THE GOOD WORK.
 
@@ -17,6 +23,6 @@ Jim Geovedi (HERT/Phrack) mix
 Substance (9x) elite progressive trance  
 [https://tranceattic.com](https://tranceattic.com)
 
-### Contact
+## Contact
 
 {% include contact-details.md %}
