@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Segfault / Buy an Upgrade or Donate
+title: Segfault / Buy or Donate
 description: Segfault service donation guide.
 ---
 
-<!-- <div style="text-align:center"><h1>Buy an Upgrade or Donate</h1></div> -->
+<div style="text-align:center"><h1>Buy an Upgrade or Donate</h1></div>
 
 We run this [service for free](../youcheapfuck). You can buy an upgrade or donate and in some cases [you must pay](../youcheapfuck).
 
