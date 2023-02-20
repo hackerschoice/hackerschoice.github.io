@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SSH-IT | Deploy
-decription: Autonomous SSH worm deployment guide.
+description: Autonomous SSH worm deployment guide.
 ---
 
 Use either one of these commands to deploy:

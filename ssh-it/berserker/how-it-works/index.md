@@ -1,7 +1,7 @@
 ---
 layout: default
 title: The Berserker | How it works
-decription: Technical details about how The Berserker works.
+description: Technical details about how The Berserker works.
 ---
 
 <!-- {:refdef: style="text-align: center;"}

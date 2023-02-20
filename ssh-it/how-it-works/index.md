@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SSH-IT | How it works
-decription: Technical details about how SSH-IT works.
+description: Technical details about how SSH-IT works.
 ---
 
 ## How it works
