@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Segfault / Graphical User Interface
+title: Segfault / GUI
 description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favourite applications on a remote desktop with Segfault.
 ---
 
@@ -15,6 +15,8 @@ description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favou
 {:refdef: style="text-align: center;"}
 ![gui](sf-gui.png){:height="80%" width="80%"}
 {: refdef}
+
+---
 
 <div style="text-align:center"><h2>BETA TESTING. ONLY WORKS ON beta.segfault.net.</h2></div>
 

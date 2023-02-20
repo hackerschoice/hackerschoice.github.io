@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Segfault / WireGuard / Configuration
+title: Segfault / WireGuard Configuration
 description: Setup WireGuard Reverse Connection on Segfault.
 ---
 
@@ -54,19 +54,19 @@ curl rpc/net/show
 
 Each command is executted on the [Root Server](../) (after the Exit Node has connected).
 
-__Scan the remote private LAN:__
+__Scan the remote private LAN__
 
 ```
 nmap -n -sT -T4 -F --open --script=banner 192.168.0.0/24
 ```
 
-__Crackmapexec the LAN:__
+__Crackmapexec the LAN__
 
 ```
 cme smb 192.168.0.0/24
 ```
 
-__Find Window shares on the LAN:__
+__Find Window shares on the LAN__
 
 ```
 nbtscan 192.168.0.0/24

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Segfault / WireGuard / Tricks
+title: Segfault / WireGuard Tricks
 description: Segfault WireGuard Reverse Connection tricks.
 ---
 
