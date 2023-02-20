@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Segfault / Frequenty Asked Questions
+title: Segfault / FAQ
 description: Frequenty asked questions related to Segfault.
 ---
 
