@@ -4,8 +4,6 @@ title: Segfault
 description: Disposable Root Servers.
 ---
 
-<!-- <div style="text-align:center"><h1>{{ page.title }}</h1></div> -->
-
 <!-- <div style="width:80%; margin:auto">
 </div> -->
 

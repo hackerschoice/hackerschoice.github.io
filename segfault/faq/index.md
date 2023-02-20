@@ -1,12 +1,13 @@
 ---
 layout: default
-title: segfault - FAQ
+title: Segfault / Frequenty Asked Questions
+description: Frequenty asked questions related to Segfault.
 ---
 
-<div style="text-align:center"><h1>Frequenty Asked Questions</h1></div>
+<!-- <div style="text-align:center"><h1>Frequenty Asked Questions</h1></div> -->
 
-<div style="width:80%; margin:auto">
-</div>
+<!-- <div style="width:80%; margin:auto">
+</div> -->
 
 1. **My Question is not answered here**  
    Join our [Telegram channel](https://t.me/thcorg) and ask your question. We will try to answer.
@@ -28,6 +29,7 @@ title: segfault - FAQ
 
 1. **How can I publish my Web Page**  
    The Web Page is automatically generated using [Pelican](https://www.getpelican.com) and the awesome Markdown syntax. All you need to do is edit the files in `/sec/www/content` and then execute:
+
    ```shell
    cd /sec/www && make html
    ```
@@ -37,17 +39,19 @@ title: segfault - FAQ
 
 1. **How do I log back in to my server**  
    On log out you will see a *command* that allows to you to log back in to your server. It contains a `SECRET` and it is this `SECRET` that allows you access your server. The log out screen may look like this:
+
    ```
-Access with      : ssh -o "SetEnv SECRET=XXX..." root@de.segfault.net
-GOODBYE          : Join us on Telegram - https://t.me/thcorg 
-```
+   Access with      : ssh -o "SetEnv SECRET=XXX..." root@de.segfault.net
+   GOODBYE          : Join us on Telegram - https://t.me/thcorg 
+   ```
+
    Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you.
 
 1. **When does it self-destruct**  
    Immediately on log out or when you type `halt`. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). Type `rm -rf /sec && halt` if you also want to destroy your encrypted data.
 
 1. **How long will the server run**  
-   Forever if you stay logged in (active session) or log in at least once every 7 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits to not apply for [paying users](../buy-an-upgrade/). 
+   Forever if you stay logged in (active session) or log in at least once every 7 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits to not apply for [paying users](../buy-an-upgrade/).
 
 1. **Why are my changes lost?**<a id="lost"></a>  
    Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pip install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
@@ -59,34 +63,41 @@ GOODBYE          : Join us on Telegram - https://t.me/thcorg
    The server comes with around 8GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanently).
 
 1. **Log in without password**  
-Save this SSH key to `~/.ssh/id_sf`. 
-```
------BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-QyNTUxOQAAACB3jmp/3JyvY9ABgjrx4+sBnQ0T+yHsB4HTBMcJqC2OtgAAAIiJ9mzOifZs
-zgAAAAtzc2gtZWQyNTUxOQAAACB3jmp/3JyvY9ABgjrx4+sBnQ0T+yHsB4HTBMcJqC2Otg
-AAAEAs6YNqZSzAfZDl5/vDOB0vv7EZMxMUc/fEipuZ9A3eCHeOan/cnK9j0AGCOvHj6wGd
-DRP7IewHgdMExwmoLY62AAAAAAECAwQF
------END OPENSSH PRIVATE KEY-----
-```
-The same key is also available at _/config/guest/id_ed25519_. Thereafter use this command to log in:
-```shell
-ssh -i ~/.ssh/id_sf root@segfault.net
-```
+   Save this SSH key to `~/.ssh/id_sf`.
+
+   ```
+   -----BEGIN OPENSSH PRIVATE KEY-----
+   b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+   QyNTUxOQAAACB3jmp/3JyvY9ABgjrx4+sBnQ0T+yHsB4HTBMcJqC2OtgAAAIiJ9mzOifZs
+   zgAAAAtzc2gtZWQyNTUxOQAAACB3jmp/3JyvY9ABgjrx4+sBnQ0T+yHsB4HTBMcJqC2Otg
+   AAAEAs6YNqZSzAfZDl5/vDOB0vv7EZMxMUc/fEipuZ9A3eCHeOan/cnK9j0AGCOvHj6wGd
+   DRP7IewHgdMExwmoLY62AAAAAAECAwQF
+   -----END OPENSSH PRIVATE KEY-----
+   ```
+
+   The same key is also available at _/config/guest/id_ed25519_. Thereafter use this command to log in:
+
+   ```shell
+   ssh -i ~/.ssh/id_sf root@segfault.net
+   ```
 
 1. **How do I use reverse Port Forwarding**<a id="fwd"></a>  
    Your server runs on a private IP space. You can connect out (to the Internet) but nobody can connect to back to your server. However, every server is assigned **one** PORT on a public IP Address that is forwarded to your server. It's a different IP & PORT for every server. During log in you will see a message that looks like this (example):
+
    ```
-[...]
-Reverse Port      : 185.117.118.23:1234
-[...]
-```
+   [...]
+   Reverse Port      : 185.117.118.23:1234
+   [...]
+   ```
+
    That's your personal IP & PORT for reverse connections. Any connection to 185.117.118.23 on Port 1234 is forwarded to your server on port 1234. You can listen for the connection like so:
-```
+
+   ```
    nc -vnlp 1234
    # If this is for a connect-back shell then you likely like to press
    # Ctrl-Z after connection and type 'stty raw -echo opost; fg'
-```
+   ```
+
    (The IP & PORT are an example. You need to read the log in message when you log in to find out your IP and PORT).
 
 1. **How to SSH -L forward**  
@@ -101,8 +112,6 @@ Reverse Port      : 185.117.118.23:1234
    socat TCP4-LISTEN:53052 TCP4:172.22.0.22:31337
    ```
 
-
-
-### Contact
+## Contact
 
 {% include contact-details.md %}

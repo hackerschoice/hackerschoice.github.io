@@ -1,11 +1,12 @@
 ---
 layout: default
-title: segfault - Disclaimer
+title: Segfault / Disclaimer
+description: Segfault usage disclaimer.
 ---
 
 <div style="text-align:center"><h1>This is a FREE service</h1></div>
 
-We run this service free of charge - it's how we like it to be. You have been using our service for a while now. We are no company. We do this in our own spare time. 
+We run this service free of charge - it's how we like it to be. You have been using our service for a while now. We are no company. We do this in our own spare time.
 
 If you like this service then please show your gratitude by joining our [Telegram channel](https://t.me/thcorg) and participate in our discussions. Share your ideas, your comments and your concerns. Tinker with us.
 
@@ -17,7 +18,6 @@ Consider to [upgrade your server](../buy-an-upgrade) and get some neat benefits.
 
 If you can not pay for an upgrade then [talk to us](https://t.me/thcorg) and there is a good chance that we will remove all restrictions from your server; especially if we like what you are doing.
 
-
-### Contact
+## Contact
 
 {% include contact-details.md %}

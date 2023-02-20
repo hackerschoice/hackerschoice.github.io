@@ -1,31 +1,34 @@
 ---
 layout: default
-title: segfault - FAQ - WinSCP
+title: Segfault / FAQ / WinSCP
+description: WinSCP Guide For File Sharing on Segfault.
 ---
 
-<div style="text-align:center"><h1>WinSCP Guide For File Sharing</h1></div>
+<!-- <div style="text-align:center"><h1>WinSCP Guide For File Sharing</h1></div> -->
 
-<div style="width:80%; margin:auto">
-</div>
-You first have to download winSCP. Get it [here](https://winscp.net/eng/downloads.php)
+<!-- <div style="width:80%; margin:auto">
+</div> -->
+
+You first have to download winSCP. Get it [here](https://winscp.net/eng/downloads.php).
 
 Follow through with the install process after downloading.
- 
- 
-Connect to the segfault server for the first time via ssh. The command goes `ssh root@segfault.net`. Keep this open, we will need some info from the top of the screen. 
 
-###### Each new connection without a secret key will create a new instance with new sets of files. By doing the `SetEnv SECRET=xxyyzz` part, we are ensuring that we log back into the old instance
+Connect to the segfault server for the first time via ssh. The command goes `ssh root@segfault.net`. Keep this open, we will need some info from the top of the screen.
 
-###### If you have this set up already but want to access a different server, simply click on new site, and follow the setup again, except call it id_sf-sg-segfault-net-2 or something. Just add the right files and it will work. 
- 
+> Each new connection without a secret key will create a new instance with new sets of files. By doing the `SetEnv SECRET=xxyyzz` part, we are ensuring that we log back into the old instance
+>
+> If you have this set up already but want to access a different server, simply click on new site, and follow the setup again, except call it id_sf-sg-segfault-net-2 or something. Just add the right files and it will work.
+
 To configure winSCP to connect to segfault, press control+N to get to the window in screenshot.
 
 ![image](https://user-images.githubusercontent.com/84176052/196766269-3a872dc3-040c-4090-9259-539be97d0700.png)
 
 Run the below code in the server instance:
+
 ```
 echo $SF_FQDN
 ```
+
 Change tabs to the winSCP screen, and enter the result of the code above as hostname. For me it came out to sg.segfault.net, and that is what I have entered in the hostname tab.
 
 Username is `root` and password is `segfault`. Save this for now, we’ll come back to this later.
@@ -34,16 +37,16 @@ When you ssh in for the first time, you will see some code like instructions at 
 
 ![image](https://user-images.githubusercontent.com/84176052/196767165-98b738d1-0d7e-4ca4-b186-a36076473d66.png)
 
+<div style="text-align:center"><h2>No part of this or this guide is optional, skipping/modifying carelessly causes problems.</h2></div>
 
+<!-- > Make these files anywhere, we will be copying both of them to `C:\Users\(yourusername)\.ssh` -->
 
-## No part of this or this guide is optional, skipping/modifying carelessly causes problems.
+## Part 1.
 
+For the first file, make a new file, called id_sf-de-segfault-net(name is important).
 
-###### Make these files anywhere, we will be copying both of them to `C:\Users\(yourusername)\.ssh`
-
-
-Part 1. For the first file, make a new file, called id_sf-de-segfault-net(name is important).
 The contents should look similar to this(**do not copy/paste, it will not work!**):
+
 ```
 -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
@@ -53,13 +56,18 @@ AAAEAs6YNqZSzAfZDl5/vDOB0vv7EZMxMUc/fEipuZ9A3eCHeOan/cnK9j0AGCOvHj6wGd
 DRP7IewHgdMExwmoLY62AAAAAAECAwQF
 -----END OPENSSH PRIVATE KEY-----
 ```
-###### Make these files anywhere, we will be copying both of them to `C:\Users\(yourusername)\.ssh`
+
+> Make these files anywhere, we will be copying both of them to `C:\Users\(yourusername)\.ssh`
 
 
 For the second file, it’s largely the same.
 
-Part 2. Create a file called config, and inside that, put the code from your server’s login screen, shown in (of the picture above)
-The contents should look similar to this(do not copy/paste, it will not work!):
+## Part 2.
+
+Create a file called config, and inside that, put the code from your server’s login screen, shown in (of the picture above)
+
+The contents should look similar to this (do not copy/paste, it will not work!):
+
 ```
 host conductmesh
     User root
@@ -67,12 +75,14 @@ host conductmesh
     IdentityFile ~/.ssh/id_sf-sg-segfault-net
     SetEnv SECRET=xxyyzz
 ```
-###### The .ssh folder below might not appear if you do not have hidden files checked. Do that, or alternatively, swap out (yourusername) with, you guessed it, your windows username, and put that in the file explorer’s address bar.
 
+> The .ssh folder below might not appear if you do not have hidden files checked. Do that, or alternatively, swap out (yourusername) with, you guessed it, your windows username, and put that in the file explorer’s address bar.
+>
 >The keen eyed among you will have noticed the file created in Part 1(aka the private key) is being called by the file we are naming config as IdentityFile
- 
 
-Finally, put the above made files(_id_sf-de-segfault-net_ and _config_) in `C:\Users\(yourusername)\.ssh` folder.
+## Finally
+
+Put the above made files(_id_sf-de-segfault-net_ and _config_) in `C:\Users\(yourusername)\.ssh` folder.
 
 For the time being, we will go back to the *config* file we created, and there, we will copy a line of code going `SetEnv SECRET=xxyyzz`. If you do not have a clipboard manager, save this, we will need this line a while later(very important. Do not modify the line either.)
 
@@ -102,8 +112,7 @@ You have to select all files(filetype) according to the pictures.
 
 Now select the *id_sf-sg-segfault-net* file that we just created at the beginning.
 
-###### It will show an error that the openSSH format is not supported, and instead helpfully converts it to PuTTY format. Click on ok, that is desired.
-
+> It will show an error that the openSSH format is not supported, and instead helpfully converts it to PuTTY format. Click on ok, that is desired.
 
 ![image](https://user-images.githubusercontent.com/84176052/196769026-795cbf5d-3b4b-4080-bf55-279259f1b5bf.png)
 
@@ -122,7 +131,7 @@ And then select the fun little button that opens up explorer from before again!
 ![image](https://user-images.githubusercontent.com/84176052/196769192-07fd3493-7bc9-4c4e-9226-d6ec00520f99.png)
 
 Click on the open button, and everything should sort itself out. Click on Ok now.
- 
+
 ![image](https://user-images.githubusercontent.com/84176052/196769247-44ae4cd3-06dd-45cb-a741-df330d25cec0.png)
 
 Finally, click save, and then login.
@@ -137,7 +146,6 @@ You should see this if all went well.
 
 ![image](https://user-images.githubusercontent.com/84176052/196769642-213ccd47-5d55-4290-bdf4-d51e65e5486c.png)
 
-
-### Contact
+## Contact
 
 {% include contact-details.md %}
