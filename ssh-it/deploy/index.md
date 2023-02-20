@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SSH-IT | Deploy
+title: SSH-IT / Deployment
 description: Autonomous SSH worm deployment guide.
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: The Berserker | How it works
+title: The Berserker / How it works
 description: Technical details about how The Berserker works.
 ---
 

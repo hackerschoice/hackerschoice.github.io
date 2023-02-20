@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SSH-IT | How it works
+title: SSH-IT / How it works
 description: Technical details about how SSH-IT works.
 ---
 
