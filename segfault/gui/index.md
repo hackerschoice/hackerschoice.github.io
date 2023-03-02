@@ -18,20 +18,23 @@ description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favou
 
 ---
 
-<div style="text-align:center"><h2>BETA TESTING. ONLY WORKS ON beta.segfault.net.</h2></div>
-
----
-
-<!-- {:refdef: style="text-align: center;"}
-# THIS IS BETA TESTING. IT ONLY WORKS ON:
-# beta.segfault.net
-{: refdef} -->
+Connect to your shell:
 
 ```shell
-ssh root@beta.segfault.net # Password is 'segfault'
+ssh -L2000:0:2000 -L5900:0:5900 root@teso.segfault.net # Password is 'segfault'
 ```
 
 <div style="text-align:center"><p>There are a few ways to access a GUI.</p></div>
+
+## GUI via Web
+
+Log in to your [root server](../) and type:
+
+```shell
+startxweb
+```
+
+Thereafter use your Web Browser and go to [http://127.0.0.1:2000](http://127.0.0.1:2000).
 
 ## GUI via VNC
 
@@ -43,15 +46,13 @@ startvnc
 
 Thereafter use your favourite VNC Client and connect to `127.0.0.1:5900`.
 
-## GUI via Web
-
-Log in to your [root server](../) and type:
+## GUI via TigerVNC
 
 ```shell
-startxweb
+vncserver -SecurityTypes None :0
 ```
 
-Thereafter use your Web Browser and go to [http://127.0.0.1:2000](http://127.0.0.1:2000).
+Thereafter use your favourite VNC client and connect to `127.0.0.1:5900`.
 
 ## GUI via XPRA
 
@@ -66,7 +67,7 @@ xpra start ssh://root@FluffyBunny/ --start-child=xterm-dark
 Or start Firefox on a fresh new disposable [root server](../) (which will self-destruct when Firefox stops):
 
 ```shell
-xpra start ssh://root@beta.segfault.net/ --start-child=firefox --ssh=ssh --ssh-upgrade=no
+xpra start ssh://root@teso.segfault.net/ --start-child=firefox --ssh=ssh --ssh-upgrade=no
 ```
 
 ## IT'S BUGGERED
