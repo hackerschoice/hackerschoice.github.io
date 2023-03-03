@@ -41,7 +41,7 @@ Thereafter use your Web Browser and go to [http://127.0.0.1:2000](http://127.0.0
 Log in to your [root server](../) and type:
 
 ```shell
-startvnc
+startxvnc
 ```
 
 Thereafter use your favourite VNC Client and connect to `127.0.0.1:5900`.
