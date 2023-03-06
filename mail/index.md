@@ -10,7 +10,7 @@ This projects allows users to set up an email forward from `<yourname>@segfault.
 
 ## Setup
 
-This will forward any email to `foobar@segfault.net` to `hackbart@tuto.io`:
+This will forward any email to `foobar@segfault.net` to `hackbart@tuta.io`:
 
 ```shell
 curl 'https://mail.thc.org/register?name=foobar&to=hackbart@tuta.io'
