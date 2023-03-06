@@ -1,16 +1,16 @@
 ---
 layout: default
 title: A Free Mail Forwarding Service
-description: This projects allows users to set up a free email forwarder.
+description: This project allows users to set up a free email forwarder.
 ---
 
 <!-- <div style="text-align:center"><h1>{{ page.title }}</h1></div> -->
 
-This projects allows users to set up an email forward from `<yourname>@segfault.net` to any email address of their choosing.
+This project allows users to set up an email forward from `<yourname>@segfault.net` to any email address of their choosing.
 
 ## Setup
 
-This will forward any email to `foobar@segfault.net` to `hackbart@tuto.io`:
+This will forward any email to `foobar@segfault.net` to `hackbart@tuta.io`:
 
 ```shell
 curl 'https://mail.thc.org/register?name=foobar&to=hackbart@tuta.io'
