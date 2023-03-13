@@ -18,6 +18,7 @@ description: Frequenty asked questions related to Segfault.
 1. **My processes are getting killed**  
    Read above.
 
+<a id="scan"></a>
 1. **Can I scan**  
    It is discouraged. The scan will slow to 2ports/second after the first 8,000 ports.
 
