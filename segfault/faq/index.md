@@ -100,6 +100,14 @@ description: Frequenty asked questions related to Segfault.
 
    (The IP & PORT are an example. You need to read the log in message when you log in to find out your IP and PORT or check `/config/self/reverse_*`. The IP and PORT are temporary and may change every few days.).
 
+1. **How do I run a webserver on the reverse Port Forward**<a id="web"></a>
+
+   ```shell
+   echo "Folder ${CDY}$(pwd)${CN} is now shared at ${CB}${CUL}http://$(</config/self/reverse_ip):$(</config/self/reverse_port)${CN}"
+   python -m http.server "$(</config/self/reverse_port)"
+   ```
+   (Use for temporary sharing only. The reverse port may change at any time.)
+
 ## Contact
 
 {% include contact-details.md %}
