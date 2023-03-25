@@ -61,7 +61,7 @@ Install [XPRA](https://xpra.org/) on your workstation (not server).
 Connect to your existing [root server](../) (replace `FluffyBunny` with the name of your root server):
 
 ```shell
-xpra start ssh://root@FluffyBunny/ --start-child=xterm-dark 
+xpra start ssh://root@FluffyBunny/ --start-child=xterm-dark --ssh=ssh --ssh-upgrade=no
 ```
 
 Or start Firefox on a fresh new disposable [root server](../) (which will self-destruct when Firefox stops):

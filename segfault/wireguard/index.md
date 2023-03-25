@@ -9,7 +9,7 @@ description: Setup WireGuard Reverse Connection on Segfault.
     <p>Configure your Root Server to send all traffic via another server you own</p>
 </div>
 
-<div style="text-align:center"><h2>BETA TESTING. ONLY WORKS ON beta.segfault.net.</h2></div>
+<div style="text-align:center"><h2>BETA TESTING. ONLY WORKS ON teso.segfault.net.</h2></div>
 
 ---
 

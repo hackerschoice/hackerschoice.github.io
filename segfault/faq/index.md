@@ -18,8 +18,8 @@ description: Frequenty asked questions related to Segfault.
 1. **My processes are getting killed**  
    Read above.
 
-1. **Can I scan**  
-   It is discouraged. The scan will slow to 2ports/second after the first 8,000 ports.
+1. **Can I scan**<a id=scan></a>  
+   It is discouraged. The scan will slow to 2ports/second after the first 8,000 ports. Use your [own EXIT node](../wireguard) for mass scanning.
 
 1. **I get an SSH error**  
    Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`). Alternatively you can try `SECRET=XXX ssh -o "SendEnv SECRET" root@segfault.net` (where XXX is your _SECRET_).
@@ -37,7 +37,7 @@ description: Frequenty asked questions related to Segfault.
 1. **How do I change the password**  
    You can not. The access password is always `segfault`. However, nobody can access your server using `segfault` as a password: The system generates a unique and new `SECRET` for every new log in and then uses this SECRET to set up your private virtual server (isolated from all other servers). It is this SECRET that allows only you to access *your* server. Read the next paragraph...  
 
-1. **How do I log back in to my server**  
+1. **How do I log back in to my server**<a id=reconnect></a>  
    On log out you will see a *command* that allows to you to log back in to your server. It contains a `SECRET` and it is this `SECRET` that allows you access your server. The log out screen may look like this:
 
    ```
@@ -54,7 +54,7 @@ description: Frequenty asked questions related to Segfault.
    Forever if you stay logged in (active session) or log in at least once every 7 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits to not apply for [paying users](../buy-an-upgrade/).
 
 1. **Why are my changes lost?**<a id="lost"></a>  
-   Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pip install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
+   Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pipx install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
 
 1. **What EXIT IP is used?**  
    There are 3 or more _EXIT IP_ lines shown during log in. These are the VPN providers through which your outgoing traffic is routed. Each of your outgoing connections leaves through a different EXIT (multipath routing). The VPN Exit Nodes cycle every few days.
@@ -75,7 +75,7 @@ description: Frequenty asked questions related to Segfault.
    -----END OPENSSH PRIVATE KEY-----
    ```
 
-   The same key is also available at _/config/guest/id_ed25519_. Thereafter use this command to log in:
+   The same key is also available at `/config/guest/id_ed25519`. Thereafter use this command to log in:
 
    ```shell
    ssh -i ~/.ssh/id_sf root@segfault.net
@@ -98,19 +98,15 @@ description: Frequenty asked questions related to Segfault.
    # Ctrl-Z after connection and type 'stty raw -echo opost; fg'
    ```
 
-   (The IP & PORT are an example. You need to read the log in message when you log in to find out your IP and PORT).
+   (The IP & PORT are an example. You need to read the log in message when you log in to find out your IP and PORT or check `/config/self/reverse_*`. The IP and PORT are temporary and may change every few days.).
 
-1. **How to SSH -L forward**  
-   You should be using `ssh -D1080 root@segfault.net` but if you insist on `ssh -L` style then be aware that you need to specify your server's ip (e.g 10.11.0.xxx) and not 127.0.0.1 to reach your server.
+1. **How do I run a webserver on the reverse Port Forward**<a id="web"></a>
 
-1. **How to SSH -R forward**  
-   This example forwards a reverse port directly to your workstation. The reverse IP and PORT is shown during log-in. As an example we assume the reverse port is 53052 and set up a forward to your workstation (127.0.0.1) on port 31338:
-   
+   ```shell
+   echo "Folder ${CDY}$(pwd)${CN} is now shared at ${CB}${CUL}http://$(</config/self/reverse_ip):$(</config/self/reverse_port)${CN}"
+   python -m http.server "$(</config/self/reverse_port)"
    ```
-   ssh -R31337:127.0.0.1:31338 root@segfault.net
-   # After login execute:
-   socat TCP4-LISTEN:53052 TCP4:172.22.0.22:31337
-   ```
+   (Use for temporary sharing only. The reverse port may change at any time.)
 
 ## Contact
 

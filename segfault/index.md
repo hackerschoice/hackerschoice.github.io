@@ -68,6 +68,12 @@ or:
 cd /sec/www && make html
 ```
 
+**Start Firefox or a Remote Desktop X11/GUI:**
+
+```shell
+startxvnc
+```
+
 **Work the DarkNet:**
 
 ```shell
