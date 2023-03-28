@@ -9,15 +9,17 @@ description: Setup WireGuard Reverse Connection on Segfault.
     <p>Configure your Root Server to send all traffic via another server you own</p>
 </div>
 
-<div style="text-align:center"><h2>BETA TESTING. ONLY WORKS ON teso.segfault.net.</h2></div>
-
 ---
+Typical use cases:
+1. You like to connect from your [Root Server](../) to workstations on a remote private LAN (e.g. with nmap, metasploit, smbscan, ...).
+1. You like to mass-scan from your [Root Server](../).
+1. You like all your traffic from your [Root Server](../) to appear as if originating from your *Exit Node* (any server you own).
 
-A typical use case is where you like to connect to workstations on a remote private LAN (e.g. with nmap, metasploit, smbscan, ...). A network interface will (magically) appear on your [Root Server](../) and that interface is *virtually* located inside the remote private LAN.
+A network interface will (magically) appear on your [Root Server](../): That interface is *virtually* located inside the remote private LAN.
 
-Another often used scenario is to reach the Internet via the remote private LAN (*Exit Node*). All your traffic will appear as if originating from the *Exit Node*. This is particularly useful for mass-scanning.
+The *Exit Node* can be behind a firewalled NAT gateway (it uses a reverse connection). The *Exit Node* can be Linux, Windows or OSX and no superuser privileges are needed.
 
-The setup uses a *reverse connection* and the *Exit Node* can be behind a firewalled NAT gateway. The *Exit Node* can be Linux, Windows or OSX and no superuser privileges are needed.
+No Interface will apear on the *Exit Node*.
 
 ---
 
@@ -41,7 +43,7 @@ The Exit Node is any host (Linux, Windows, OSX) you have access to and which net
 
 Use either Wiretap or WireGuard.
 
-1. __Wiretap:__ Install the pre-compiled single [Wiretap binary](https://github.com/sandialabs/wiretap/releases/tag/v0.1.0) for Linux, Windows or OSX. Execute the Wiretap command as shown in the output from your *curl rpc/net/up* command in Step #1.
+1. __Wiretap:__ Install the pre-compiled single [Wiretap binary](https://github.com/sandialabs/wiretap/releases/) for Linux, Windows or OSX. Execute the Wiretap command as shown in the output from your *curl rpc/net/up* command in Step #1.
 1. __WireGuard:__ Install & configure [WireGuard](https://www.wireguard.com/). Use the configuration as shown in the output from your *curl rpc/net/up* command in Step #1.
 
 On your [Root Server](../) check the connection:
