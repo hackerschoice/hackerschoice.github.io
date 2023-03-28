@@ -11,11 +11,12 @@ description: Setup WireGuard Reverse Connection on Segfault.
 
 ---
 Typical use cases:
-1. You like to connect from your [Root Server](../) to workstations on a remote private LAN (e.g. with nmap, metasploit, smbscan, ...).
+1. You have access to a server (*Exit Node*) and like all traffic from your [Root Server](../) to be routed via your *Exit Node*.
+1. You like to connect from your [Root Server](../) to workstations on a remote firewalled/private LAN (e.g. with nmap, metasploit, smbscan, ...).
 1. You like to mass-scan from your [Root Server](../).
 1. You like all your traffic from your [Root Server](../) to appear as if originating from your *Exit Node* (a server you own).
 
-A new network interface will (magically) appear on your [Root Server](../): That interface is *virtually* connected to the *Exit Node* and all traffic via that interface will leave via the *Exit Node*.
+A new network interface will (magically) appear on your [Root Server](../): That interface is *virtually* connected to the *Exit Node*. All traffic via that interface will leave via the *Exit Node*.
 
 The *Exit Node* can be behind a firewalled NAT gateway (it uses a reverse connection). The *Exit Node* can be Linux, Windows or OSX and no superuser privileges are needed.
 
