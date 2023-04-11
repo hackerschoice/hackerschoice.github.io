@@ -22,7 +22,7 @@ description: Frequenty asked questions related to Segfault.
    It is discouraged. The scan will slow to 2ports/second after the first 8,000 ports. Use your [own EXIT node](../wireguard) for mass scanning.
 
 1. **Can I do stupid things**<a id=stupid></a>  
-   No. You can not crypto mine or use segfault to do stupid things. This is not a warez trading platform either.
+   No. You can not mine crypto or use segfault to do stupid things. This is not a warez trading platform either.
 
 1. **I get an SSH error**  
    Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`). Alternatively you can try `SECRET=XXX ssh -o "SendEnv SECRET" root@segfault.net` (where XXX is your _SECRET_).
