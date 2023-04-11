@@ -72,7 +72,7 @@ xpra start ssh://root@teso.segfault.net/ --start-child=firefox --ssh=ssh --ssh-u
 
 ## IT'S BUGGERED
 
-Some applications may not work. Chances are that your server does not have enough memory. Be a __badass__ and [buy an upgrade](../buy-an-upgrade) to make all applications work flawlessly.
+Some applications may not work. Chances are that your server does not have enough memory. Be a __badass__ and [upgrade your server](../upgrade) to make all applications work flawlessly.
 
 ## Contact
 
