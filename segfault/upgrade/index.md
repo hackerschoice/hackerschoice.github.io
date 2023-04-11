@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Segfault / Buy or Donate
+title: Segfault / Donate
 description: Segfault service donation guide.
 ---
 
-<div style="text-align:center"><h1>Buy an Upgrade or Donate</h1></div>
+<div style="text-align:center"><h1>Upgrade your server</h1></div>
 
 We run this [service for free](../youcheapfuck). Cool people working on great projects get a free upgrade. [Donations](../youcheapfuck) are welcome as well.
 
