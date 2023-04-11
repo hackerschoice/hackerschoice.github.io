@@ -16,7 +16,7 @@ The free servers have restrictions in place. The storage, memory, processing pow
 
 Consider to [upgrade your server](../buy-an-upgrade) and get some neat benefits.
 
-If you can not pay for an upgrade then [talk to us](https://t.me/thcorg) and there is a good chance that we will remove all restrictions from your server; especially if we like what you are doing.
+[Talk to us](https://t.me/thcorg) and there is a good chance that we will remove all restrictions from your server; especially if we like what you are working on.
 
 ## Contact
 

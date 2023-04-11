@@ -6,9 +6,9 @@ description: Segfault service donation guide.
 
 <div style="text-align:center"><h1>Buy an Upgrade or Donate</h1></div>
 
-We run this [service for free](../youcheapfuck). You can buy an upgrade or donate and in some cases [you must pay](../youcheapfuck).
+We run this [service for free](../youcheapfuck). Cool people working on great projects get a free upgrade. [Donations](../youcheapfuck) are welcome as well.
 
-Paying users get exclusive benefits:
+Cool people get exclusive benefits:
 
 * Unlimited bandwidth
 * Unlimited processing power
@@ -16,7 +16,7 @@ Paying users get exclusive benefits:
 * Faster HDD access
 * Unlimited storage
 
-After you have paid please talk to us on our [Telegram channel](https://t.me/thcorg) and send us the output of this command:
+To upgrade talk to us on our [Telegram channel](https://t.me/thcorg) and send us the output of this command:
 
 ```shell
 echo "$SF_HOSTNAME $SF_LID $SF_FQDN"
@@ -30,7 +30,7 @@ Anyone donating more than $1,000 will also get a GOLDEN SHELL PROMPT.
 ![golden prompt](golden-prompt.png){:height="80%" width="80%"}
 {: refdef}
 
-We can issue a VAT Invoice from a real company to keep your accountant happy. We accept [bank transfers](https://t.me/thcorg) but the easiest way is to pay directly into our BitCoin or Ethereum account:
+We can issue a VAT Invoice from a real company to keep your accountant happy. We accept [bank transfers](https://t.me/thcorg) or crypto:
 
 ```
 BTC bc1qdp6mdje5f9x8ar8jg3uv425d4r2v5cmdygkknz
