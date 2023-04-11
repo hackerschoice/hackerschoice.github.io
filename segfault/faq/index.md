@@ -21,6 +21,9 @@ description: Frequenty asked questions related to Segfault.
 1. **Can I scan**<a id=scan></a>  
    It is discouraged. The scan will slow to 2ports/second after the first 8,000 ports. Use your [own EXIT node](../wireguard) for mass scanning.
 
+1. **Can I do stupid things**<a id=stupid></a>  
+   No. You can not crypto mine or use segfault to do stupid things. This is not a warez trading platform either.
+
 1. **I get an SSH error**  
    Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`). Alternatively you can try `SECRET=XXX ssh -o "SendEnv SECRET" root@segfault.net` (where XXX is your _SECRET_).
 
@@ -80,6 +83,22 @@ description: Frequenty asked questions related to Segfault.
    ```shell
    ssh -i ~/.ssh/id_sf root@segfault.net
    ```
+
+1. **SSH ProxyJump and -N are not working**<a id="proxy"></a>  
+   There is a workaround. Log in to your root server with `ssh -D1080 ...`. Keep this shell open and alive. Then (from a different terminal on your workstation) execute:
+   
+   ```
+   ssh -o ProxyCommand='socat - "SOCKS5:%h:%p|tcp:0:1080"' user@remotehost.foo
+   ```
+
+   or make an entry for 'user@remotehost.foo' in your ~/.ssh/config file:
+   ```
+   Host remotehost
+      hostname remotehost.foo
+      ProxyCommand socat - "SOCKS5:%h:%p|tcp:0:1080"
+   ```
+   and use `ssh user@remotehost` to log in.
+
 
 1. **How do I use reverse Port Forwarding**<a id="fwd"></a>  
    Your server runs on a private IP space. You can connect out (to the Internet) but nobody can connect to back to your server. However, every server is assigned **one** PORT on a public IP Address that is forwarded to your server. It's a different IP & PORT for every server. During log in you will see a message that looks like this (example):
