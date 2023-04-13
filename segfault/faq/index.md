@@ -88,14 +88,14 @@ description: Frequenty asked questions related to Segfault.
    There is a workaround. Log in to your root server with `ssh -D1080 ...`. Keep this shell open and alive. Then (from a different terminal on your workstation) execute:
    
    ```
-   ssh -o ProxyCommand='socat - "SOCKS5:%h:%p|tcp:0:1080"' user@remotehost.foo
+   ssh -o ProxyCommand='socat - "SOCKS4A:%h:%p|tcp:0:1080"' user@remotehost.foo
    ```
 
    or make an entry for 'user@remotehost.foo' in your ~/.ssh/config file:
    ```
    Host remotehost
       hostname remotehost.foo
-      ProxyCommand socat - "SOCKS5:%h:%p|tcp:0:1080"
+      ProxyCommand socat - "SOCKS4A:%h:%p|tcp:0:1080"
    ```
    and use `ssh user@remotehost` to log in.
 
