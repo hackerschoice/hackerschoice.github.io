@@ -42,20 +42,20 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 2004 - Various Microsoft ISS remote exploits
 2003 - Amap, world’s first application protocol scanner
 2002 - Linux Kernel-level key logger
-2000 - Hydra, world’s first parallelised network logon cracker
+2000 - Hydra, world’s first parallelized network logon cracker
 1999 - First Solaris Kernel Module Root Kit
 1998 - Reverse WWW shell as seen on Mr. Robot/TV
 1995 - Various phreaking tools and a credit card generator for DOS and Win95
 1994 - <redacted>
 ```
 
-Beside our public work we engage with some leading IT Security companies to push security into the right and meaningful direction. We have been editor in chief of the phrack magazine and occasionally we speak at conferences. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organisations. We are a major donor to the [EFF](https://www.eff.org).
+Beside our public work we engage with some leading IT Security companies to push security into the right and meaningful direction. We have been editor in chief of the Phrack Magazine and occasionally we speak at conferences. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organizations. We are a major donor to the [EFF](https://www.eff.org).
 
 The best way to meet us is at one of the IETF meetings or a hacker convention such as HITB or the CCC Congress.
 
 Since 1995, three of our members got arrested (0 convicted), one got raided, two received visits by the BKA (Germany's FBI) and BND (Germany's NSA) and one got blackmailed by the British GCHQ. Yet the very same organizations listen when we speak at conferences. And use our tools. We see ourselves as artists. We believe in Freedom, Diversity, Privacy, Security and rights for the citizens.
 
-*(We are not anti-government. We are anti-stupdity. Unfortuntley there seems to be considerable overlap.)*
+*(We are not anti-government. We are anti-stupidity. Unfortunately there seems to be considerable overlap.)*
 
 
 ## Contact

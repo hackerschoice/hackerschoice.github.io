@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Segfault / FAQ
-description: Frequenty asked questions related to Segfault.
+description: Frequently asked questions related to Segfault.
 ---
 
-<!-- <div style="text-align:center"><h1>Frequenty Asked Questions</h1></div> -->
+<!-- <div style="text-align:center"><h1>Frequently Asked Questions</h1></div> -->
 
 <!-- <div style="width:80%; margin:auto">
 </div> -->

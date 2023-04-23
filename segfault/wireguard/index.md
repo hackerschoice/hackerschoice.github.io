@@ -20,7 +20,7 @@ A new network interface will (magically) appear on your [Root Server](../): That
 
 The *Exit Node* can be behind a firewalled NAT gateway (it uses a reverse connection). The *Exit Node* can be Linux, Windows or OSX and no superuser privileges are needed.
 
-No Interface will apear on the *Exit Node*.
+No Interface will appear on the *Exit Node*.
 
 ---
 
