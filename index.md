@@ -12,7 +12,7 @@ We do IT security work. We are not for hire. All of our work is for the public.
 
 We research and publish tools and academic papers to expose fishy IT security that just isn’t secure.  We also develop and publish tools to help the IT Security movement.
 
-## Active Projects (2022)
+## Active Projects
 
 - [Disposable Root Servers](https://www.thc.org/segfault)
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
