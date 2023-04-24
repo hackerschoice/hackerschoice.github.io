@@ -45,8 +45,9 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 2000 - Hydra, world’s first parallelized network logon cracker
 1999 - First Solaris Kernel Module Root Kit
 1998 - Reverse WWW shell as seen on Mr. Robot/TV
-1995 - Various phreaking tools and a credit card generator for DOS and Win95
-1994 - <redacted>
+1995 - Plasmoid's Stack Overflow Paper and Exploit for Linux/BSD/SunOS/HP-UX
+1994 - Various phreaking tools and a credit card generator for DOS and Win95
+1993 - <redacted>
 ```
 
 Beside our public work we engage with some leading IT Security companies to push security into the right and meaningful direction. We have been editor in chief of the Phrack Magazine and occasionally we speak at conferences. We have contributed to various Internet Standards through our engagement with the Internet Engineering Task Force and other organizations. We are a major donor to the [EFF](https://www.eff.org).
