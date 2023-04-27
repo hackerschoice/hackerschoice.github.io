@@ -129,6 +129,14 @@ description: Frequently asked questions related to Segfault.
    ```
    (Use for temporary sharing only. The reverse port may change at any time.)
 
+1. **How do I run a webserver on a permanent reverse Tunnel**
+
+   ```shell
+   setsid python -m http.server 8080 &>/dev/null
+   cloudflared tunnel --url http://localhost:8080 --no-autoupdate
+   ```
+   Your HTTPS URL will be shown to you (it looks like `https://blah-foo-one-two.trycloudflare.com`). Optionally start the tunnel inside `tmux` so that the tunnel stays connected after you exit your SSH session. [Keep reading...](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet/blob/master/README.md#https)
+
 ## Contact
 
 {% include contact-details.md %}
