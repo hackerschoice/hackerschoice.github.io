@@ -103,7 +103,7 @@ description: Frequently asked questions related to Segfault.
 
 
 1. **How do I use reverse Port Forwarding**<a id="fwd"></a>  
-   Your server runs on a private IP space. You can connect out (to the Internet) but nobody can connect to back to your server. However, every server is assigned **one** PORT on a public IP Address that is forwarded to your server. It's a different IP & PORT for every server. During log in you will see a message that looks like this (example):
+   Your server runs on a private IP space. You can connect out (to the Internet) but nobody can connect back to your server. However, your server is assigned **one** PORT on a public IP address (for reverse back connections). The IP & PORT are unique to your server. During log in you will see a message that looks like this (example):
 
    ```
    [...]
