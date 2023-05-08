@@ -44,7 +44,7 @@ The Exit Node is any host (Linux, Windows, OSX) you have access to and which net
 
 Use either Wiretap or WireGuard.
 
-1. __Wiretap:__ Install the pre-compiled single [Wiretap binary](https://github.com/sandialabs/wiretap/releases/) for Linux, Windows or OSX. Execute the Wiretap command as shown in the output from your *curl http://rpc/net/up* command in Step #1.
+1. __Wiretap:__ Install the pre-compiled single [Wiretap binary](https://github.com/sandialabs/wiretap/releases/tag/v0.2.1) for Linux, Windows or OSX. Execute the Wiretap command as shown in the output from your *curl http://rpc/net/up* command in Step #1.
 1. __WireGuard:__ Install & configure [WireGuard](https://www.wireguard.com/). Use the configuration as shown in the output from your *curl http://rpc/net/up* command in Step #1.
 
 On your [Root Server](../) check the connection:

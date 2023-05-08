@@ -27,7 +27,7 @@ setsid kqueue server --private ...
 
 ## Deploy Wiretap first
 
-It is possible to install [Wiretap](https://github.com/sandialabs/wiretap) on many many servers and only activate the Interface on your [Root Server](../) if and when needed. The Root Server does not need to know about the Wiretap installations until you like to access the remote private LAN from your [Root Server](../).
+It is possible to install [Wiretap](https://github.com/sandialabs/wiretap/releases/tag/v0.2.1) on many many servers and only activate the Interface on your [Root Server](../) if and when needed. The Root Server does not need to know about the Wiretap installations until you like to access the remote private LAN from your [Root Server](../).
 
 A deployed Wiretap will connect back to your [Root Server](../) indefinitely and until it is uninstalled from the remote private LAN.
 
