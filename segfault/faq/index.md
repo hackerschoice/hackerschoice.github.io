@@ -65,7 +65,7 @@ description: Frequently asked questions related to Segfault.
 1. **Is there a list of tools**  
    The server comes with around 8GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanently).
 
-1. **Log in without password**  
+1. **Log in without password**<a id=autologin></a>   
    Save this SSH key to `~/.ssh/id_sf`.
 
    ```
