@@ -25,10 +25,10 @@ description: Frequently asked questions related to Segfault.
    No. You can not mine crypto or use segfault to do stupid things. This is not a warez trading platform either.
 
 1. **I get an SSH error**  
-   Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`). Alternatively you can try `SECRET=XXX ssh -o "SendEnv SECRET" root@segfault.net` (where XXX is your _SECRET_).
+   Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`). Alternatively you can try `SECRET=XXX ssh -o "SendEnv SECRET" root@segfault.net` (where XXX is your _SECRET_) or ssh to `secret@segfault.net`.
 
 1. **How can I install services or daemons**  
-   Take a look at `/sec/usr/etc/rc.local`. This file is executed on bootup. There is no systemctl.
+   Take a look at `/sec/usr/etc/rc.local`. This file is executed on bootup. There is no systemd/systemctl.
 
 1. **How can I publish my Web Page**  
    The Web Page is automatically generated using [Pelican](https://www.getpelican.com) and the awesome Markdown syntax. All you need to do is edit the files in `/sec/www/content` and then execute:
@@ -78,10 +78,23 @@ description: Frequently asked questions related to Segfault.
    -----END OPENSSH PRIVATE KEY-----
    ```
 
-   The same key is also available at `/config/guest/id_ed25519`. Thereafter use this command to log in:
+   The same key is also available at `/config/guest/id_ed25519`. Add these lines to your `~/.ssh/config` on your workstation (not the root server!):
+   
+   ```
+   host your-server-name
+      User root
+      HostName teso.segfault.net
+      IdentityFile ~/.ssh/id_sf
+      SetEnv SECRET=YOUR-SECRET
+   ```
+   (Replace teso.segfault.net with the correct server name (`echo $SF_FQDN`). Replace `YOUR-SECRET` with your server's secret).
+
+   Thereafter use any of these commands:
 
    ```shell
-   ssh -i ~/.ssh/id_sf root@segfault.net
+   ssh  your-server-name
+   sftp your-server-name
+   scp  your-server-name:stuff.tar.gz ~/
    ```
 
 1. **SSH ProxyJump and -N are not working**<a id="proxy"></a>  
