@@ -34,7 +34,7 @@ PEER_ADDRESS="192.168.0.2/32"
 PEER_ADDRES6="fd::2/128"
 WITH_IPV6=1
 WITH_TUNE=1
-WGDEV="sf0"
+[[ -z $WGDEV ]] && WGDEV="docker1"
 
 [[ -z $UID ]] && UID=$(id -u)
 
@@ -141,7 +141,7 @@ wg_up()
         unset WITH_IPV6
         WARN "IPv6 disabled. Try ${CDC}sysctl net.ipv6.conf.all.disable_ipv6=0${CN}"
     }
-    [[ $(sysctl -bn net.ipv4.ip_forward) -eq 0 ]] && sysctl net.ipv4.ip_forward=1
+    [[ $(sysctl -bn net.ipv4.ip_forward) -eq 0 ]] && sysctl -q -w net.ipv4.ip_forward=1
 
     ip link del "${WGDEV}" &>/dev/null
     ip link add "${WGDEV}" type wireguard || ERREXIT 255
@@ -176,9 +176,21 @@ wg_up()
 To stop type ${CDC}ip link del ${WGDEV}${CN}."
 }
 
+# Download wiretap
+wt_dl()
+{
+    local arch
+    arch=$(uname -m)
+
+    [[ $arch == aarch64 ]]
+}
+
+
 wt_up()
 {
     ERREXIT 254 "Auto install of wiretap not yet supported. "
+    command -v wiretap >/dev/null || wt_dl
+    command -v curl && {}
 }
 
 [[ -z $X ]] && {
