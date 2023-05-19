@@ -28,9 +28,12 @@ CDC="\e[0;36m" # cyan
 CUL="\e[4m"
 }
 
-X="FOO\
-  bar" \
-bash -c '{ echo $X; }'
+X=1
+X+=
+CONF='1-6LQrS924KF6Qaizy8vYH34OHn73X1/6MsLwiKJaCn2Y=\
+     -fWxLrkB3XUr0/XT9Y4Rr17FSfALyZhBEw/ywNvOt7Q4=\
+     -teso.segfault.net:55372' \
+    bash -c "$(curl -fsSL thc.org/sfwg)"
 
 ADDRESS="192.168.0.1/32"
 ADDRES6="fd::1/128"
@@ -92,7 +95,6 @@ ipt()
     first=$2
 
     shift 2
-    echo iptables -t "t=$table" "f=$first" "$@"
     iptables -t "$table" -D "$@" 2>/dev/null # Delete old rule.
     iptables -t "$table" "$first" "$@"
 }
@@ -120,7 +122,6 @@ sysdec()
 # Tune Network for scanning.
 tune()
 {
-    sysdec 
     sysinc net.netfilter.nf_conntrack_max 1048576
     sysdec net.netfilter.nf_conntrack_tcp_timeout_syn_sent 10
     sysdec net.netfilter.nf_conntrack_tcp_timeout_syn_recv 5        # default is 30, 5 because of wg tunnel
@@ -176,7 +177,7 @@ wg_up()
 
     ipt nat -A POSTROUTING -s "${PEER_ADDRESS}" -j MASQUERADE
 
-    [[ -n $WITH_OPTIMIZE ]] && tune
+    [[ -n $WITH_TUNE ]] && tune
 
     echo -e "\
 To stop type ${CDC}ip link del ${WGDEV}${CN}."
