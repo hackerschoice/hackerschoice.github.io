@@ -22,7 +22,7 @@ description: Frequently asked questions related to Segfault.
    It is discouraged. The scan will slow to 2ports/second after the first 8,000 ports. Use your [own EXIT node](../wireguard) for mass scanning.
 
 1. **Can I do stupid things**<a id=stupid></a>  
-   No. You can not mine crypto or use segfault to do stupid things. This is not a warez trading platform either.
+   No. You can not mine crypto or use segfault to do stupid things. This is not a warez trading platform either. It's also not a 'cheap way to access the Internet anonymously' - buy your own [VPN](https://www.mullvad.net). Go away unless you are doing research or working on some great project. Join our [Telegram Channel](https://t.me/thcorg) (especially if you are new): Participate & discuss.
 
 1. **I get an SSH error**  
    Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`). Alternatively you can try `SECRET=XXX ssh -o "SendEnv SECRET" root@segfault.net` (where XXX is your _SECRET_) or ssh to `secret@segfault.net`.
@@ -54,7 +54,7 @@ description: Frequently asked questions related to Segfault.
    Immediately on log out or when you type `halt`. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). Type `rm -rf /sec && halt` if you also want to destroy your encrypted data.
 
 1. **How long will the server run**  
-   Forever if you stay logged in (active session) or log in at least once every 7 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits to not apply for [cool users](../upgrade/).
+   Forever if you stay logged in (active session) or log in at least once every 7 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits to not apply to [cool users](../upgrade/).
 
 1. **Why are my changes lost?**<a id="lost"></a>  
    Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pipx install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
