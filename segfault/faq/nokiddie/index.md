@@ -14,8 +14,8 @@ You can [not mass-scan](../../faq/#scan) from Segfault. The *uplink* VPN provide
 1. Use your own [Exit Node](../../wireguard).
 1. Disable the warning with `touch ~/.nokiddie`
 
-Massdns / Suffledns: Use `-s 1000`   
-MassScan: You must use your own [Exit Node](../../wireguard).
+Alternatively go slow and use `-s 100` for Massdns and `-t 100` for shuffledns.
+You must use your own [Exit Node](../../wireguard) for masscan.
 
 ## Contact
 
