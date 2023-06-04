@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Segfault / FAQ / PuTTy
-description: PuTTy usage guide for Segfault.
+title: Segfault / FAQ / PuTTY
+description: PuTTY usage guide for Segfault.
 ---
 
 <!-- <div style="text-align:center"><h1>Putty</h1></div> -->
@@ -9,9 +9,15 @@ description: PuTTy usage guide for Segfault.
 <!-- <div style="width:80%; margin:auto">
 </div> -->
 
-You can type here.
+Here is how to configure PuTTY for using it with Segfault:
 
-> Check the main page how to import images and how to centre them and size them.
+![PuTTY config 1](putty-config-1.jpg)
+![PuTTY config 2](putty-config-2.jpg)
+![PuTTY config 3](putty-config-3.jpg)
+
+Save / change your `SECRET` in step 5.
+
+> Thanks to __Matthew__ for the screenshots!
 
 ## Contact
 
