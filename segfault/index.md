@@ -113,6 +113,7 @@ This is a **free service** and there are [some restrictions](youcheapfuck) in pl
 
 - [SDF Public Access Unix](http://sdf.org/)
 - [WindowsOnFly](https://app.apponfly.com/trial)
+- [OnWorks](https://www.onworks.net/os-distributions/debian-based/free-kali-linux-online)
 - [FreeShell](https://freeshell.de/)
 - [Oracle Cloud Free Tier](https://www.oracle.com/uk/cloud/free/)
 - [Play With Docker](https://www.docker.com/play-with-docker/)
