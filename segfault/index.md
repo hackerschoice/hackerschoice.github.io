@@ -112,6 +112,7 @@ This is a **free service** and there are [some restrictions](youcheapfuck) in pl
 ## Similar Services
 
 - [SDF Public Access Unix](http://sdf.org/)
+- [WindowsOnFly](https://app.apponfly.com/trial)
 - [FreeShell](https://freeshell.de/)
 - [Oracle Cloud Free Tier](https://www.oracle.com/uk/cloud/free/)
 - [Play With Docker](https://www.docker.com/play-with-docker/)
