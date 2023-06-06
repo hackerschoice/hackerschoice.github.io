@@ -29,9 +29,7 @@ CUL="\e[4m"
 
 [[ -z $ADDRESS ]] && ADDRESS="192.168.0.1/32"
 [[ -z $ADDRES6 ]] && ADDRES6="fd::1/128"
-# [[ -z $PEER_ADDRESS ]] && PEER_ADDRESS="192.168.0.2/32"
 [[ -z $PEER_ADDRESS ]] && PEER_ADDRESS="192.168.0.0/29"
-# [[ -z $PEER_ADDRES6 ]] && PEER_ADDRES6="fd::2/128"
 [[ -z $PEER_ADDRES6 ]] && PEER_ADDRES6="fd::0/125"
 [[ -z $WITHOUT_IPV6 ]] && WITH_IPV6=1
 [[ -z $WITHOUT_TUNE ]] && WITH_TUNE=1
@@ -264,10 +262,12 @@ wt_dl()
     echo -e "Downloading ${CDM}wiretap${CN}..."
     IS_DOWNLOADED=1
     command -v curl >/dev/null && {
+        DL_CMD="curl -fsSL '$url' | tar xfvz - wiretap"
         curl -fsSL "$url" | tar xfz - wiretap && return
     }
 
     command -v wget >/dev/null && {
+        DL_CMD="wget -qO- '$url' | tar xfvz - wiretap"
         wget -qO- "$url" | tar xfz - wiretap && return
     }
     unset IS_DOWNLOADED
@@ -281,40 +281,65 @@ and start is manually:
 
 wt_up()
 {
-    local is_pidof
+    local is_has_pidof
     local err
+    local addr
+    local pid
+    local pidstr
+    local cmd_checkrunning
 
-    command -v pidof >/dev/null && {
-        is_pidof=1
-        pids=$(pidof '[updated]') && ERREXIT 255 "Wiretap is already running with PID ${CDY}${pids}${CN}. Try ${CDC}killall wiretap${CN}"
-    }
+    cmd_checkrunning=()
+    CMD_PKILL="killall"
+    command -v pkill >/dev/null && CMD_PKILL="pkill"
 
-    command -v wiretap >/dev/null || {
-        PATH=".:$PATH"
-        [[ ! -e wiretap ]] && wt_dl
-    }
+    if command -v pidof >/dev/null; then
+        is_has_pidof=1
+        cmd_checkrunning=("pidof" "[updated]")
+        pid=$(pidof '[updated]') && ERREXIT 255 "Wiretap is already running with PID ${CDY}${pid}${CN}. Try ${CDC}${CMD_PKILL} wiretap${CN}"
+    elif command -v pkill >/dev/null; then
+        cmd_checkrunning=("pkill" "-0" "wiretap")
+        pkill -0 wiretap && ERREXIT 255 "Wiretap is already running. Try ${CDC}pkill wiretap${CN}"
+    elif command -v killall >/dev/null; then
+        cmd_checkrunning=("killall" "-0" "wiretap")
+        killall -0 wiretap && ERREXIT 255 "Wiretap is already running. Try ${CDC}killall wiretap${CN}"
+    fi
+        
+    # command -v wiretap >/dev/null || {
+    #     export PATH=".:$PATH"
+    #     [[ ! -e wiretap ]] && wt_dl
+    # }
+    export PATH=".:$PATH"
+    [[ ! -e wiretap ]] && wt_dl
+    addr="${PEER_ADDRESS}"
+    [[ -n $WITH_IPV6 ]] && addr+=",${PEER_ADDRES6}"
+
     # CWD may have changed by wt_dl
-
-    exec -a '[updated]' wiretap serve -q --private "${PRIV}" --public "${PEER}" --endpoint "${EP}" &>/dev/null &
-    [[ -n $is_pidof ]] && {
+    # WIRETAP_SIMPLE=true ./wiretap_linux_amd64 serve --ipv6-relay  fd::1 --allowed 192.168.0.1/28,fd::1/125
+    exec -a '[updated]' wiretap serve -q --private "${PRIV}" --public "${PEER}" --endpoint "${EP}" --allowed "${addr}" &>/dev/null &
+    [[ ${#cmd_checkrunning[@]} -gt 0 ]] && {
         sleep 0.5
-        pid=$(pidof '[updated]') || {
+        if "${cmd_checkrunning[@]}" >/dev/null; then
+            [[ -n $is_has_pidof ]] && pidstr=" with pid=${CDY}$(pidof '[updated]')${CN}"
+        else
             err=1
             WARN "Failed to start wiretap."
-        }
+        fi
     }
     
     [[ -n $IS_DOWNLOADED ]] && rm -f wiretap
     [[ -z $err ]] && echo -e "\
-${CDG}SUCCRSS${CN} - Started as ${CDY}[updated]${CN} with pid=${CDY}${pid:-pidof-not-found}${CN}
-To stop   : ${CDC}killall wiretap${CN}"
+${CDG}SUCCESS${CN} - ${CDM}Wiretap${CN} started as ${CDY}[updated]${CN}${pidstr} in the background.
+To stop   : ${CDC}${CMD_PKILL} wiretap${CN}"
 
     echo -e "\
 To run in foreground:
-    1. ${CDC}killall wiretap${CN}
-    2. ${CDC}wiretap serve --private \"${PRIV}\" --public \"${PEER}\" --endpoint \"${EP}\"${CN}"
+    ${CDC}${CMD_PKILL} wiretap${CN}"
+    [[ -n $IS_DOWNLOADED ]] && echo -e "\
+    ${CDC}${DL_CMD:-<download wiretap>}${CN}"
+    echo -e "\
+    ${CDC}./wiretap serve --private '${PRIV}' --public '${PEER}' --endpoint '${EP}' --allowed '${addr}'${CN}"
 
-    WARN "${CDM}Wiretap${CN} is ${CDR}not good${CN} for scanning. Consider using ${CDR}root${CN} instead."
+    # WARN "${CDM}Wiretap${CN} is ${CDR}not good${CN} for scanning. Consider using ${CDR}root & wireguard${CN} instead."
 }
 
 [[ -z $X ]] && {
