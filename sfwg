@@ -4,9 +4,8 @@
 
 # X=<VERSION>-<PRIV>-<PUB>-<ENDPOINT>-<DEV>-<IPV4Addr>-<IPV6Addr>
 
-
 # Test IPv6:
-# (echo -e "HEAD / HTTP/1.0\n"; sleep 1) | socat - TCP6:[2606:4700:4700::1111]:80
+# curl -I 'http://[2606:4700:4700::1111]'
 # ping6 2606:4700:4700::1111
 
 [[ -t 1 ]] && {
@@ -254,27 +253,17 @@ wt_dl()
 {
     local arch
     local url
-    local os
 
     command -v tar >/dev/null || ERREXIT 255 "tar not found. Try ${CDC}apt install tar${CN}"
 
-    [[ -z $OSTYPE ]] && {
-        command -v uname >/dev/null || ERREXTI 255 "uname not found. Try ${CDC}apt install coreutils${CN}"
-        OSTYPE=$(uname -s)
-    }
-    OSTYPE="${OSTYPE,,}"
-
-    os="linux"
-    [[ $OSTYPE == *darwin* ]] && os="darwin"
-
     arch=$(uname -m)
-    url="https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_${os}_amd64.tar.gz"
+    url="https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_${OS}_amd64.tar.gz"
     if [[ $arch == aarch64 ]] || [[ $arch == arm64 ]]; then
-        url="https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_${os}_arm64.tar.gz"
+        url="https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_${OS}_arm64.tar.gz"
     elif [[ $arch == i686 ]] || [[ $arch == i386 ]]; then
-        url="https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_${os}_386.tar.gz"
+        url="https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_${OS}_386.tar.gz"
     elif [[ $arch == *"armv"* ]]; then
-        url="https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_${os}_armv6.tar.gz"
+        url="https://github.com/sandialabs/wiretap/releases/download/v0.2.1/wiretap_0.2.1_${OS}_armv6.tar.gz"
     fi
 
     [[ -f wiretap ]] && rm -f wiretap
@@ -303,6 +292,17 @@ and start is manually:
     ${CDC}wiretap serve --private \"${PRIV}\" --public \"${PEER}\" --endpoint \"${EP}\"${CN}"
 }
 
+addenv()
+{
+    local varname
+    local value
+    varname=$1
+    value=$2
+
+    eval export "${varname}"="\$value"
+    ENVSTR+="${varname}='${value}' \\ "$'\n'
+}
+
 wt_up()
 {
     local is_has_pidof
@@ -313,7 +313,17 @@ wt_up()
     local cmd_checkrunning
     local arg
     local n
+    local killname
 
+    [[ -z $OSTYPE ]] && {
+        command -v uname >/dev/null || ERREXTI 255 "uname not found. Try ${CDC}apt install coreutils${CN}"
+        OSTYPE=$(uname -s)
+    }
+    OSTYPE="${OSTYPE,,}"
+    OS="linux"
+    [[ $OSTYPE == *darwin* ]] && OS="darwin"
+
+    killname="wiretap"
     cmd_checkrunning=()
     CMD_PKILL="killall"
     command -v pkill >/dev/null && CMD_PKILL="pkill"
@@ -321,13 +331,14 @@ wt_up()
     if command -v pidof >/dev/null; then
         is_has_pidof=1
         cmd_checkrunning=("pidof" "[updated]")
-        pid=$(pidof '[updated]') && ERREXIT 255 "${CDM}Wiretap${CN} is already running with PID ${CDY}${pid}${CN}. Try ${CDC}${CMD_PKILL} wiretap${CN}"
+        pid=$(pidof '[updated]') && ERREXIT 255 "${CDM}Wiretap${CN} is already running with PID ${CDY}${pid}${CN}. Try ${CDC}${CMD_PKILL} ${killname}${CN}"
     elif command -v pkill >/dev/null; then
-        cmd_checkrunning=("pkill" "-0" "wiretap")
-        pkill -0 wiretap && ERREXIT 255 "${CDM}Wiretap${CN} is already running. Try ${CDC}pkill wiretap${CN}"
+        [[ $OS == "darwin" ]] && killname="\[updated\]"
+        cmd_checkrunning=("pkill" "-0" "${killname}")
+        "${cmd_checkrunning[@]}" && ERREXIT 255 "${CDM}Wiretap${CN} is already running. Try ${CDC}pkill ${killname}${CN}"
     elif command -v killall >/dev/null; then
         cmd_checkrunning=("killall" "-0" "wiretap")
-        killall -0 wiretap && ERREXIT 255 "${CDM}Wiretap${CN} is already running. Try ${CDC}killall wiretap${CN}"
+        "${cmd_checkrunning[@]}" && ERREXIT 255 "${CDM}Wiretap${CN} is already running. Try ${CDC}killall ${killname}${CN}"
     fi
         
     # command -v wiretap >/dev/null || {
@@ -344,14 +355,19 @@ wt_up()
 
     # CWD may have changed by wt_dl
     # ./wiretap configure --simple
-    export WIRETAP_RELAY_INTERFACE_PRIVATEKEY="${PRIV}"
-    export WIRETAP_RELAY_PEER_PUBLICKEY="${PEER}"
-    export WIRETAP_RELAY_PEER_ENDPOINT="${EP}"
-    export WIRETAP_SIMPLE=true
+    unset ENVSTR
+    if [[ $VER -eq 1 ]]; then
+        addenv WIRETAP_INTERFACE_PRIVATEKEY "$PRIV"
+        addenv WIRETAP_PEER_PUBLICKEY "${PEER}"
+        addenv WIRETAP_PEER_ENDPOINT "${EP}"
+    else
+        addenv WIRETAP_RELAY_INTERFACE_PRIVATEKEY="${PRIV}"
+        addenv WIRETAP_RELAY_PEER_PUBLICKEY="${PEER}"
+        addenv WIRETAP_RELAY_PEER_ENDPOINT="${EP}"
+        addenv WIRETAP_SIMPLE=true
+    fi
 
     arg=("serve" "-q" "--allowed" "${peer_addr}")
-    ### Wiretap prior to v0.3 passes arguments as command line parameters
-    [[ $VER -eq 1 ]] && arg+=("--private" "${PRIV}" "--public" "${PEER}" "--expoint" "${E}")
 
     PATH=".:$PATH" exec -a '[updated]' wiretap "${arg[@]}" &>/dev/null &
     [[ ${#cmd_checkrunning[@]} -gt 0 ]] && {
@@ -372,20 +388,15 @@ wt_up()
     [[ -n $IS_DOWNLOADED ]] && rm -f wiretap
     [[ -z $err ]] && echo -e "\
 ${CDG}SUCCESS${CN} - ${CDM}Wiretap${CN} started as ${CDY}[updated]${CN}${pidstr} in the background.
-To stop   : ${CDC}${CMD_PKILL} wiretap${CN}"
+To stop   : ${CDC}${CMD_PKILL} '${killname}'${CN}"
 
     echo -e "\
 To run in foreground:
-${CDC}${CMD_PKILL} wiretap${CN}"
+${CDC}${CMD_PKILL} '${killname}'${CN}"
     [[ -n $IS_DOWNLOADED ]] && echo -e "\
 ${CDC}${DL_CMD:-<download wiretap>}${CN}"
-    [[ $VER -ne 1 ]] && echo -e "${CDC}\
-WIRETAP_RELAY_INTERFACE_PRIVATEKEY='${PRIV}' \\
-WIRETAP_RELAY_PEER_PUBLICKEY='${PEER}' \\
-WIRETAP_RELAY_PEER_ENDPOINT='${EP}' \\
-WIRETAP_SIMPLE=true \\ ${CN}"
     echo -e "\
-${CDC}./wiretap ${arg[@]}"
+${CDC}${ENVSTR}./wiretap" "${arg[@]}" "${CN}"
 
     # WARN "${CDM}Wiretap${CN} is ${CDR}not good${CN} for scanning. Consider using ${CDR}root & wireguard${CN} instead."
 }
