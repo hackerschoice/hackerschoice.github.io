@@ -44,11 +44,11 @@ description: Frequently asked questions related to Segfault.
    On log out you will see a *command* that allows to you to log back in to your server. It contains a `SECRET` and it is this `SECRET` that allows you access your server. The log out screen may look like this:
 
    ```
-   Access with      : ssh -o "SetEnv SECRET=XXX..." root@de.segfault.net
+   Access with      : ssh -o "SetEnv SECRET=XXX..." root@NNN.segfault.net
    GOODBYE          : Join us on Telegram - https://t.me/thcorg 
    ```
 
-   Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you.
+   Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you. Alternatively use `ssh secret@NNN.segfault.net` with the password `segfault` and, when asked, your SECRET. There is also help for [Putty](https://www.thc.org/segfault/faq/putty/).
 
 1. **When does it self-destruct**  
    Immediately on log out or when you type `halt`. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). Type `rm -rf /sec && halt` if you also want to destroy your encrypted data.
