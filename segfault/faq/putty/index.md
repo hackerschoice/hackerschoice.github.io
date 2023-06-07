@@ -15,7 +15,7 @@ Here is how to configure PuTTY for using it with Segfault:
 ![PuTTY config 2](putty-config-2.jpg)
 ![PuTTY config 3](putty-config-3.jpg)
 
-Save / change your `SECRET` in step 5.
+Change your `SECRET` (step 5) and click `Add` (step 6)
 
 > Thanks to __Matthew__ for the screenshots!
 
