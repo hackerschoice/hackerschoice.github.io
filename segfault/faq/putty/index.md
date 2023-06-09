@@ -15,7 +15,9 @@ Here is how to configure PuTTY for using it with Segfault:
 ![PuTTY config 2](putty-config-2.jpg)
 ![PuTTY config 3](putty-config-3.jpg)
 
-Change your `SECRET` (step 5) and click `Add` (step 6)
+<!-- Change your `SECRET` __(step 5)__ and click `Add` __(step 6)__ -->
+
+<p style="font-family: 'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', 'Comic Neue', 'Comic Neue Bold', sans-serif, cursive;" title="@0xD1G - You asked for it, now it's in 'Comic Sans MS' or similar font xD">Change your <code>SECRET</code> <strong>(step 5)</strong> and click <code>Add</code> <strong>(step 6)</strong></p>
 
 > Thanks to __Matthew__ for the screenshots!
 
