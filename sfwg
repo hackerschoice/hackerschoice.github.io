@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # This script sets a WireGuard or Wiretap reverse tunnel on a target host.
-# The X= configuration is supplied by 'curl rpc/net/up'. Thereafter:
+# The X= configuration is supplied by 'curl sf/net/up'. Thereafter:
 # X=<VERSION>-<PRIV>-<PUB>-<ENDPOINT>-<ALLOWED_IPS>
 # X=$X ./sfwg
 
@@ -254,7 +254,7 @@ ${CDG}SUCCESS${CN} - ${CDM}WireGuard${CN} started on ${CDY}${WG_DEV}${CN}.
 For status: ${CDC}wg show ${WG_DEV}${CN}
 To stop   : ${CDC}ip link del ${WG_DEV}${CN}
 Check the connection on your server:
-    ${CDC}curl rpc/net/show${CN}"
+    ${CDC}curl sf/net/show${CN}"
 
     return 0
 }
