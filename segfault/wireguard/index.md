@@ -59,9 +59,9 @@ __Masscan the Internet__
 
 ```
 ### Simple
-masscan --interface wgExit -p 22,80,443 --range 1.0.0.0-8.255.255.255
+masscan -e wgExit -p 22,80,443 --range 1.0.0.0-8.255.255.255
 ### With banner grabbing:
-masscan --interface wgExit -p 22,80,443 --range 1.0.0.0-8.255.255.255 --source-ip 192.168.0.3 --banners
+masscan -e wgExit -p 22,80,443 --range 1.0.0.0-8.255.255.255 --banners --adapter-ip 172.16.0.3-172.16.128.2 --adapter-port 1024-33791
 ```
 
 __Ping an IPv6 host__
@@ -73,7 +73,7 @@ ping6 2606:4700:4700::64
 __Scan the remote private LAN__
 
 ```
-nmap -n -sT -T4 -F --open --script=banner 192.168.123.0/24
+nmap -n -Pn -sV -F -T5 --min-rate 10000 --open 192.168.123.0/24
 ```
 
 __Crackmapexec the LAN__
