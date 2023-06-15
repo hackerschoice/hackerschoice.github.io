@@ -29,6 +29,12 @@ Here is how to configure Termius for using it with Segfault:
 
 Thanks to __Matthew__ and __BelievePrime__ for the instructions and screenshots!
 
+> __Note:__ _Cloud sync might be enabled by default_, if you want to disable it, just do the following:
+>
+> __Settings__ -> __Account Settings__ -> __Sync keys and identities__
+>
+> _Let us know if these instructions needs to be completed._
+
 ## Contact
 
 {% include contact-details.md %}
