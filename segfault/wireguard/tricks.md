@@ -11,9 +11,9 @@ description: Segfault WireGuard Reverse Connection tricks.
 
 ## Misc Tips
 
-1. Use `curl rpc/net/help` for some help
+1. Use `curl sf/net/help` for some help
 1. `-d name=all` works with all commands
-1. `curl rpc/net/show` may show that the interface is up but that no data has been transferred. It is likely that you have not started `wiretap` on the Exit Node yet or that Wiretap can not reach your Root Server.
+1. `curl sf/net/show` may show that the interface is up but that no data has been transferred. It is likely that you have not started `wiretap` on the Exit Node yet or that Wiretap can not reach your Root Server.
 1. It is only possible to have 1 Interface up at a time. (if you like us to add multi-interface support then please contact us.)
 
 ## Hide the Wiretap process
