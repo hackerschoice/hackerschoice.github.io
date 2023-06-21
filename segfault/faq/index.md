@@ -48,7 +48,7 @@ description: Frequently asked questions related to Segfault.
    GOODBYE          : Join us on Telegram - https://t.me/thcorg 
    ```
 
-   Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you. Alternatively use `ssh secret@NNN.segfault.net` with the password `segfault` and, when asked, your SECRET. There is also help for [PuTTy](https://www.thc.org/segfault/faq/putty/).
+   Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you. Alternatively use `ssh secret@NNN.segfault.net` with the password `segfault` and, when asked, your SECRET. There is also help for [PuTTy](putty/) and [Termius](termius/).
 
 1. **When does it self-destruct**  
    Immediately on log out or when you type `halt`. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then your server starts up again and your (old) private data is attached again to /sec (encrypted). You can wipe all data (including your encrypted data) by typing `destruct`.
