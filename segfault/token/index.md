@@ -25,7 +25,7 @@ Tokens are available from the [SysCops](https://t.me/thcorg). They are not for s
  * Find bugs.
  * Join our efforts. Help us.
  * Work on great projects.
- * Safe the world.
+ * Save the world.
 
 [Contact us on Telegram](https://t.me/thcorg).
 
