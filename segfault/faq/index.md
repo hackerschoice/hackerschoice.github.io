@@ -51,7 +51,7 @@ description: Frequently asked questions related to Segfault.
    Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you. Alternatively use `ssh secret@NNN.segfault.net` with the password `segfault` and, when asked, your SECRET. There is also help for [PuTTy](https://www.thc.org/segfault/faq/putty/).
 
 1. **When does it self-destruct**  
-   Immediately on log out or when you type `halt`. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then a new server is started and your (old) private data is attached again to /sec (encrypted). Type `rm -rf /sec && halt` if you also want to destroy your encrypted data.
+   Immediately on log out or when you type `halt`. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then your server starts up again and your (old) private data is attached again to /sec (encrypted). You can wipe all data (including your encrypted data) by typing `destruct`.
 
 1. **How long will the server run**  
    Forever if you stay logged in (active session) or log in at least once every 7 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits to not apply to [cool users](../upgrade/).
@@ -63,7 +63,7 @@ description: Frequently asked questions related to Segfault.
    There are 3 or more _EXIT IP_ lines shown during log in. These are the VPN providers through which your outgoing traffic is routed. Each of your outgoing connections leaves through a different EXIT (multipath routing). The VPN Exit Nodes cycle every few days.
 
 1. **Is there a list of tools**  
-   The server comes with around 8GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanently).
+   The server comes with around 54GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanently).
 
 1. **Log in without password**<a id=autologin></a>   
    Save this SSH key to `~/.ssh/id_sf`.
