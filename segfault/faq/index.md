@@ -16,7 +16,7 @@ description: Frequently asked questions related to Segfault.
    Join our [Telegram channel](https://t.me/thcorg) and send us the output of `echo "$SF_HOSTNAME $SF_LID $SF_FQDN"` or a screenshot and explain your problem (what you expect to see or happen and what you see or what happens instead).
 
 1. **Why do I get resource errors**<a id="quota"></a>  
-   You likely got `out of heap memory`, `resource temporarily unavailable` or `Disk quota exceeded`. The FREE service is [restricted](../youcheapfuck) and the outbound traffic is throttled. Upgrade your server and [enjoy unlimited resources](../upgrade). Upgrades are FREE for anyone working on a cool project.
+   You likely got `out of heap memory`, `resource temporarily unavailable` or `Disk quota exceeded`. The FREE service is [restricted](../free) and the outbound traffic is throttled. Upgrade your server and [enjoy unlimited resources](../upgrade). Upgrades are FREE for anyone working on a cool project.
 
 1. **My processes are getting killed**  
    Read above.

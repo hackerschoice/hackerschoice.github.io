@@ -6,7 +6,7 @@ description: Segfault service donation guide.
 
 <div style="text-align:center"><h1>Upgrade your server</h1></div>
 
-We run this [service for free](../youcheapfuck). Cool people working on great projects get a free upgrade. [Donations](../youcheapfuck) are welcome as well.
+We run this [service for free](../free). Cool people working on great projects get a free upgrade. [Donations](../free) are welcome as well.
 
 Cool people get exclusive benefits:
 
