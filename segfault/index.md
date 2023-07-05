@@ -122,6 +122,7 @@ This is a **free service** and there are [some restrictions](free) in place. You
 - [Play With Docker](https://www.docker.com/play-with-docker/)
 - [Trash.net](https://www.trash.net/)
 - [Tilde.club](http://tilde.club/)
+- [Project SF](https://projectsegfau.lt/)
 - [and many others...](https://free-for.dev/)
 
 ## Love Research. Hate Abuse.
