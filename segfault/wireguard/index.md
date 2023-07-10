@@ -109,6 +109,10 @@ amass enum -d nsa.gov
 
 <!-- __...and other [Hacks, Tips and Tricks](tricks.html).__ -->
 
+## Windows
+
+Cut & Paste the YELLOW strings into an Admin Powershell (Right-Click on Powershell -> _Run as Administrator_) or else Defender's heuristic will block Wiretap. 
+
 ## Contact
 
 {% include contact-details.md %}
