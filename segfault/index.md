@@ -7,7 +7,7 @@ description: Disposable Root Servers.
 <!-- <div style="width:80%; margin:auto">
 </div> -->
 
-<div align="center"><h4><em>Make the world suck less one TCP packet at a time...</em>&nbsp;&ndash;&nbsp;<small>Skyper</small></h4></div>
+<div align="center"><h4><em>Making the world suck less one TCP packet at a time...</em></h4></div>
 
 ## Log in
 
