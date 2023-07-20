@@ -9,7 +9,7 @@ description: Disposable Root Servers.
 
 {% include nav-segfault.html margin-top="-1rem" margin-bottom="2rem" %}
 
-<div align="center"><h4><em>Making the world suck less one TCP packet at a time...</em></h4></div>
+<div align="center"><h1><em>Making the world suck less one TCP packet at a time...</em></h1></div>
 
 ## Log in
 
