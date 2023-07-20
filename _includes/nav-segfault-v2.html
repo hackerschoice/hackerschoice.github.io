@@ -1,3 +1,13 @@
+<style>
+    /* Hides navigation on devices with small screens */
+    @media only screen and (max-width: 600px) {
+        nav { display: none; }
+    }
+    @media only screen and (min-width: 600px) {
+        nav { display: none; }
+    }
+</style>
+
 <nav style="position: fixed; top: {{ include.top }}; left: {{ include.left }};">
     <ul style="width: fit-content; padding: 0;">
         <li style="list-style-image: none; list-style-type: none;">
