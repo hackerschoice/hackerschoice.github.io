@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tor / Snowflake
-description: Mmake the world suck less one TCP packet at a time...
+description: Make the world suck less one TCP packet at a time...
 ---
 
 <!-- <div style="width:80%; margin:auto">
