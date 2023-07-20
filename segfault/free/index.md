@@ -4,6 +4,10 @@ title: Segfault / Disclaimer
 description: Segfault usage disclaimer.
 ---
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href~="/free/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
 {% include nav-segfault-v2.html top="340px" left="20px" %}
 
 <div style="text-align:center"><h1>This is a FREE service</h1></div>
