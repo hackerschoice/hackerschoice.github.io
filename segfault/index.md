@@ -7,6 +7,8 @@ description: Disposable Root Servers.
 <!-- <div style="width:80%; margin:auto">
 </div> -->
 
+{% include nav-segfault.html margin-top="-1rem" margin-bottom="2rem" %}
+
 <div align="center"><h4><em>Making the world suck less one TCP packet at a time...</em></h4></div>
 
 ## Log in
