@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tor / Snowflake
-description: Make the world suck less one TCP packet at a time...
+description: Making the world suck less one TCP packet at a time...
 ---
 
 <!-- <div style="width:80%; margin:auto">
@@ -9,22 +9,16 @@ description: Make the world suck less one TCP packet at a time...
 
 ## Snowflake
 
-The main project page is reachable here: [https://snowflake.torproject.org](https://snowflake.torproject.org)
+By clicking "Enable" you help people reach the free Internet.
 
 <iframe src="https://snowflake.torproject.org/embed.html" width="320" height="280" frameborder="0" scrolling="no"></iframe>
 
-If you want to also share your internet to those who need it, just copy/paste this line in any page:
-
-```html
-<iframe src="https://snowflake.torproject.org/embed.html" width="320" height="240" frameborder="0" scrolling="no"></iframe>
-```
-
-## How it works
-
-Tor / Snowflake will allow others living in countries where the internet access is restricted to access to the free internet while this tab is kept open.
-
-Don't hesitate to read the [technical overview](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/Technical%20Overview) to learn more about it.
+Closing this tab or selecting "Disable" will stop it.
 
 > You might have to allow/enable third party cookies just for this page to make it work.
 >
 > Please check the web console in case of issues.
+
+## How it works
+
+You can check the [technical overview](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/Technical%20Overview) if you want to know more about it or check the [project page](https://snowflake.torproject.org) for a simpler overview or learn about available browser [extension](https://snowflake.torproject.org/#extension).
