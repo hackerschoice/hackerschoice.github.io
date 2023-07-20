@@ -4,6 +4,8 @@ title: Segfault / GUI
 description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favourite applications on a remote desktop with Segfault.
 ---
 
+{% include nav-segfault-v2.html top="340px" left="20px" %}
+
 <div style="text-align:center">
     <h1>Graphical User Interface</h1>
     <p>Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favourite applications on a remote desktop. All outbound traffic is routed via VPNs.</p>

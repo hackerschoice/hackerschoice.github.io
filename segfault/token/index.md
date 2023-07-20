@@ -4,6 +4,8 @@ title: Enhance your Experience
 description: Pimp up your Root Server
 ---
 
+{% include nav-segfault-v2.html top="340px" left="20px" %}
+
 <div style="text-align:center"><h1>TOKEN TOKEN TOKEN</h1></div>
 
 A TOKEN is a secret string that can upgrade your Root Server:
