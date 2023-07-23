@@ -4,6 +4,12 @@ title: Segfault / FAQ / PuTTY
 description: PuTTY usage guide for Segfault.
 ---
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href$="/putty/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-segfault-v3.html top="340px" left="20px" %}
+
 <!-- <div style="text-align:center"><h1>Putty</h1></div> -->
 
 <!-- <div style="width:80%; margin:auto">
