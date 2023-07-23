@@ -7,7 +7,11 @@ description: Disposable Root Servers.
 <!-- <div style="width:80%; margin:auto">
 </div> -->
 
-{% include nav-segfault-v2.html top="340px" left="20px" %}
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href="/segfault/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-segfault-v3.html top="340px" left="20px" %}
 
 <div align="center"><h1><em>Making the world suck less one<br>TCP packet at a time...</em></h1></div>
 
@@ -17,7 +21,7 @@ description: Disposable Root Servers.
 ssh root@segfault.net # The password is 'segfault'
 ```
 {:refdef: style="text-align: center;"}
-NEW: Start a [Remote Desktop](https://shell.segfault.net) inside your Browser.
+__NEW: Start a [Remote Desktop](https://shell.segfault.net) inside your Browser.__
 {: refdef}
 
 {:refdef: style="text-align: center;"}

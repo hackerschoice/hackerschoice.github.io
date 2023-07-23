@@ -1,0 +1,52 @@
+<style>
+    /* Hides navigation on devices with small screens */
+    @media only screen and (max-width: 600px) {
+        nav { display: none; }
+    }
+    @media only screen and (min-width: 600px) {
+        nav { display: none; }
+    }
+    @media only screen and (min-width: 768px) {
+        nav { display: none; }
+    }
+    @media only screen and (min-width: 992px) {
+        nav { display: none; }
+    }
+    @media only screen and (min-width: 1180px) {
+        nav { display: block; }
+    }
+    @media only screen and (min-width: 1200px) {
+        nav { display: block; }
+    }
+</style>
+
+<nav style="position: fixed; top: {{ include.top }}; left: {{ include.left }};">
+    <ul style="width: fit-content; padding: 0;">
+        <li style="list-style-image: none; list-style-type: none;">
+            <a href="/">Home</a>
+        </li>
+        <li style="margin-left: 2rem; list-style-image: none; list-style-type: square;">
+            <a href="/segfault/">Segfault</a>
+            <ul style="width: fit-content; padding: 0;">
+                <li style="margin-left: 2rem; list-style-image: none; list-style-type: circle;">
+                    <a href="/segfault/free/">Service</a>
+                </li>
+                <li style="margin-left: 2rem; list-style-image: none; list-style-type: circle;">
+                    <a href="/segfault/gui/">GUI</a>
+                </li>
+                <li style="margin-left: 2rem; list-style-image: none; list-style-type: circle;">
+                    <a href="/segfault/wireguard/">WireGuard</a>
+                </li>
+                <li style="margin-left: 2rem; list-style-image: none; list-style-type: circle;">
+                    <a href="/segfault/token/">Tokens</a>
+                </li>
+                <li style="margin-left: 2rem; list-style-image: none; list-style-type: circle;">
+                    <a href="/segfault/upgrade/">Upgrade</a>
+                </li>
+                <li style="margin-left: 2rem; list-style-image: none; list-style-type: circle;">
+                    <a href="/segfault/faq/">FAQ</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
