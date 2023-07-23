@@ -8,7 +8,7 @@ description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favou
 <style>a[href*="/gui/"] { font-weight: bold; }</style>
 <!-- End of ugly CSS navigation styling hack -->
 
-{% include nav-segfault-v2.html top="340px" left="20px" %}
+{% include nav-segfault-v3.html top="340px" left="20px" %}
 
 <div style="text-align:center">
     <h1>Graphical User Interface</h1>
