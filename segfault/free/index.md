@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Segfault / Disclaimer
-description: Segfault usage disclaimer.
+title: Segfault / Service
+description: Segfault service terms of use.
 ---
 
 <!-- Begin of ugly CSS navigation styling hack -->
