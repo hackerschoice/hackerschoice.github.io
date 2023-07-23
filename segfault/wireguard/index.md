@@ -5,7 +5,7 @@ description: Setup WireGuard Reverse Connection on Segfault.
 ---
 
 <!-- Begin of ugly CSS navigation styling hack -->
-<style>a[href="/wireguard/"] { font-weight: bold; }</style>
+<style>a[href*="/wireguard/"] { font-weight: bold; }</style>
 <!-- End of ugly CSS navigation styling hack -->
 
 {% include nav-segfault-v3.html top="340px" left="20px" %}
