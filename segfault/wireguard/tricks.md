@@ -4,12 +4,6 @@ title: Segfault / WireGuard Tricks
 description: Segfault WireGuard Reverse Connection tricks.
 ---
 
-<!-- Begin of ugly CSS navigation styling hack -->
-<style>a[href$="/tricks"] { font-weight: bold; }</style>
-<!-- End of ugly CSS navigation styling hack -->
-
-{% include nav-segfault-v3.html top="340px" left="20px" %}
-
 <div style="text-align:center">
     <h1>WireGuard Reverse Connection</h1>
     <p>Hacks, Tips, Tricks and other shenanigans</p>

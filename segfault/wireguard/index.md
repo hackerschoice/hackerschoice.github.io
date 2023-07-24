@@ -4,12 +4,6 @@ title: Segfault / WireGuard Configuration
 description: Setup WireGuard Reverse Connection on Segfault.
 ---
 
-<!-- Begin of ugly CSS navigation styling hack -->
-<style>a[href$="/wireguard/"] { font-weight: bold; }</style>
-<!-- End of ugly CSS navigation styling hack -->
-
-{% include nav-segfault-v3.html top="340px" left="20px" %}
-
 <div style="text-align:center">
     <h1>Custom WireGuard Exit Nodes</h1>
     <p>Configure your Root Server to send all traffic via another server you own</p>
@@ -18,9 +12,9 @@ description: Setup WireGuard Reverse Connection on Segfault.
 ---
 Typical use cases:
 1. You like to [mass-scan](../faq/#scan) from your [Root Server](../).
-1. You have access to a server (*Exit Node*) and like all traffic from your [Root Server](../) to be routed via your *Exit Node*.
-1. You like to connect from your [Root Server](../) to workstations on a remote firewalled/private LAN (e.g. use nmap, metasploit, smbscan, on your [Root Server](../) to scan the private LAN...).
-1. You like all your traffic from your [Root Server](../) to appear as if originating from your *Exit Node* (a server you own).
+2. You have access to a server (*Exit Node*) and like all traffic from your [Root Server](../) to be routed via your *Exit Node*.
+3. You like to connect from your [Root Server](../) to workstations on a remote firewalled/private LAN (e.g. use nmap, metasploit, smbscan, on your [Root Server](../) to scan the private LAN...).
+4. You like all your traffic from your [Root Server](../) to appear as if originating from your *Exit Node* (a server you own).
 
 A new network interface (wgExit) will magically appear on your [Root Server](../): Traffic from your [Root Server](../) will now leave via the *Exit Node*.
 

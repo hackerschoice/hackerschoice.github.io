@@ -4,12 +4,6 @@ title: Segfault / Donate
 description: Segfault service donation guide.
 ---
 
-<!-- Begin of ugly CSS navigation styling hack -->
-<style>a[href*="/upgrade/"] { font-weight: bold; }</style>
-<!-- End of ugly CSS navigation styling hack -->
-
-{% include nav-segfault-v3.html top="340px" left="20px" %}
-
 <div style="text-align:center"><h1>Upgrade your server</h1></div>
 
 We run this [service for free](../free). Cool people working on great projects get a free upgrade. [Donations](../free) are welcome as well.

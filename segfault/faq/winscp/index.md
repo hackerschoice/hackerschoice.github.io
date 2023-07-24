@@ -4,12 +4,6 @@ title: Segfault / FAQ / WinSCP
 description: WinSCP Guide For File Sharing on Segfault.
 ---
 
-<!-- Begin of ugly CSS navigation styling hack -->
-<style>a[href$="/winscp/"] { font-weight: bold; }</style>
-<!-- End of ugly CSS navigation styling hack -->
-
-{% include nav-segfault-v3.html top="340px" left="20px" %}
-
 <!-- <div style="text-align:center"><h1>WinSCP Guide For File Sharing</h1></div> -->
 
 <!-- <div style="width:80%; margin:auto">
