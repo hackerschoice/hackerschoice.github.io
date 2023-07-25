@@ -24,6 +24,7 @@ We research and publish tools and academic papers to expose fishy IT security th
 
 ## Active Projects
 
+- [Segfault](https://www.thc.org/segfault)
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
 - [Global Socket Relay Network](https://www.gsocket.io)
 - [Hydra](https://github.com/vanhauser-thc/thc-hydra)
