@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Segfault / Disclaimer
-description: Segfault usage disclaimer.
+title: Segfault / Service
+description: Segfault service terms of use.
 ---
 
 <div style="text-align:center"><h1>This is a FREE service</h1></div>
