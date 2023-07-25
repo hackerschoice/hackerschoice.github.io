@@ -4,6 +4,12 @@ title: SSH-IT / Deployment
 description: Autonomous SSH worm deployment guide.
 ---
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href$="/deploy/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-ssh-it-v1.html margin-top="0" margin-bottom="4rem" %}
+
 Use either one of these commands to deploy:
 
 ```shell
