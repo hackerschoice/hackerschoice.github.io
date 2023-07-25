@@ -9,7 +9,7 @@ description: Termius usage guide for Segfault.
 <!-- <div style="width:80%; margin:auto">
 </div> -->
 
-Here is how to configure Termius for using it with Segfault:
+Here is how to configure [Termius](https://termius.com/) for using it with [Segfault](/segfault/):
 
 * __Free users (means no account)__
 

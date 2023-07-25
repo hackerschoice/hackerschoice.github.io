@@ -9,9 +9,11 @@ description: WinSCP Guide For File Sharing on Segfault.
 <!-- <div style="width:80%; margin:auto">
 </div> -->
 
-You first have to download winSCP. Get it [here](https://winscp.net/eng/downloads.php).
+Here is how to configure [WinSCP](https://winscp.net/) for using it with [Segfault](/segfault/):
 
-Follow through with the install process after downloading.
+You will first need to [download](https://winscp.net/eng/downloads.php) it.
+
+> Follow through with the install process after downloading.
 
 Connect to the segfault server for the first time via ssh. The command goes `ssh root@segfault.net`. Keep this open, we will need some info from the top of the screen.
 

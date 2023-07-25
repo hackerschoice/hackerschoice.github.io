@@ -9,7 +9,7 @@ description: PuTTY usage guide for Segfault.
 <!-- <div style="width:80%; margin:auto">
 </div> -->
 
-Here is how to configure PuTTY for using it with Segfault:
+Here is how to configure [PuTTY](https://www.putty.org/) for using it with [Segfault](/segfault/):
 
 ![PuTTY config 1](putty-config-1.jpg)
 ![PuTTY config 2](putty-config-2.jpg)
