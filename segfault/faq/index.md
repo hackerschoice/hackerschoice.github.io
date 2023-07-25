@@ -4,6 +4,12 @@ title: Segfault / FAQ
 description: Frequently asked questions related to Segfault.
 ---
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href$="/faq/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-segfault-v1.html margin-top="0" margin-bottom="2rem" %}
+
 <!-- <div style="text-align:center"><h1>Frequently Asked Questions</h1></div> -->
 
 <!-- <div style="width:80%; margin:auto">
