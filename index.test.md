@@ -4,6 +4,10 @@ title: ""
 description: ""
 ---
 
+<div style="text-align: center;">
+    <h1>Test Page</h1>
+</div>
+
 ## Who we are and what we do
 
 We are a group of international hackers.
