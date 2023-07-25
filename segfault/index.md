@@ -4,9 +4,6 @@ title: Segfault
 description: Disposable Root Servers.
 ---
 
-<!-- <div style="width:80%; margin:auto">
-</div> -->
-
 <!-- Begin of ugly CSS navigation styling hack -->
 <!-- <style>a[href="/segfault/"] { font-weight: bold; }</style> -->
 <!-- End of ugly CSS navigation styling hack -->

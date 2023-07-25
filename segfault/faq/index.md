@@ -12,11 +12,6 @@ description: Frequently asked questions related to Segfault.
 
 <div style="text-align:center"><h1>Need some help?</h1></div>
 
-<!-- <div style="text-align:center"><h1>Frequently Asked Questions</h1></div> -->
-
-<!-- <div style="width:80%; margin:auto">
-</div> -->
-
 1. **My Question is not answered here**  
    Join our [Telegram channel](https://t.me/thcorg) and ask your question. We will try to answer.
 

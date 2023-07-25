@@ -4,11 +4,6 @@ title: Segfault / FAQ / WinSCP
 description: WinSCP Guide For File Sharing on Segfault.
 ---
 
-<!-- <div style="text-align:center"><h1>WinSCP Guide For File Sharing</h1></div> -->
-
-<!-- <div style="width:80%; margin:auto">
-</div> -->
-
 Here is how to configure [WinSCP](https://winscp.net/) for using it with [Segfault](/segfault/):
 
 You will first need to [download](https://winscp.net/eng/downloads.php) it.

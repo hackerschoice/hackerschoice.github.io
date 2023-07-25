@@ -4,11 +4,6 @@ title: Segfault / FAQ / Termius
 description: Termius usage guide for Segfault.
 ---
 
-<!-- <div style="text-align:center"><h1>Termius</h1></div> -->
-
-<!-- <div style="width:80%; margin:auto">
-</div> -->
-
 Here is how to configure [Termius](https://termius.com/) for using it with [Segfault](/segfault/):
 
 * __Free users (means no account)__

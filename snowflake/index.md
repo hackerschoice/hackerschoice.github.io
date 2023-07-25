@@ -4,9 +4,6 @@ title: Tor / Snowflake
 description: Making the world suck less one TCP packet at a time...
 ---
 
-<!-- <div style="width:80%; margin:auto">
-</div> -->
-
 ## Snowflake
 
 By clicking "Enable" you help people reach the free Internet.

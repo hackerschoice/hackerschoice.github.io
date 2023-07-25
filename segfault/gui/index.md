@@ -15,9 +15,6 @@ description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favou
     <p>Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favourite applications on a remote desktop. All outbound traffic is routed via VPNs.</p>
 </div>
 
-<!-- <div style="width:80%; margin:auto">
-</div> -->
-
 {:refdef: style="text-align: center;"}
 ![gui](sf-gui.png){:height="80%" width="80%"}
 {: refdef}
