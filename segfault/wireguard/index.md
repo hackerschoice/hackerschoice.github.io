@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Segfault / WireGuard Configuration
+title: Segfault / WireGuard
 description: Setup WireGuard Reverse Connection on Segfault.
 ---
 
