@@ -8,7 +8,7 @@ description: Frequently asked questions related to Segfault.
 <style>a[href$="/faq/"] { font-weight: bold; }</style>
 <!-- End of ugly CSS navigation styling hack -->
 
-{% include nav-segfault-v1.html margin-top="0" margin-bottom="2rem" %}
+{% include nav-segfault-v1.html margin-top="0" margin-bottom="4rem" %}
 
 <!-- <div style="text-align:center"><h1>Frequently Asked Questions</h1></div> -->
 
