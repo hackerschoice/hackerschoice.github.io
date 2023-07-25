@@ -7,6 +7,12 @@ description: Disposable Root Servers.
 <!-- <div style="width:80%; margin:auto">
 </div> -->
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<!-- <style>a[href="/segfault/"] { font-weight: bold; }</style> -->
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-segfault-v1.html margin-top="2rem" margin-bottom="2rem" %}
+
 <div align="center"><h1><em>Making the world suck less one<br>TCP packet at a time...</em></h1></div>
 
 ## Log in
