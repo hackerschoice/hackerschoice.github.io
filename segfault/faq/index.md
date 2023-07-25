@@ -10,6 +10,8 @@ description: Frequently asked questions related to Segfault.
 
 {% include nav-segfault-v1.html margin-top="0" margin-bottom="4rem" %}
 
+<div style="text-align:center"><h1>Need some help?</h1></div>
+
 <!-- <div style="text-align:center"><h1>Frequently Asked Questions</h1></div> -->
 
 <!-- <div style="width:80%; margin:auto">
@@ -18,28 +20,28 @@ description: Frequently asked questions related to Segfault.
 1. **My Question is not answered here**  
    Join our [Telegram channel](https://t.me/thcorg) and ask your question. We will try to answer.
 
-2. **I have a problem on my Root Server**<a id="help"></a>  
+1. **I have a problem on my Root Server**<a id="help"></a>  
    Join our [Telegram channel](https://t.me/thcorg) and send us the output of `echo "$SF_HOSTNAME $SF_LID $SF_FQDN"` or a screenshot and explain your problem (what you expect to see or happen and what you see or what happens instead).
 
-3. **Why do I get resource errors**<a id="quota"></a>  
-   You likely got `out of heap memory`, `resource temporarily unavailable` or `Disk quota exceeded`. The FREE service is [restricted](../free) and the outbound traffic is throttled. Upgrade your server and [enjoy unlimited resources](../upgrade). Upgrades are FREE for anyone working on a cool project.
+1. **Why do I get resource errors**<a id="quota"></a>  
+   You likely got `out of heap memory`, `resource temporarily unavailable` or `Disk quota exceeded`. The FREE service is [restricted](../free/) and the outbound traffic is throttled. Upgrade your server and [enjoy unlimited resources](../upgrade/). Upgrades are FREE for anyone working on a cool project.
 
-4. **My processes are getting killed**  
+1. **My processes are getting killed**  
    Read above.
 
-5. **Can I scan**<a id=scan></a>  
-   It is discouraged. The scan will slow to 2ports/second after the first 8,000 ports. Use your [own EXIT node](../wireguard) for mass scanning.
+1. **Can I scan**<a id=scan></a>  
+   It is [discouraged](nokiddie/). The scan will slow to 2ports/second after the first 8,000 ports. Use your [own EXIT node](../wireguard/) for mass scanning.
 
-6. **Can I do stupid things**<a id=stupid></a>  
+1. **Can I do stupid things**<a id=stupid></a>  
    No. You can not mine crypto or use segfault to do stupid things. This is not a warez trading platform either. It's also not a 'cheap way to access the Internet anonymously' - buy your own [VPN](https://www.mullvad.net). Go away unless you are doing research or working on some great project. Join our [Telegram Channel](https://t.me/thcorg) (especially if you are new): Participate & discuss.
 
-7. **I get an SSH error**  
+1. **I get an SSH error**  
    Likely you got `Bad configuration option: setenv` when trying to log in to your existing server. You need to update your OpenSSH client to a newer version (`ssh -V`). Alternatively you can try `SECRET=XXX ssh -o "SendEnv SECRET" root@segfault.net` (where XXX is your _SECRET_) or ssh to `secret@segfault.net`.
 
-8. **How can I install services or daemons**  
+1. **How can I install services or daemons**  
    Take a look at `/sec/usr/etc/rc.local`. This file is executed on bootup. There is no systemd/systemctl.
 
-9. **How can I publish my Web Page**  
+1. **How can I publish my Web Page**  
    The Web Page is automatically generated using [Pelican](https://www.getpelican.com) and the awesome Markdown syntax. All you need to do is edit the files in `/sec/www/content` and then execute:
 
    ```shell
@@ -49,7 +51,7 @@ description: Frequently asked questions related to Segfault.
 1. **How do I change the password**  
    You can not. The access password is always `segfault`. However, nobody can access your server using `segfault` as a password: The system generates a unique and new `SECRET` for every new log in and then uses this SECRET to set up your private virtual server (isolated from all other servers). It is this SECRET that allows only you to access *your* server. Read the next paragraph...  
 
-2. **How do I log back in to my server**<a id=reconnect></a>  
+1. **How do I log back in to my server**<a id=reconnect></a>  
    On log out you will see a *command* that allows to you to log back in to your server. It contains a `SECRET` and it is this `SECRET` that allows you access your server. The log out screen may look like this:
 
    ```
@@ -57,24 +59,24 @@ description: Frequently asked questions related to Segfault.
    GOODBYE          : Join us on Telegram - https://t.me/thcorg 
    ```
 
-   Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you. Alternatively use `ssh secret@NNN.segfault.net` with the password `segfault` and, when asked, your SECRET. There is also help for [PuTTy](putty/) and [Termius](termius/).
+   Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you. Alternatively use `ssh secret@NNN.segfault.net` with the password `segfault` and, when asked, your SECRET. There is also help for [PuTTy](putty/), [WinSCP](winscp/) and [Termius](termius/).
 
-3. **When does it self-destruct**  
+1. **When does it self-destruct**  
    Immediately on log out or when you type `halt`. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then your server starts up again and your (old) private data is attached again to /sec (encrypted). You can wipe all data (including your encrypted data) by typing `destruct`.
 
-4. **How long will the server run**  
+1. **How long will the server run**  
    Forever if you stay logged in (active session) or log in at least once every 7 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits to not apply to [cool users](../upgrade/).
 
-5. **Why are my changes lost?**<a id="lost"></a>  
+1. **Why are my changes lost?**<a id="lost"></a>  
    Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pipx install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
 
-6. **What EXIT IP is used?**  
+1. **What EXIT IP is used?**  
    There are 3 or more _EXIT IP_ lines shown during log in. These are the VPN providers through which your outgoing traffic is routed. Each of your outgoing connections leaves through a different EXIT (multipath routing). The VPN Exit Nodes cycle every few days.
 
-7. **Is there a list of tools**  
+1. **Is there a list of tools**  
    The server comes with around 54GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanently).
 
-8. **Log in without password**<a id=autologin></a>   
+1. **Log in without password**<a id=autologin></a>   
    Save this SSH key to `~/.ssh/id_sf`.
 
    ```
@@ -106,7 +108,7 @@ description: Frequently asked questions related to Segfault.
    scp  your-server-name:stuff.tar.gz ~/
    ```
 
-9. **SSH ProxyJump and -N are not working**<a id="proxy"></a>  
+1. **SSH ProxyJump and -N are not working**<a id="proxy"></a>  
    There is a workaround. Log in to your root server with `ssh -D1080 ...`. Keep this shell open and alive. Then (from a different terminal on your workstation) execute:
    
    ```
