@@ -4,6 +4,12 @@ title: Enhance your Experience
 description: Pimp up your Root Server
 ---
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href$="/token/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-segfault-v1.html margin-top="0" margin-bottom="4rem" %}
+
 <div style="text-align:center"><h1>TOKEN TOKEN TOKEN</h1></div>
 
 A TOKEN is a secret string that can upgrade your Root Server:

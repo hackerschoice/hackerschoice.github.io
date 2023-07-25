@@ -4,6 +4,12 @@ title: Segfault / WireGuard Configuration
 description: Setup WireGuard Reverse Connection on Segfault.
 ---
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href$="/wireguard/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-segfault-v1.html margin-top="0" margin-bottom="4rem" %}
+
 <div style="text-align:center">
     <h1>Custom WireGuard Exit Nodes</h1>
     <p>Configure your Root Server to send all traffic via another server you own</p>
