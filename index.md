@@ -12,9 +12,15 @@ We do IT security work. We are not for hire. All of our work is for the public.
 
 We research and publish tools and academic papers to expose fishy IT security that just isn’t secure.  We also develop and publish tools to help the IT Security movement.
 
-## Active Projects
+## Free Services
 
 - [Disposable Root Servers](https://www.thc.org/segfault)
+- [Free Telegram Proxy](https://www.thc.org/t)
+- [Free Mail Forwarding](https://www.thc.org/mail)
+
+## Active Projects
+
+- [Segfault](https://www.thc.org/segfault)
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
 - [Global Socket Relay Network](https://www.gsocket.io)
 - [Hydra](https://github.com/vanhauser-thc/thc-hydra)
