@@ -21,6 +21,7 @@ We research and publish tools and academic papers to expose fishy IT security th
 - [Disposable Root Servers](https://www.thc.org/segfault)
 - [Free Telegram Proxy](https://www.thc.org/t)
 - [Free Mail Forwarding](https://www.thc.org/mail)
+- [Tor / Snowflake](https://www.thc.org/snowflake)
 
 ## Active Projects
 
