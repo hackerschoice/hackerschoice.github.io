@@ -6,28 +6,34 @@ description: Setup WireGuard Reverse Connection on Segfault.
 
 <div style="text-align:center">
     <h1>Custom WireGuard Exit Nodes</h1>
-    <p>Configure your Root Server to send all traffic via another server you own</p>
+    <p>Configure your Root Server to send all traffic via an <I>Exit Node</I></p>
 </div>
 
 ---
-Typical use cases:
-1. You like to [mass-scan](../faq/#scan) from your [Root Server](../).
-1. You have access to a server (*Exit Node*) and like all traffic from your [Root Server](../) to be routed via your *Exit Node*.
-1. You like to connect from your [Root Server](../) to workstations on a remote firewalled/private LAN (e.g. use nmap, metasploit, smbscan, on your [Root Server](../) to scan the private LAN...).
-1. You like all your traffic from your [Root Server](../) to appear as if originating from your *Exit Node* (a server you own).
+Use either `SERVER-MODE` or `CLIENT-MODE` --- but not both.
 
-A new network interface (wgExit) will magically appear on your [Root Server](../): Traffic from your [Root Server](../) will now leave via the *Exit Node*.
+A new network interface (wgExit) will magically appear on your [Root Server](../): Traffic from your [Root Server](../) will now appear as if originating from the *Exit Node*.
 
-The *Exit Node* can be behind a firewalled NAT gateway (like your workstation is) or any other host on the Internet. Superuser privileges or root access is not needed.
+The *Exit Node* can be behind a Firewall or NAT-Gateway (e.g. you can use your workstation as an *Exit Node*). Superuser privileges or root access is not needed.
 
 ---
+<div style="text-align:center">
+<h1>Server-Mode<BR>
+Connect from an EXIT NODE to SEGFAULT</h1>
+</div>
+
+Typical use case:  
+1. You like to [mass-scan](../faq/#scan) from your [Root Server](../).
+1. You have shell access to the *Exit Node* and like all traffic from your [Root Server](../) to leave via this *Exit Node*.
+1. The *Exit Node* is not reachable from the Internet or is behind NAT/Firewall.
+1. You like to connect from your [Root Server](../) to workstations on a remote firewalled/private LAN (e.g. use nmap, metasploit, smbscan, etc.. on your [Root Server](../) to scan a private LAN behind the *Exit Node*).
 
 ## Step #1 - On your Root Server
 
 Create and activate an Exit Node configuration:
 
 ```shell
-curl http://rpc/net/up
+curl http://sf/net/up
 ```
 
 {:refdef: style="text-align: center;"}
@@ -45,6 +51,40 @@ Cut & paste the output from above into the shell on your Exit Node:
 
 **>> All traffic from your Root Server will now leave via the Exit Node <<**
 
+---
+<div style="text-align:center">
+<h1>Client-Mode<BR>
+Connect from SEGFAULT to an EXIT NODE</h1>
+</div>
+
+Typical use case:  
+1. The *Exit Node* is on the public Internet (ProtonVPN, Mullvad, NordVPN, ...)
+1. You like to access an [AWS VPC](https://www.procustodibus.com/blog/2021/02/wireguard-with-aws-private-subnets/)/[Private-Subnet](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html)
+
+## On your Root Server
+
+This example uses [Proton's Free VPN](https://account.protonvpn.com/signup?plan=free) as an *Exit Node*. After
+[registration](https://account.protonvpn.com/signup?plan=free) scroll down to "WireGuard Configuration" and select "GNU/Linux" and click "Create".
+
+A window containing Proton's WireGuard configuration similar to this one will show:
+
+{:refdef: style="text-align: center;"}
+![protonwgconf](protonwgconf.png){:height="50%" width="50%"}
+{: refdef}
+
+Use this informationon your [Root Server](../):
+
+```shell
+curl sf/wg/up -d name=ProtonFree \
+              -d PrivateKey=aBvvSus/nNdGxzep/gnC1j0EqSHVKgxSM7VyBsXwD1s= \
+              -d ip4=10.2.0.2/32 \
+              -d PublicKey=TH87YVmOQBoo1Mir13INlDzvTOlvsi9dWmAp+IF3bRg= \
+              -d Endpoint=149.34.244.169:51820
+```
+
+**>> All traffic from your Root Server will now leave via Proton's Free VPN <<**
+
+---
 ## More Shenanigans
 
 Each command is executed on the [Root Server](../) (after the Exit Node has connected).
@@ -52,7 +92,8 @@ Each command is executed on the [Root Server](../) (after the Exit Node has conn
 __Check Exit Node__
 
 ```
-curl http://rpc/net/show
+curl sf/net/show  # Server Mode
+curl sf/wg/show   # Client Mode
 ```
 
 __Masscan the Internet__
