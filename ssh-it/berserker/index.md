@@ -4,6 +4,12 @@ title: The Berserker
 description: A recursive, non-intrusive and ephemeral tool to find password-less private ssh-keys and build a hierarchical tree of reachable hosts.
 ---
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href$="/berserker/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-berserker-v1.html margin-top="0" margin-bottom="4rem" %}
+
 <!-- {:refdef: style="text-align: center;"}
 ## **A recursive, non-intrusive and ephemeral tool to find password-less private ssh-keys and build a hierarchical tree of reachable hosts**
 {: refdef} -->

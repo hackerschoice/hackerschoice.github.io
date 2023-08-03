@@ -1,8 +1,14 @@
 ---
 layout: default
-title: Segfault / Disclaimer
-description: Segfault usage disclaimer.
+title: Segfault / Service
+description: Segfault service terms of use.
 ---
+
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href$="/free/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-segfault-v1.html margin-top="0" margin-bottom="4rem" %}
 
 <div style="text-align:center"><h1>This is a FREE service</h1></div>
 

@@ -4,6 +4,12 @@ title: The Berserker / How it works
 description: Technical details about how The Berserker works.
 ---
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<style>a[href$="/how-it-works/"] { font-weight: bold; }</style>
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-berserker-v1.html margin-top="0" margin-bottom="4rem" %}
+
 <!-- {:refdef: style="text-align: center;"}
 ## **A recursive, non-intrusive and ephemeral tool to find password-less private ssh-keys and build a hierarchical tree of reachable hosts**
 {: refdef} -->

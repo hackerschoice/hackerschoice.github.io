@@ -4,6 +4,12 @@ title: SSH-IT
 description: An autonomous SSH worm that intercepts outgoing SSH connections every time a user uses ssh.
 ---
 
+<!-- Begin of ugly CSS navigation styling hack -->
+<!-- <style>a[href="/ssh-it/"] { font-weight: bold; }</style> -->
+<!-- End of ugly CSS navigation styling hack -->
+
+{% include nav-ssh-it-v1.html margin-top="0" margin-bottom="4rem" %}
+
 <div style="width:80%; margin:auto">
     <script id="asciicast-LNmtdthAM1WewOs12ZnHd8RyC" src="https://asciinema.org/a/LNmtdthAM1WewOs12ZnHd8RyC.js" async data-autoplay=1 data-speed="1.5"></script>
 </div>
