@@ -83,7 +83,7 @@ Use this informationon your [Root Server](../):
 ```shell
 curl sf/wg/up -d name=ProtonFree \
               -d PrivateKey=aBvvSus/nNdGxzep/gnC1j0EqSHVKgxSM7VyBsXwD1s= \
-              -d ip4=10.2.0.2/32 \
+              -d Address=10.2.0.2/32 \
               -d PublicKey=TH87YVmOQBoo1Mir13INlDzvTOlvsi9dWmAp+IF3bRg= \
               -d Endpoint=149.34.244.169:51820
 ```
@@ -159,6 +159,13 @@ amass enum -d nsa.gov
 ## Windows
 
 Cut & Paste the YELLOW strings into an Admin Powershell (Right-Click on Powershell -> _Run as Administrator_) or else Defender's heuristic will block Wiretap. 
+
+## Similar services
+
+1. [WireGuard over Cloudflared](https://iq.thc.org/wireguard-into-a-private-lan-via-cloudflare-tunnels)
+1. [Anything over Cloudflared Free](https://iq.thc.org/tunnel-via-cloudflare-to-any-tcp-service)
+1. [Tailscale](https://tailscale.com/)
+1. [Gsocket](https://www.gsocket.io)
 
 ## Contact
 
