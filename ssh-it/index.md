@@ -37,3 +37,4 @@ Read our [detailed explanation](how-it-works) for more information.
 ## Contact
 
 {% include contact-details.md %}
+
