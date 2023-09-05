@@ -31,11 +31,17 @@ description: Frequently asked questions related to Segfault.
 
    Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you. Alternatively use `ssh secret@NNN.segfault.net` with the password `segfault` and, when asked, your SECRET. There is also help for [PuTTy](putty/), [WinSCP](winscp/) and [Termius](termius/).
 
-1. **My files are gone when I log in again**  
-   You did not set the `-o SetEnv "SECRET=XXX..."`. This means a brand new server was created when you logged in again.
+1. **My files are gone when I log back in again**  
+   You did not set the `-o SetEnv "SECRET=XXX..."`. This means a brand new server was created when you logged in the second time.
 
-1. **My processes disappear after log out**  
-   The system shuts down servers that have not been logged into after 24h. Run `tmux` to extend this to 6 days (but dont forget to log in at least once every 6 days). Your data will get wiped after 180 days without log in.
+1. **How long will the server run?**  
+   Forever if you stay logged in (active session) or log in at least once every 6 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits do not apply to [cool users](../upgrade/).
+
+1. **My processes disappear after I log out**  
+   See above.
+
+1. **Why are my changes lost?**<a id="lost"></a>  
+   Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pipx install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
 
 1. **Why do I get resource errors?**<a id="quota"></a>  
    You likely got `out of heap memory`, `resource temporarily unavailable` or `Disk quota exceeded`. The FREE service is [restricted](../free/) and the outbound traffic is throttled. Ask us for a secret [token](../toekn/) to get more resources. Tokens are FREE for anyone working on a cool project.
@@ -64,12 +70,6 @@ description: Frequently asked questions related to Segfault.
 
 1. **When does it self-destruct?**  
    Immediately on log out or when you type `halt`. Your server shuts down and all system data and memory is wiped. Your private data in /sec and /root is only accessible while your server is running. When you log back in using the same `SECRET` then your server starts up again and your (old) private data is attached again to /sec (encrypted). You can wipe all data (including your encrypted data) by typing `destruct`.
-
-1. **How long will the server run?**  
-   Forever if you stay logged in (active session) or log in at least once every 7 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits to not apply to [cool users](../upgrade/).
-
-1. **Why are my changes lost?**<a id="lost"></a>  
-   Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pipx install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
 
 1. **What EXIT IP is used?**  
    There are 3 or more _EXIT IP_ lines shown during log in. These are the VPN providers through which your outgoing traffic is routed. Each of your outgoing connections leaves through a different EXIT (multipath routing). The VPN Exit Nodes cycle every few days.
