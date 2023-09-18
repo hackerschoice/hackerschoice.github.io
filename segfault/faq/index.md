@@ -146,6 +146,9 @@ description: Frequently asked questions related to Segfault.
 
    (The IP & PORT are an example. You need to read the log in message when you log in to find out your IP and PORT or check `/config/self/reverse_*`. The IP and PORT are temporary and may change every few days.).
 
+1. **Can I use OpenVPN?**<a id="vpn"></a>  
+   No. Use WireGuard instead: [https://thc.org/segfault/wireguard](../wireguard).
+
 1. **How do I run a webserver on the reverse Port Forward?**<a id="web"></a>
 
    ```shell
