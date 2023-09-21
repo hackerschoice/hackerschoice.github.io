@@ -122,6 +122,7 @@ This is a **free service** and there are [some restrictions](free) in place. You
 ## Similar Services
 
 - [SDF Public Access Unix](http://sdf.org/)
+- [xShellz](https://www.xshellz.com/)
 - [WindowsOnFly](https://app.apponfly.com/trial)
 - [OnWorks](https://www.onworks.net/os-distributions/debian-based/free-kali-linux-online)
 - [FreeShell](https://freeshell.de/)
