@@ -18,13 +18,16 @@ A TOKEN is a secret string that can upgrade your Root Server:
 ### Create a *NEW* server with upgraded resources:
 ssh -o "SetEnv TOKEN=SecretTokenChangeMe" root@<REGION>.segfault.net
 
-### Upgrade an *EXISTING* server with upgraded resources:
+### or, to upgrade an *EXISTING* server instead:
 ssh -o "SetEnv SECRET=YourSecret" root@<REGION>.segfault.net halt # Stop the server
 ssh -o "SetEnv TOKEN=SecretTokenChangeMe SECRET=YourSecret" root@<REGION>.segfault.net
 
 # The TOKEN only needs to be set ONCE. All subsequent connects can be done
 # without specifying the TOKEN:
 ssh -o "SetEnv SECRET=YourSecret" root@<REGION>.segfault.net
+
+### Verify that the token is set:
+cat /config/self/limits
 ```
 
 TOKENS give you more bandwidth, processing power, storage space and allow you to log in to your Root Server when there is a contention for resources (e.g. when under attack). 
