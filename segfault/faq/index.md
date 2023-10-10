@@ -77,6 +77,17 @@ description: Frequently asked questions related to Segfault.
 1. **Is there a list of tools?**  
    The server comes with around 54GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanently).
 
+1. **How to upload/download files?**<a id="data"></a>  
+   Use `scp -o "SetEnv=..." root@...` or the shorter version `scp <servername>`. Alternatively log in with a port forward to localhost:8080 and start a web based `filebrowser` and then point your browser to http://127.0.0.1:8080:
+
+   ```
+   ssh -L8080:0:8080 root@<servername> 'filebrowser --noauth -d ~/.config/filebrowser/filebrowser.db -r /'
+   ```
+   Alternatively:
+   1. Read [How do I run a webserver on a permanent reverse Tunnel](#web) to access your files via Cloudflare.
+   1. Copy your files to /onion and download them via TOR.
+   1. Use [rsync](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#rsync) via the reverse Port.
+   <BR>
 1. **Log in without password**<a id=autologin></a>   
    Save this SSH key to `~/.ssh/id_sf`.
 
@@ -157,10 +168,10 @@ description: Frequently asked questions related to Segfault.
    ```
    (Use for temporary sharing only. The reverse port may change at any time.)
 
-1. **How do I run a webserver on a permanent reverse Tunnel?**
+1. **How do I run a webserver on a permanent reverse Tunnel?**<a id="web"</a>
 
    ```shell
-   setsid python -m http.server 8080 &>/dev/null
+   (python -m http.server 8080 &>/dev/null &)
    cloudflared tunnel --url http://localhost:8080 --no-autoupdate
    ```
    Your HTTPS URL will be shown to you (it looks like `https://blah-foo-one-two.trycloudflare.com`). Optionally start the tunnel inside `tmux` so that the tunnel stays connected after you exit your SSH session. [Keep reading...](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet/blob/master/README.md#https)
