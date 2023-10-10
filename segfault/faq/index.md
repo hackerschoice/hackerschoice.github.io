@@ -58,6 +58,11 @@ description: Frequently asked questions related to Segfault.
 1. **How can I install services or daemons?**  
    Take a look at `/sec/usr/etc/rc.local`. This file is executed on bootup. There is no systemd/systemctl.
 
+1. **How can I start a Web Browse, VNC or GUI?**  
+   1. Use [https://shell.segfault.net](https://shell.segfault.net). Click "I'm new here" to create a new server. Click "I've been here" to log in to your existing server: Take your SECRET and prefix it with the short server name. Example Secret: `8lgm-XXX...`.
+   1. Log in with SSH start a VNC session: `ssh -L5900:0:5900 <servername>` and execute `startxvnc`. Then connect with VNC to 127.0.0.1:5900
+   1. Log in with SSH, start a XPRA session: `ssh -L2000:0:2000 <servername>` and then browse to http://127.0.0.1:2000.
+   <p>
 1. **How can I publish my Web Page?**  
    The Web Page is automatically generated using [Pelican](https://www.getpelican.com) and the awesome Markdown syntax. All you need to do is edit the files in `/sec/www/content` and then execute:
 
@@ -87,7 +92,7 @@ description: Frequently asked questions related to Segfault.
    1. Read [How do I run a webserver on a permanent reverse Tunnel](#web) to access your files via Cloudflare.
    1. Copy your files to /onion and download them via TOR.
    1. Use [rsync](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#rsync) via the reverse Port.
-   <BR>
+   <p>
 1. **Log in without password**<a id=autologin></a>   
    Save this SSH key to `~/.ssh/id_sf`.
 
