@@ -32,7 +32,7 @@ SSH-IT intercepts outgoing SSH connections every time a user uses `ssh`. It logs
 
 SSH-IT executes the original ssh command inside a fake PTY harness and intercepts any user input and output. None of the system binaries are modified and it does not need `ptrace()`. It does not require root or superuser privileges.
 
-Read our [detailed explanation](how-it-works) for more information.
+Read our [detailed explanation](how-it-works) and check out [GitHub](https://github.com/hackerschoice/ssh-it) for more information.
 
 ## Contact
 
