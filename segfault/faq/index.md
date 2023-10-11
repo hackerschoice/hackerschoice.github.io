@@ -83,10 +83,10 @@ description: Frequently asked questions related to Segfault.
    The server comes with around 54GB of pre-installed tools. See the [full list](https://github.com/hackerschoice/segfault/blob/main/guest/Dockerfile). Let us know if any tool is missing and we can add it (permanently).
 
 1. **How to upload/download files?**<a id="data"></a>  
-   Use `scp -o "SetEnv=..." root@...` or the shorter version `scp <servername>`. Alternatively log in with the port forward shown below, type `startfb` and then point your browser to http://127.0.0.1:2900
+   Use `scp -o "SetEnv SECRET=XXX..." root@...` or the shorter version `scp <servername>`. Alternatively log in with the port forward shown below, type `startfb` and then point your browser to http://127.0.0.1:2900
 
    ```
-   ssh -L2900:0:2900 -O "SetEnv=..." root@<servername>
+   ssh -L2900:0:2900 -O "SetEnv SECRET=XXX..." root@<servername>
    startfb
    ```
    Alternatively:
