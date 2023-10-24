@@ -86,7 +86,7 @@ description: Frequently asked questions related to Segfault.
    Use `scp -o "SetEnv SECRET=XXX..." root@...` or the shorter version `scp <servername>`. Alternatively log in with the port forward shown below, type `startfb` and then point your browser to http://127.0.0.1:2900
 
    ```
-   ssh -L2900:0:2900 -O "SetEnv SECRET=XXX..." root@<servername>
+   ssh -L2900:0:2900 -o "SetEnv SECRET=XXX..." root@<servername>
    startfb
    ```
    Alternatively:
