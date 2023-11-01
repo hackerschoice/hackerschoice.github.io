@@ -174,9 +174,10 @@ description: Frequently asked questions related to Segfault.
    ```
    (Use for temporary sharing only. The reverse port may change at any time.)
 
-1. **How do I run a webserver on a permanent reverse Tunnel?**<a id="web"</a>
+1. **How do I run a webserver on a permanent reverse Tunnel?**<a id="web"></a>
 
    ```shell
+   cd /onion
    (python -m http.server 8080 &>/dev/null &)
    cloudflared tunnel --url http://localhost:8080 --no-autoupdate
    ```
