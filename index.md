@@ -27,7 +27,8 @@ We research and publish tools and academic papers to expose fishy IT security th
 - [Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [IPv6 attack tool kit](https://github.com/vanhauser-thc/thc-ipv6)
 - [THC's favourite Tips, Tricks  & Hacks / Cheat Sheet](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet)
-- [IT Security and Privacy for the rebellions of the world](https://tiny.cc/thcstfu)
+- [IT Security and Privacy for the rebellions of the world](https://hackerschoice.medium.com/it-security-and-privacy-for-the-rebellions-of-the-world-db4023cadcca
+)
 
 
 Releases: [https://github.com/hackerschoice](https://github.com/hackerschoice)  
