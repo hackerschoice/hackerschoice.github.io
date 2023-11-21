@@ -86,6 +86,9 @@ curl sf/wg/up -d name=ProtonFree \
               -d Address=10.2.0.2/32 \
               -d PublicKey=TH87YVmOQBoo1Mir13INlDzvTOlvsi9dWmAp+IF3bRg= \
               -d Endpoint=149.34.244.169:51820
+### THESE KEYS WILL NOT WORK. YOU MUST REQUEST YOUR OWN KEYS FROM PROTON AS EXPLAINED ABOVE.
+### THESE KEYS WILL NOT WORK. YOU MUST REQUEST YOUR OWN KEYS FROM PROTON AS EXPLAINED ABOVE.
+### THESE KEYS WILL NOT WORK. YOU MUST REQUEST YOUR OWN KEYS FROM PROTON AS EXPLAINED ABOVE.
 ```
 
 **>> All traffic from your Root Server will now leave via Proton's Free VPN <<**
