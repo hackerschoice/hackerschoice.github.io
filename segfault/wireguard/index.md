@@ -109,10 +109,12 @@ __Masscan the Internet__
 
 ```
 ### Simple
-masscan -e wgExit -p 22,80,443 --range 1.0.0.0-8.255.255.255
+masscan -e wgExit -p 22,80,443 --rate 10000 --range 1.0.0.0-8.255.255.255
 ### With banner grabbing:
-masscan -e wgExit -p 22,80,443 --range 1.0.0.0-8.255.255.255 --banners --adapter-ip 172.16.0.3-172.16.128.2 --adapter-port 1024-33791
+masscan -e wgExit -p 22,80,443 --rate 10000  --range 1.0.0.0-8.255.255.255 --banners --adapter-ip 172.16.0.3-172.16.128.2 --adapter-port 1024-33791
 ```
+
+Note: Setting `--rate 40000` will use 4000 * (40 + 60 + 40) * 2 * 8 == 85.45 Mbit on the EXIT node.
 
 __Ping an IPv6 host__
 
