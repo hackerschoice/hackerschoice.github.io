@@ -17,8 +17,8 @@ THC is no place for mining-imbeciles, ransomware-idiots, DDoS-kiddos, revenge-ha
 
 ---
 {:refdef: style="text-align: center;"}
-**We will respond to abuse requests and stop the abuse.**
-(contact us at members@proton.thc.org)
+**We will respond to abuse requests and stop the abuse.**  
+<small>(contact us at members@proton.thc.org)</small>
 {: refdef}
 ---
 
