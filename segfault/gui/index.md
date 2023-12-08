@@ -24,7 +24,8 @@ description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favou
 Connect to your shell:
 
 ```shell
-ssh -L2000:0:2000 -L5900:0:5900 root@teso.segfault.net # Password is 'segfault'
+# Execute this command on your WORKSTATION, _not_ on the segfault root shell.
+ssh -L2000:0:2000 -L5900:0:5900 root@segfault.net # Password is 'segfault'
 ```
 
 <div style="text-align:center"><p>There are a few ways to access a GUI.</p></div>
@@ -70,7 +71,7 @@ xpra start ssh://root@FluffyBunny/ --start-child=xterm-dark --ssh=ssh --ssh-upgr
 Or start Firefox on a fresh new disposable [root server](../) (which will self-destruct when Firefox stops):
 
 ```shell
-xpra start ssh://root@teso.segfault.net/ --start-child=firefox --ssh=ssh --ssh-upgrade=no
+xpra start ssh://root@segfault.net/ --start-child=firefox --ssh=ssh --ssh-upgrade=no
 ```
 
 ## IT'S BUGGERED
