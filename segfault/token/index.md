@@ -12,21 +12,16 @@ description: Pimp up your Root Server
 
 <div style="text-align:center"><h1>TOKEN TOKEN TOKEN</h1></div>
 
-A TOKEN is a secret string that can upgrade your Root Server:
+A TOKEN is a secret string to upgrade your Root Server:
 
 ```sh
-### Create a *NEW* server with upgraded resources:
-ssh -o "SetEnv TOKEN=SecretTokenChangeMe" root@<REGION>.segfault.net
+### Log in to your root server and type:
+curl sf/set -d token=SecretTokenChangeMe && reboot
+```
 
-### or, to upgrade an *EXISTING* server instead:
-ssh -o "SetEnv SECRET=YourSecret" root@<REGION>.segfault.net halt # Stop the server
-ssh -o "SetEnv TOKEN=SecretTokenChangeMe SECRET=YourSecret" root@<REGION>.segfault.net
-
-# The TOKEN only needs to be set ONCE. All subsequent connects can be done
-# without specifying the TOKEN:
-ssh -o "SetEnv SECRET=YourSecret" root@<REGION>.segfault.net
-
-### Verify that the token is set:
+```sh
+### Wait 30 seconds.
+### Then log back in to your Root Server and check the increased resources:
 cat /config/self/limits
 ```
 
