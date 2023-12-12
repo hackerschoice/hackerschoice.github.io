@@ -22,7 +22,7 @@ description: Frequently asked questions related to Segfault.
    No. You can not mine crypto or use segfault to do stupid or illegal things. This is not a warez trading platform either. It's also not a 'cheap way to access the Internet anonymously' - buy your own [VPN](https://www.mullvad.net). Go away unless you are doing research or working on some great project. Join our [Telegram Channel](https://t.me/thcorg) (especially if you are new): Participate & discuss.
 
 1. **Can I do Bug Bounty?**<a id=bb></a>  
-   Hardly. BB tools are not stealthy and often flood the target. They are a cost to us and you make the money 🤭. [Donate](../free/) and we are happy to upgrade your resources. Some fine BB hunters use Segfault for resource-friendly tools (like BurpSuite) without donating and that's cool with us as long as you participate in the discussions and share your ideas. 
+   Hardly. BB tools often flood the target. They are a cost to us but you make the money 🤭. [Donate](../free/) and we are happy to upgrade your resources. Some fine BB hunters use Segfault for resource-friendly tools (like BurpSuite) without donating and that's cool with us as long as you participate in the discussions and share your ideas. 
 
 1. **How do I log back in to my server?**<a id=reconnect></a>  
    On log out you will see a *command* that allows to you to log back in to your server. It contains a `SECRET` and it is this `SECRET` that allows you access your server. The log out screen may look like this:
@@ -98,28 +98,15 @@ description: Frequently asked questions related to Segfault.
    1. Use [rsync](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#rsync) via the reverse Port.
    <p>
 1. **Log in without password**<a id=autologin></a>   
-   Save this SSH key to `~/.ssh/id_sf`.
+   Type `info` and follow the instructions that look like this:
 
    ```
+   :Cut & Paste these lines to your workstation's shell to retain access:
+   ######################################################################
+   cat >~/.ssh/id_sf-NNN-segfault-net <<'__EOF__'
    -----BEGIN OPENSSH PRIVATE KEY-----
-   b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-   QyNTUxOQAAACB3jmp/3JyvY9ABgjrx4+sBnQ0T+yHsB4HTBMcJqC2OtgAAAIiJ9mzOifZs
-   zgAAAAtzc2gtZWQyNTUxOQAAACB3jmp/3JyvY9ABgjrx4+sBnQ0T+yHsB4HTBMcJqC2Otg
-   AAAEAs6YNqZSzAfZDl5/vDOB0vv7EZMxMUc/fEipuZ9A3eCHeOan/cnK9j0AGCOvHj6wGd
-   DRP7IewHgdMExwmoLY62AAAAAAECAwQF
-   -----END OPENSSH PRIVATE KEY-----
+   [...]
    ```
-
-   The same key is also available at `/config/guest/id_ed25519`. Add these lines to your `~/.ssh/config` on your workstation (not the root server!):
-   
-   ```
-   host your-server-name
-      User root
-      HostName teso.segfault.net
-      IdentityFile ~/.ssh/id_sf
-      SetEnv SECRET=YOUR-SECRET
-   ```
-   (Replace teso.segfault.net with the correct server name (`echo $SF_FQDN`). Replace `YOUR-SECRET` with your server's secret).
 
    Thereafter use any of these commands:
 
@@ -148,15 +135,13 @@ description: Frequently asked questions related to Segfault.
 
 
 1. **How do I use reverse Port Forwarding?**<a id="fwd"></a>  
-   Your server runs on a private IP space. You can connect out (to the Internet) but nobody can connect back to your server. However, your server is assigned **one** PORT on a public IP address (for reverse back connections). The IP & PORT are unique to your server. During log in you will see a message that looks like this (example):
-
+   Your server runs in a private IP space. You can connect out (to the Internet) but nobody can connect back to your server. However, you can assign **one** PORT on a public IP address with `curl sf/port`:
+   
    ```
-   [...]
-   Reverse Port      : 185.117.118.23:1234
-   [...]
+   👾 New reverse Port is 1.12.123.222:1234
    ```
 
-   That's your personal IP & PORT for reverse connections. Any connection to 185.117.118.23 on Port 1234 is forwarded to your server on port 1234. You can listen for the connection like so:
+   That's your personal IP:PORT for reverse connections. Any connection to 1.12.123.222 on Port 1234 is forwarded to your server on port 1234. You can listen for the connection like so:
 
    ```
    nc -vnlp 1234
