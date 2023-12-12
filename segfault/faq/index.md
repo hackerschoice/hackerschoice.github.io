@@ -21,7 +21,7 @@ description: Frequently asked questions related to Segfault.
 1. **Can I do stupid things?**<a id=stupid></a>  
    No. You can not mine crypto or use segfault to do stupid or illegal things. This is not a warez trading platform either. It's also not a 'cheap way to access the Internet anonymously' - buy your own [VPN](https://www.mullvad.net). Go away unless you are doing research or working on some great project. Join our [Telegram Channel](https://t.me/thcorg) (especially if you are new): Participate & discuss.
 
-1. **Can I do Bug Bounty?**<a id=bb></a>
+1. **Can I do Bug Bounty?**<a id=bb></a>  
    Hardly. BB tools are not stealthy and often flood the target. They are a cost to us and you make the money 🤭. [Donate](../free/) and we are happy to upgrade your resources. Some fine BB hunters use Segfault for resource-friendly tools (like BurpSuite) without donating and that's cool with us as long as you participate in the discussions and share your ideas. 
 
 1. **How do I log back in to my server?**<a id=reconnect></a>  
