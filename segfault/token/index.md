@@ -12,19 +12,6 @@ description: Pimp up your Root Server
 
 <div style="text-align:center"><h1>TOKEN TOKEN TOKEN</h1></div>
 
-A TOKEN is a secret string to upgrade your Root Server:
-
-```sh
-### Log in to your root server and type:
-curl sf/set -d token=SecretTokenChangeMe && reboot
-```
-
-```sh
-### Wait 30 seconds.
-### Then log back in to your Root Server and check the increased resources:
-cat /config/self/limits
-```
-
 TOKENS give you more bandwidth, processing power, storage space and allow you to log in to your Root Server when there is a contention for resources (e.g. when under attack). 
 
 Tokens are available from the [SysCops](https://t.me/thcorg). They are not for sale but we hand them out rather freely. Here are a few tips how to get a Token:
@@ -36,9 +23,22 @@ Tokens are available from the [SysCops](https://t.me/thcorg). They are not for s
  * Work on great projects.
  * Save the world.
 
+
+Upgrade your server with your secret TOKEN:
+```sh
+### Log in to your root server and type:
+curl sf/set -d token=SecretTokenChangeMe && reboot
+```
+
+```sh
+### Wait 30 seconds.
+### Log back in to your Root Server and check the increased resources:
+cat /config/self/limits
+```
+
 [Contact us on Telegram](https://t.me/thcorg).
 
-If you are a corporate or are using our service for commercial reasons or gain other financial benefits or favours then you must [donate some big dough](../upgrade).
+If you are a corporate or are using our service for commercial reasons or gain other financial benefits or favours then you must [donate some big dough](../token).
 
 ## Contact
 

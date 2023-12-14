@@ -20,7 +20,15 @@ If you are a corporate or are using our service for commercial reasons or gain o
 
 The free servers have restrictions in place. The storage, memory, processing power and bandwidth is limited. When there is a squeeze for resources we may shut down 'free' servers. We may destroy the storage and data if the 'free' server is not being used for many weeks.
 
-Consider to [upgrade your server](../upgrade) and get some neat benefits.
+Ask us for a [TOKEN](../token) to remove many restrictions and get some neat benefits.
+
+Donations are welcome. We can issue a VAT Invoice from a real company to keep your accountant happy. We accept [bank transfers](https://t.me/thcorg) or crypto:
+
+```
+BTC bc1qdp6mdje5f9x8ar8jg3uv425d4r2v5cmdygkknz
+ETH 0xb59fB528BFee42caba4A607AFD13444FB38d0820
+XMR 85RDZJfdGWX3BzUESZSBNtNicHeTJo3UseYH2Pk6XeW61hFF3JWSax9LkvHZPCYg8pHJfQxCEHfgsFXFWrFNiUVMGzFv9cx
+```
 
 [Talk to us](https://t.me/thcorg) and there is a good chance that we will remove all restrictions from your server; especially if we like what you are working on.
 

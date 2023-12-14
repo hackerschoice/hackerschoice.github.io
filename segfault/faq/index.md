@@ -38,7 +38,7 @@ description: Frequently asked questions related to Segfault.
    You did not set the `-o SetEnv "SECRET=XXX..."`. This means a brand new server was created when you logged in the second time.
 
 1. **How long will the server run?**  
-   Forever if you stay logged in (active session) or log in at least once every 6 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits do not apply to [cool users](../upgrade/).
+   Forever if you stay logged in (active session) or log in at least once every 6 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits do not apply to [cool users](../token/).
 
 1. **My processes disappear after I log out**  
    See above.
