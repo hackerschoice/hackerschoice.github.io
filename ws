@@ -132,23 +132,24 @@ addcertfn() {
 # Return <Virtualization>/<Container> or EMPTY if baremetal.
 get_virt() {
     local str
+    local cont
     local str_suffix
     str="$(cat /sys/class/dmi/id/product_name /sys/class/dmi/id/sys_vendor /sys/class/dmi/id/board_vendor /sys/class/dmi/id/bios_vendor /sys/class/dmi/id/product_version 2>/dev/null)"
 
     [[ -z $str ]] && return
 
     if grep -sqF docker "/proc/1/cgroup" &>/dev/null || grep -sqF docker/overlay "/proc/self/mountinfo" &>/dev/null; then
-        str_suffix="Docker"
+        cont="Docker"
     elif tr '\000' '\n' <"/proc/1/environ" 2>/dev/null | grep -Eiq '^container=podman' || grep -sqF /libpod- "/proc/self/cgroup" 2>/dev/null; then
-        str_suffix="Podman"
+        cont="Podman"
     elif [[ -d /proc/vz ]]; then
-        str_suffix="Virtuozzo" # OpenVZ
+        cont="Virtuozzo" # OpenVZ
     elif [ -e "/proc/1/environ" ] && tr '\000' '\n' <"/proc/1/environ" 2>/dev/null | grep -Eiq '^container=lxc'; then
-        str_suffix="LXC"
+        cont="LXC"
     elif [ -e /proc/cpuinfo ] && grep -q 'UML' "/proc/cpuinfo"; then
-        str_suffix="User Mode Linux"
+        cont="User Mode Linux"
     fi
-    [[ -n $str_suffix ]] && str_suffix="/${str_suffix}"
+    [[ -n $cont ]] && str_suffix="/${cont}"
 
     [[ -d /proc/bc ]] && { echo "OpenVZ/${str_suffix}"; return; }
 
@@ -167,6 +168,9 @@ get_virt() {
     [[ $str == *"BHYVE"* ]]                    && { echo "BHYVE${str_suffix}"; return; }
     [[ $str == *"Hyper-V"* ]]                  && { echo "Microsoft Hyper-V${str_suffix}"; return; }
     [[ $str == *"Apple Virtualization"* ]]     && { echo "Apple Virtualization${str_suffix}"; return; }
+
+    # No Virtualization but inside a container
+    [[ -n $cont ]] && { echo "$cont"; return; }
 }
 
 HTTPS_curl() { curl -m 10 -fksSL "$*"; }
