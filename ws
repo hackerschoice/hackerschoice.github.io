@@ -221,6 +221,11 @@ uname -a 2>/dev/null || cat /proc/version 2>/dev/null
 # Retrieve virtualization method
 str="$(get_virt)"
 [[ -n $str ]] && echo "Virtualization: $str"
+ncpu=$(nproc 2>/dev/null)
+[[ -e /proc/cpuinfo ]] && {
+    [[ -z $ncpu ]] && ncpu=$(grep '^model name' /proc/cpuinfo | wc -l)
+    echo "CPU          :$(grep -m1 '^model name' /proc/cpuinfo | cut -f2 -d:) x${ncpu}"
+}
 hostnamectl 2>/dev/null || lsb_release -a 2>/dev/null
 # || cat /etc/banner 2>/dev/null
 source /etc/os-release 2>/dev/null && echo "Pretty Name: ${PRETTY_NAME}"
@@ -316,6 +321,9 @@ unset res
 
 echo -e "${CDM}>>>>> Storage ${CN}"
 df -h 2>/dev/null | grep -v ^tmpfs
+
+echo -e "${CDM}>>>>> Memory ${CN}"
+free -h
 
 echo -e "${CDM}>>>>> Last History${CN}"
 ls -al ~/.*history* 2>/dev/null
