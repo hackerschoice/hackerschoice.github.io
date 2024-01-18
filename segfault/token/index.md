@@ -14,13 +14,13 @@ description: Pimp up your Root Server
 
 TOKENS give you more bandwidth, processing power, storage space and allow you to log in to your Root Server when there is a contention for resources (e.g. when under attack). 
 
-Tokens are available from the [SysCops](https://t.me/thcorg). They are not for sale but we hand them out rather freely. Here are a few tips how to get a Token:
+Tokens are available from the [SysCops](https://t.me/thcorg). Explain your project in the channel if you like to get a TOKEN. They are not for sale. Here are a few tips how to get a Token:
 
  * Participate in the discussions.
  * Share your ideas, comments and concerns.
  * Find bugs.
- * Join our efforts. Help us.
- * Work on great projects.
+ * Projects that help the community.
+ * Projects that are new and exciting.
  * Save the world.
 
 
