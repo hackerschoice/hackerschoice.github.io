@@ -95,7 +95,7 @@ description: Frequently asked questions related to Segfault.
    Alternatively:
    1. Read [How do I run a webserver on a permanent reverse Tunnel](#web) to access your files via Cloudflare.
    1. Copy your files to /onion and download them via TOR.
-   1. Use [rsync](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#rsync) via the reverse Port.
+   1. Use [rsync](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#rsync) via the reverse port.
    <p>
 1. **Log in without password**<a id=autologin></a>   
    Type `info` and follow the instructions that look like this:
@@ -134,7 +134,7 @@ description: Frequently asked questions related to Segfault.
    (For socat2 use `socat2 - "SOCKS4A:%h:%p|tcp:0:1080"`)
 
 1. **Can I run a SERVICE on a public IP?**<a id="service"></a>  
-   No. Your ROOT SERVER is behind a firewall: You can connect out (to the Internet) but nobody can connect back to your server (Read below for the only exception). There are [MANY ways](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#tunnel) to tunnel a Port from a PUBLIC IP back to your ROOT SERVER. Cloudflare, pagekite and ngrok are free or cheap ways to tunnel a HTTPS connection back to your ROOT SERVER.
+   No. Your ROOT SERVER is behind a firewall: You can connect out (to the Internet) but nobody can connect back to your server (Read below for the only exception). There are [MANY ways](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#tunnel) to tunnel a raw TCP port from a PUBLIC IP back to your ROOT SERVER. For HTTPS tunnels, use [Cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps), [Pagekite](https://pagekite.net/) or [ngrok](https://ngrok.com/download).
 
 1. **How do I use reverse Port Forwarding?**<a id="fwd"></a>  
    You can assign **one** PORT on a public IP address with `curl sf/port`. This port for testing only and will change every 0-7 days:
@@ -154,9 +154,9 @@ description: Frequently asked questions related to Segfault.
    (The IP & PORT are an example. You need to read the log in message when you log in to find out your IP and PORT or check `/config/self/reverse_*`. The IP and PORT are temporary and may change every few days.).
 
 1. **Can I use OpenVPN?**<a id="vpn"></a>  
-   No. Use WireGuard instead: [https://thc.org/segfault/wireguard](../wireguard).
+   Yes - but only to connect OUT from your ROOT SERVER (e.g. connect to  HackTheBox or similar). You can _not_ use OpenVPN to connect *to* your ROOT SERVER (only *out*): Use `curl sf/ovpn`. Alternatively, try [WireGuard](../wireguard).
 
-1. **How do I run a webserver on the reverse Port Forward?**<a id="web"></a>
+1. **How do I run a webserver on the temporary reverse Port?**<a id="web"></a>
 
    ```shell
    echo "Folder ${CDY}$(pwd)${CN} is now shared at ${CB}${CUL}http://$(</config/self/reverse_ip):$(</config/self/reverse_port)${CN}"
