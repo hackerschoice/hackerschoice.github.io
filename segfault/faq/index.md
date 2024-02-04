@@ -134,7 +134,7 @@ description: Frequently asked questions related to Segfault.
    (For socat2 use `socat2 - "SOCKS4A:%h:%p|tcp:0:1080"`)
 
 1. **Can I run a SERVICE on a public IP?**<a id="service"></a>  
-   No. Your ROOT SERVER is behind a firewall: You can connect out (to the Internet) but nobody can connect back to your server (Read below for the only exception). There are [MANY ways](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#tunnel) to tunnel a raw TCP port from a PUBLIC IP back to your ROOT SERVER. For HTTPS tunnels, use [Cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps), [Pagekite](https://pagekite.net/) or [ngrok](https://ngrok.com/download).
+   No. Your ROOT SERVER does not have a public IP: You can connect out (to the Internet) but nobody can connect back to your server (Read below for the only exception). There are [MANY ways](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#tunnel) to tunnel a raw TCP port from a PUBLIC IP back to your ROOT SERVER. For HTTPS tunnels, use [Cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps), [Pagekite](https://pagekite.net/) or [ngrok](https://ngrok.com/download).
 
 1. **How do I use reverse Port Forwarding?**<a id="fwd"></a>  
    You can assign **one** PORT on a public IP address with `curl sf/port`. This port for testing only and will change every 0-7 days:
