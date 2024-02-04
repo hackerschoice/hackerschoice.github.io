@@ -46,8 +46,8 @@ description: Frequently asked questions related to Segfault.
 1. **Why are my changes lost?**<a id="lost"></a>  
    Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pipx install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
 
-1. **Why do I get resource errors?**<a id="quota"></a>  
-   You likely got `out of heap memory`, `resource temporarily unavailable` or `Disk quota exceeded`. The FREE service is [restricted](../free/) and the outbound traffic is throttled. Ask us for a secret [token](../token/) to get more resources. Tokens are FREE for anyone working on a cool project. You can see your current restrictions by typing `cat /config/self/limits`.
+1. **How do I get more resources?**<a id="quota"></a>  
+   The FREE service is [restricted](../free/) and the outbound traffic is throttled. Ask us for a secret [token](../token/) to get more resources. [Tokens](../token/) are FREE for anyone working on a cool project. You can see your current restrictions by typing `cat /config/self/limits`.
 
 1. **My processes are getting killed**  
    Read above.
