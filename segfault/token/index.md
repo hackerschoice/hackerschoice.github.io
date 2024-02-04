@@ -24,7 +24,7 @@ TOKENS are available from the [SysCops](https://t.me/thcorg). Explain your proje
  * Save the world.
  * Hacktivism & IT Security Research.
 
-Segfault is not for Bug Bounty, Bots, Mining or hosting game servers.  
+Segfault is not for Warez, Bug Bounty, Bots, Mining or hosting game servers.  
 
 Upgrade your server with your secret TOKEN:
 ```sh
