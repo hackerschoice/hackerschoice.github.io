@@ -17,6 +17,7 @@ TOKENS give you more bandwidth, processing power, storage space and allow you to
 TOKENS are available from the [SysCops](https://t.me/thcorg). Explain your project in the [channel](https://t.me/thcorg) if you need a TOKEN. See if the community is excited about your project. The SysCops will notice your fine work and will gift you a TOKEN. Otherwise, if you feel confident, you may disturb a SysCop by private message (you have been warned). TOKENS are not for sale. Here are a few tips who gets a TOKEN:
 
  * Participate in the discussions.
+ * Help the Admins/SysCops; Moderate the group chat.
  * Share your ideas, comments and concerns.
  * Find bugs.
  * Projects that help the community.
