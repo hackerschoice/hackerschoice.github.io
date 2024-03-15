@@ -13,9 +13,9 @@ description: Frequently asked questions related to Segfault.
 <div style="text-align:center"><h1>Need some help?</h1></div>
 
 1. **My Question is not answered here**  
-   Join our [Telegram channel](https://t.me/thcorg) and ask your question. We will try to answer.
+   Join our [Telegram channel](https://t.me/thcorg) and ask your question. We will try to answer. 
 
-1. **I have a problem on my Root Server**<a id="help"></a>  
+1. **I have a problem with my Root Server**<a id="help"></a>  
    Join our [Telegram channel](https://t.me/thcorg) and send us the output of `echo "$SF_HOSTNAME $SF_LID $SF_FQDN"` or a screenshot and explain your problem (what you expect to see or happen and what you see or what happens instead).
 
 1. **Can I do stupid things?**<a id=stupid></a>  
@@ -38,13 +38,13 @@ description: Frequently asked questions related to Segfault.
    You did not set the `-o SetEnv "SECRET=XXX..."`. This means a brand new server was created when you logged in the second time.
 
 1. **How long will the server run?**  
-   Forever if you stay logged in (active session) or log in at least once every 6 days. Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits do not apply to [cool users](../token/).
+   Forever if you stay logged in (active session/connected). Auto-shutdown may occur if there is no shell running (in tmux or screen) and nobody has logged in for 1.5 days. A server may shut down during major software upgrades or due to abuse. No data in /sec is ever deleted or lost (even if shut down) and your data in /sec becomes available again on your next log in (but you may have to start your background processes again). These limits do not apply to [cool users](../token/).
 
 1. **My processes disappear after I log out**  
    See above.
 
 1. **Why are my changes lost?**<a id="lost"></a>  
-   Data in your home directory and in /sec, /onion and /everyone are never lost. They are permanent (unless you delete the data). Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pipx install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`.
+   Data in your home directory and in /sec, /onion and /everyone are permanent. This data is clearedo only if the server is not logged in for 30+ days. Naughty servers that are 'empty' or '100% full' may get cleared earlier. Data in (/usr, /tmp, ...) is only valid for the duration of the session and will disappear when you log out. You can use `apt install` and `pipx install` etc but the package can only be used until you log out. Alternatively you can install any package to `/sec/usr`. These timeouts are infinite for servers with [TOKENS](../token/).
 
 1. **How do I get more resources?**<a id="quota"></a>  
    The FREE service is [restricted](../free/) and the outbound traffic is throttled. Ask us for a secret [token](../token/) to get more resources. [Tokens](../token/) are FREE for anyone working on a cool project. You can see your current restrictions by typing `cat /config/self/limits`.
