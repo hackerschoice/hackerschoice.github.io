@@ -137,13 +137,13 @@ description: Frequently asked questions related to Segfault.
    No. Your ROOT SERVER does not have a public IP: You can connect out (to the Internet) but nobody can connect back to your server (Read below for the only exception). There are [MANY ways](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#tunnel) to tunnel a raw TCP port from a PUBLIC IP back to your ROOT SERVER. For HTTPS tunnels, use [Cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps), [Pagekite](https://pagekite.net/) or [ngrok](https://ngrok.com/download).
 
 1. **How do I use reverse Port Forwarding?**<a id="fwd"></a>  
-   You can assign **one** PORT on a public IP address with `curl sf/port`. This port for testing only and will change every 0-7 days:
+   You can assign **one** PORT on a public IP address with `curl sf/port`. This port is ephemeral and will change every 0-7 days:
    
    ```
    👾 New reverse Port is 1.12.123.222:1234
    ```
 
-   That's your personal IP:PORT for reverse connections. Any connection to 1.12.123.222 on Port 1234 is forwarded to your server on port 1234. You can listen for the connection like so:
+   That's your personal IP:PORT for reverse connections / reverse shells. Any connection to 1.12.123.222 on Port 1234 is forwarded to your server on port 1234. You can listen for the connection like so:
 
    ```
    nc -vnlp 1234
@@ -152,6 +152,8 @@ description: Frequently asked questions related to Segfault.
    ```
 
    (The IP & PORT are an example. You need to read the log in message when you log in to find out your IP and PORT or check `/config/self/reverse_*`. The IP and PORT are temporary and may change every few days.).
+
+   Read [THC's Tips & Tricks](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#ports) for alternatives.
 
 1. **Can I use OpenVPN?**<a id="vpn"></a>  
    Yes - but only to connect OUT from your ROOT SERVER (e.g. connect to  HackTheBox or similar). You can _not_ use OpenVPN to connect *to* your ROOT SERVER (only *out*): Use `curl sf/ovpn`. Alternatively, try [WireGuard](../wireguard).
