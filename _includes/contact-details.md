@@ -1,4 +1,4 @@
-~~Twitter: [https://twitter.com/hackerschoice](https://twitter.com/hackerschoice)~~  
+~~X.com: [https://x.com/hackerschoice](https://x.com/hackerschoice)~~  
 Mastodon: [@thc@infosec.exchange](https://infosec.exchange/@thc)  
 Telegram: [https://t.me/thcorg](https://t.me/thcorg)  
 Web: [https://www.thc.org](https://www.thc.org)  
