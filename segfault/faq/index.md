@@ -16,7 +16,7 @@ description: Frequently asked questions related to Segfault.
    Join our [Telegram channel](https://t.me/thcorg) and ask your question. We will try to answer. 
 
 1. **I have a problem with my Root Server**<a id="help"></a>  
-   Join our [Telegram channel](https://t.me/thcorg) and send us the output of `echo "$SF_HOSTNAME $SF_LID $SF_FQDN"` or a screenshot and explain your problem (what you expect to see or happen and what you see or what happens instead).
+   Join our [Telegram channel](https://t.me/thcorg) and send us the output of `echo "$SF_HOSTNAME $SF_LID $SF_FQDN"` _and_ a screenshot. Explain your problem (what you expect to see or happen and what you see or what happens instead).
 
 1. **Can I do stupid things?**<a id=stupid></a>  
    No. You can not mine crypto or use segfault to do stupid or illegal things. This is not a warez trading platform either. It's also not a 'cheap way to access the Internet anonymously' - buy your own [VPN](https://www.mullvad.net). Go away unless you are doing research or working on some great project. Join our [Telegram Channel](https://t.me/thcorg) (especially if you are new): Participate & discuss.
