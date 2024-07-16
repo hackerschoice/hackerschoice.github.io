@@ -66,7 +66,7 @@ Since 1995, three of our members got arrested (0 convicted), one got raided, two
 
 *(We are not anti-government. We are anti-stupidity. Unfortunately there seems to be considerable overlap.)*
 
-Once, we allowed [https://x.com/d1srupt_4](d1srupt) to interview 2 of our members: [https://www.redhotcyber.com/en/post/thc-30-years-of-hacking-without-trying-to-get-rich/](30 years of hacking for fun and no profit)
+Only once did we allow an interview of two of our members: [30 years of hacking for fun and no profit](https://www.redhotcyber.com/en/post/thc-30-years-of-hacking-without-trying-to-get-rich/)
 
 ## Contact
 
