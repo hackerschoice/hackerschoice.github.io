@@ -731,7 +731,7 @@ ${CY}>>>>> ${CDC}curl -obash -SsfL 'https://bin.ajam.dev/$(uname -m)/bash && chm
         trap hs_exit SIGHUP SIGTERM SIGPIPE
     fi
 
-    setsid --help | grep -Fqm1 -- --wait && _HS_SETSID_WAIT=1
+    setsid --help 2>/dev/null | grep -Fqm1 -- --wait && _HS_SETSID_WAIT=1
 
     HS_SSH_OPT=()
     command -v ssh >/dev/null && {
