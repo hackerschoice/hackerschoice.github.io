@@ -47,7 +47,7 @@ cat /config/self/limits
 [Contact us on Telegram](https://t.me/thcorg).
 
 
-If you are a corporate or are using our service for commercial reasons or gain other financial benefits or favours then you must [donate some big dough](../token).
+If you are a corporate or are using our service for commercial reasons or gain other financial benefits or favours then you must [donate some big dough](../upgrade).
 
 ## Contact
 
