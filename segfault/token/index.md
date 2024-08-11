@@ -19,7 +19,7 @@ TOKENS are available from the [SysCops](https://t.me/thcorg). Explain your proje
  * Participate in the discussions.
  * Help the Admins/SysCops; Moderate the group chat.
  * Share your ideas, comments and concerns.
- * Find bugs.
+ * Find a (meaningful) bug in segfault.
  * Projects that help the community.
  * Projects that are new and exciting.
  * Save the world.
