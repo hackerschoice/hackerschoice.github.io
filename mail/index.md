@@ -6,7 +6,7 @@ description: This project allows users to set up a free email forwarder.
 
 <!-- <div style="text-align:center"><h1>{{ page.title }}</h1></div> -->
 
-This project allows users to set up an email forward from `<yourname>@segfault.net` to any email address of their choosing.
+This project allows you to set up an email forward from `<yourname>@segfault.net` to any email address of your choosing.
 
 ## Setup
 
@@ -21,6 +21,7 @@ curl 'https://mail.thc.org/register?name=foobar&to=hackbart@tuta.io'
 1. @segfault.net
 1. @smokes.thc.org
 1. @guest.team-teso.net
+1. @argun.rr.nu
 
 ## Use your own domain
 
