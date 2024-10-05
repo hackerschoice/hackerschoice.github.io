@@ -21,6 +21,20 @@ description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favou
 
 ---
 
+## GUI via your Web Browser
+The easiest way to connect to the graphical interface is through your Web Browser.
+
+
+
+https://github.com/user-attachments/assets/53138a23-e28e-489c-baa1-48f59b4a1e52
+
+
+
+1. Go to https://shell.segfault.net
+2. Choose "I'm New Here" to generate a new server. If you already have a previously generated server, you can choose "I've Been Here" and enter the Host name and Secret in this format: "adm-ExampleSecretChangeMe".<br>**IMPORTANT:** at this time, only adm and 8lgm hosts are supported. You can check the list of supported hosts in the SF-UI source code: https://github.com/messede-degod/SF-UI
+3. Please wait for connection.
+4. In the left navigation menu, click "Desktop." It's the icon shaped like a computer monitor.
+
 Connect to your shell:
 
 ```shell
