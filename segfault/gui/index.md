@@ -31,8 +31,7 @@ The easiest way to connect to the graphical interface is through your Web Browse
 
 1. Go to https://shell.segfault.net
 2. Choose "I'm New Here" to generate a new server. If you already have a server, you can choose "I've Been Here" and enter the `Host` - `Secret` in this format: "`adm`-`ExampleSecretChangeMe`".
-3. Please wait for connection.
-4. In the left navigation menu, click "Desktop." It's the icon shaped like a computer monitor.
+4. After successful connection, go to the left navigation menu, click in "Desktop." It's the icon shaped like a computer monitor.
 
 **IMPORTANT:** At this time, only `adm` and `8lgm` hosts are supported trough https://shell.segfault.net. You can check the updated list of supported hosts in the SF-UI source code: https://github.com/messede-degod/SF-UI/blob/main/config.go
 
