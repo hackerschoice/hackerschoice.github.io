@@ -27,8 +27,7 @@ The easiest way to connect to the graphical interface is through your Web Browse
 <video controls autoplay muted width="80%" style="display: block; margin: 0 auto;">
   <source src="https://github.com/user-attachments/assets/53138a23-e28e-489c-baa1-48f59b4a1e52" type="video/mp4">
   Your browser does not support the video. You can watch the tutorial at this URL: https://github.com/user-attachments/assets/53138a23-e28e-489c-baa1-48f59b4a1e52
-</video>
-
+</video><br>
 1. Go to https://shell.segfault.net
 2. Choose "I'm New Here" to generate a new server. If you already have a previously generated server, you can choose "I've Been Here" and enter the Host name and Secret in this format: "adm-ExampleSecretChangeMe".
 3. Please wait for connection.
