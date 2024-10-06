@@ -25,7 +25,7 @@ description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favou
 The easiest way to connect to the graphical interface is through your Web Browser.
 
 <video controls autoplay muted width="80%" style="display: block; margin: 0 auto; margin-bottom:15px;">
-  <source src="https://github.com/user-attachments/assets/53138a23-e28e-489c-baa1-48f59b4a1e52" type="video/mp4">
+  <source src="sf-gui-web-browser.mp4" type="video/mp4">
   Your browser does not support the tutorial video.
 </video>
 
