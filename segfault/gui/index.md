@@ -30,12 +30,12 @@ The easiest way to connect to the graphical interface is through your Web Browse
 </video>
 
 1. Go to [shell.segfault.net](https://shell.segfault.net).
-2. Choose "I'm New Here" to generate a new server.
-3. Write down the SECRET. You need it to access your server again.
+2. Choose "I'm New Here". This will create a new ROOT-Server.
+3. Write down the SECRET. You need it to access your ROOT-Server again.
 4. Go to the left navigation menu, click on "Desktop" and then on "Start".
 
 <!---FIXME: Add information here of how to connect to an existing server.--->
-Read the [FAQ](../faq) to learn how to re-connect to your existing server.
+Read the [FAQ](../faq) to learn how to re-connect to your existing ROOT-Server.
 
 ---
 
