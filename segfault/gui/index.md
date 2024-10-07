@@ -15,7 +15,7 @@ description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favou
     <p>Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favourite applications on a remote desktop. All outbound traffic is routed via VPNs.</p>
 </div>
 
-{:refdef: style="text-align: center;"}
+<!---{:refdef: style="text-align: center;"}
 ![gui](sf-gui.png){:height="80%" width="80%"}
 {: refdef}
 
@@ -23,30 +23,32 @@ description: Use Firefox, Brave, Wireshark, Sublime, Geany and any of your favou
 
 ## GUI trough Web Browser
 The easiest way to connect to the graphical interface is through your Web Browser.
-
+--->
 <video controls autoplay muted width="80%" style="display: block; margin: 0 auto; margin-bottom:15px;">
   <source src="sf-gui-web-browser.mp4" type="video/mp4">
   Your browser does not support the tutorial video.
 </video>
 
-1. Go to https://shell.segfault.net
+1. Go to [shell.segfault.net](https://shell.segfault.net).
 2. Choose "I'm New Here" to generate a new server.
 3. Write down the SECRET. You need it to access your server again.
 4. Go to the left navigation menu, click on "Desktop" and then on "Start".
 
-NOTE: Add information here of how to connect to an existing server.
-
-Connecting to a Desktop via a Web Browser is SLOW. A much faster and more agile way is to use SSH + VNC. That's what all the elite users use:
+<!---FIXME: Add information here of how to connect to an existing server.--->
+Read the [FAQ](../faq) to learn how to re-connect to your existing server.
 
 ---
 
-Connect to your shell:
+Using your Web-Browser is SLOW. A much faster and more agile way is to use SSH + VNC instead. That's what elite people do:
+
+Connect to a ROOT-Server using SSH (or PuTTY):
 
 ```shell
 # Execute this command on your WORKSTATION, _not_ on the segfault root shell.
 ssh -L2900:0:2900 -L5900:0:5900 root@segfault.net # Password is 'segfault'
 ```
 
+  
 <div style="text-align:center"><p>There are a few ways to access a GUI.</p></div>
 
 <!---## GUI via Web
