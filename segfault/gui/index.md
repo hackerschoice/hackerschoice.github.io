@@ -30,10 +30,13 @@ The easiest way to connect to the graphical interface is through your Web Browse
 </video>
 
 1. Go to https://shell.segfault.net
-2. Choose "I'm New Here" to generate a new server. If you already have a server, you can choose "I've Been Here" and enter the `Host` - `Secret` in this format: "`adm`-`ExampleSecretChangeMe`".
-4. After successful connection, go to the left navigation menu, click in "Desktop." It's the icon shaped like a computer monitor.
+2. Choose "I'm New Here" to generate a new server.
+3. Write down the SECRET. You need it to access your server again.
+4. Go to the left navigation menu, click on "Desktop" and then on "Start".
 
-**IMPORTANT:** At this time, only `adm` and `8lgm` hosts are supported trough https://shell.segfault.net. You can check the updated list of supported hosts in the SF-UI source code: https://github.com/messede-degod/SF-UI/blob/main/config.go
+NOTE: Add information here of how to connect to an existing server.
+
+Connecting to a Desktop via a Web Browser is SLOW. A much faster and more agile way is to use SSH + VNC. That's what all the elite users use:
 
 ---
 
@@ -41,12 +44,12 @@ Connect to your shell:
 
 ```shell
 # Execute this command on your WORKSTATION, _not_ on the segfault root shell.
-ssh -L2000:0:2000 -L5900:0:5900 root@segfault.net # Password is 'segfault'
+ssh -L2900:0:2900 -L5900:0:5900 root@segfault.net # Password is 'segfault'
 ```
 
 <div style="text-align:center"><p>There are a few ways to access a GUI.</p></div>
 
-## GUI via Web
+<!---## GUI via Web
 
 Log in to your [root server](../) and type:
 
@@ -55,7 +58,7 @@ startxweb
 ```
 
 Thereafter use your Web Browser and go to [http://127.0.0.1:2000](http://127.0.0.1:2000).
-
+--->
 ## GUI via VNC
 
 Log in to your [root server](../) and type:
@@ -74,6 +77,14 @@ vncserver -SecurityTypes None :0
 
 Thereafter use your favourite VNC client and connect to `127.0.0.1:5900`.
 
+## File Browser
+
+```shell
+startfb
+```
+
+Thereafter use your Web Brower and go to [http://127.0.0.1:2900](http://127.0.0.1:2900).
+<!---
 ## GUI via XPRA
 
 Install [XPRA](https://xpra.org/) on your workstation (not server).
@@ -89,7 +100,7 @@ Or start Firefox on a fresh new disposable [root server](../) (which will self-d
 ```shell
 xpra start ssh://root@segfault.net/ --start-child=firefox --ssh=ssh --ssh-upgrade=no
 ```
-
+--->
 ## IT'S BUGGERED
 
 Some applications may not work. Chances are that your server does not have enough memory. Be a __badass__ and [upgrade your server](../upgrade) to make all applications work flawlessly.
