@@ -86,6 +86,7 @@ startfb
 ```
 
 Thereafter use your Web Brower and go to [http://127.0.0.1:2900](http://127.0.0.1:2900).  
+
 <!---## GUI via XPRA
 
 Install [XPRA](https://xpra.org/) on your workstation (not server).
