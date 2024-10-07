@@ -44,7 +44,7 @@ Using your Web-Browser is SLOW. A much faster and more agile way is to use SSH +
 Connect to a ROOT-Server using SSH (or PuTTY):
 
 ```shell
-# Execute this command on your WORKSTATION, _not_ on the segfault root shell.
+# Execute this command on your WORKSTATION, _not_ on the ROOT-Server.
 ssh -L2900:0:2900 -L5900:0:5900 root@segfault.net # Password is 'segfault'
 ```
 
@@ -63,7 +63,6 @@ Thereafter use your Web Browser and go to [http://127.0.0.1:2000](http://127.0.0
 --->
 ## GUI via VNC
 
-Log in to your [root server](../) and type:
 
 ```shell
 startxvnc
@@ -103,6 +102,7 @@ Or start Firefox on a fresh new disposable [root server](../) (which will self-d
 xpra start ssh://root@segfault.net/ --start-child=firefox --ssh=ssh --ssh-upgrade=no
 ```
 --->
+---
 ## IT'S BUGGERED
 
 Some applications may not work. Chances are that your server does not have enough memory. Be a __badass__ and [upgrade your server](../upgrade) to make all applications work flawlessly.
