@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# Script to quickly display essential server information. Qualtiy, not quantity.
+# Script to quickly display essential server information. Quality, not quantity.
 # - Extracts FQDN from certificates, nginx & apache conf
 # - Most recent activities / uses.
 #
@@ -133,7 +133,7 @@ addx509() {
 
     # Extract CN
     str="$(echo "$x509" | openssl x509 -noout -subject 2>/dev/null)"
-    [[ "$str" == "subject"* ]] && [[ "$str" != *"/CN"* ]] && {
+    [[ "$str" == "subject"* ]] && [[ "$str" == *"/CN"* ]] && {
         str="$(echo "$str" | sed '/^subject/s/^.*CN.*=[ ]*//g')"
         addcn "$str"
     }
@@ -436,7 +436,7 @@ echo -e "${CDR}>>>>> Process List${CN}"
 { ps --ppid 2 -p 2 --deselect flwww || ps alxwww || ps w;} 2>/dev/null | head -n 500
 
 # use "|head -n-1" to not display this line
-echo -e "${CW}>>>>> 📖 Please help to make this tool better - https://t.me/thcorg${CN} 😘"
+echo -e "${CW}>>>>> 📖 Please help to make this tool better - https://thc.org/ops${CN} 😘"
 # return with "success"
 
 exit 0

