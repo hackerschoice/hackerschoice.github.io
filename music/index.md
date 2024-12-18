@@ -23,6 +23,9 @@ Jim Geovedi (HERT/Phrack) mix
 Substance (9x) elite progressive trance  
 [https://tranceattic.com](https://tranceattic.com)
 
+Plasmoid/THC & Esher/THC tribute to THC:  
+[Deep Phreakin](deep-phreakin.mp3)
+
 ## Contact
 
 {% include contact-details.md %}
