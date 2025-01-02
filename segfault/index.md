@@ -135,7 +135,7 @@ This is a **free service** and there are [some restrictions](free) in place. You
 
 ## Love Research. Hate Abuse.
 
-We do not tolerate abuse. Contact us at root at proton.thc.org if you have any concerns.
+We do not tolerate abuse. [Contact us if you have any concerns or complaints](/abuse).
 
 ## Contact
 
