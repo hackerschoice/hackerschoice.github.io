@@ -14,7 +14,7 @@ description: Pimp up your Root Server
 
 TOKENS give you more bandwidth, processing power, storage space and allow you to log in to your Root Server when there is a contention for resources (e.g. when under attack). 
 
-TOKENS are available from the [SysCops](https://t.me/thcorg). Explain your project in the [channel](https://t.me/thcorg) if you like a TOKEN. See if the community is excited about your project. The SysCops will notice your fine work and will gift you a TOKEN. Otherwise, if you feel confident, you may disturb a SysCop by private message (you have been warned). TOKENS are not for sale. Here are a few tips who gets a TOKEN:
+TOKENS are available from the [SysCops](https://thc.org/ops). Explain your project in the [channel](https://thc.org/ops) if you like a TOKEN. See if the community is excited about your project. The SysCops will notice your fine work and will gift you a TOKEN. Otherwise, if you feel confident, you may disturb a SysCop by private message (you have been warned). TOKENS are not for sale. Here are a few tips who gets a TOKEN:
 
  * Participate in the discussions.
  * Help the Admins/SysCops; Moderate the group chat.
@@ -44,7 +44,7 @@ curl sf/set -d token=SecretTokenChangeMe && reboot
 cat /config/self/limits
 ```
 
-[Contact us on Telegram](https://t.me/thcorg).
+[Contact us](https://thc.org/ops).
 
 
 If you are a corporate or are using our service for commercial reasons or gain other financial benefits or favours then you must [donate some big dough](../upgrade).

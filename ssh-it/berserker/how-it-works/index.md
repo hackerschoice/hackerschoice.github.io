@@ -163,7 +163,7 @@ The output will look similar to this:
 
 ## If you are reading this...
 
-If you made it all the way to here then you are the type of person we like to hang out with. Join us on [Telegram](https://t.me/thcorg).
+If you made it all the way to here then you are the type of person we like to hang out with. [Join us](https://thc.org/ops).
 
 ## Contact
 

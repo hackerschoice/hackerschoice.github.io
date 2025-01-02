@@ -13,13 +13,13 @@ description: Frequently asked questions related to Segfault.
 <div style="text-align:center"><h1>Need some help?</h1></div>
 
 1. **My Question is not answered here**  
-   Join our [Telegram channel](https://t.me/thcorg) and ask your question. We will try to answer. 
+   [Join #ops](/ops) and ask your question. We will try to answer. 
 
 1. **I have a problem with my Root Server**<a id="help"></a>  
-   Join our [Telegram channel](https://t.me/thcorg) and send us the output of `echo "$SF_HOSTNAME $SF_LID $SF_FQDN"` _and_ a screenshot. Explain your problem (what you expect to see or happen and what you see or what happens instead).
+   [Join #ops](/ops) and send us the output of `echo "$SF_HOSTNAME $SF_LID $SF_FQDN"` _and_ a screenshot. Explain your problem (what you expect to see or happen and what you see or what happens instead).
 
 1. **Can I do stupid things?**<a id=stupid></a>  
-   No. You can not mine crypto or use segfault to do stupid or illegal things. This is not a warez trading platform either. It's also not a 'cheap way to access the Internet anonymously' - buy your own [VPN](https://www.mullvad.net). Go away unless you are doing research or working on some great project. Join our [Telegram Channel](https://t.me/thcorg) (especially if you are new): Participate & discuss.
+   No. You can not mine crypto or use segfault to do stupid or illegal things. This is not a warez trading platform either. It's also not a 'cheap way to access the Internet anonymously' - buy your own [VPN](https://www.mullvad.net). Go away unless you are doing research or working on some great project. [Join #ops](/ops) (especially if you are new): Participate & discuss.
 
 1. **Can I do Bug Bounty?**<a id=bb></a>  
    Hardly. BB tools often flood the target. They are a cost to us but you make the money 🤭. [Donate](../free/) and we are happy to upgrade your resources. Some fine BB hunters use Segfault for resource-friendly tools (like BurpSuite) without donating and that's cool with us as long as you participate in the discussions and share your ideas. 
@@ -29,7 +29,7 @@ description: Frequently asked questions related to Segfault.
 
    ```
    Access with      : ssh -o "SetEnv SECRET=XXX..." root@NNN.segfault.net
-   GOODBYE          : Join us on Telegram - https://t.me/thcorg 
+   GOODBYE          : Join us - https://thc.org/ops
    ```
 
    Use the command `ssh -o "SetEnv SECRET=XXX...` and the password `segfault` to log back in to your server. If you do not use the same SECRET and instead just do `ssh root@segfault.net` then a new server with a new /sec filesystem will be created for you. Alternatively use `ssh secret@NNN.segfault.net` with the password `segfault` and, when asked, your SECRET. There is also help for [PuTTy](putty/), [WinSCP](winscp/) and [Termius](termius/).

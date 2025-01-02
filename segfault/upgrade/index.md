@@ -22,13 +22,13 @@ Cool people get exclusive benefits:
 * Faster HDD access
 * Unlimited storage
 
-To upgrade talk to us on our [Telegram channel](https://t.me/thcorg) and send us the output of this command:
+To upgrade [talk to us](https://thc.org/ops) and send us the output of this command:
 
 ```shell
 echo "$SF_HOSTNAME $SF_LID $SF_FQDN"
 ```
 
-We shall then remove the restrictions from your server. A donation of $100 removes most restrictions.
+We shall then remove the restrictions from your server. Most users donate $100.
 
 Anyone donating more than $1,000 will also get a GOLDEN SHELL PROMPT.
 
@@ -36,7 +36,7 @@ Anyone donating more than $1,000 will also get a GOLDEN SHELL PROMPT.
 ![golden prompt](golden-prompt.png){:height="80%" width="80%"}
 {: refdef}
 
-We can issue a VAT Invoice from a real company to keep your accountant happy. We accept [bank transfers](https://t.me/thcorg) or crypto:
+We can issue a VAT Invoice from a real company to keep your accountant happy. We accept [bank transfers](https://thc.org/ops) or crypto:
 
 ```
 BTC bc1qdp6mdje5f9x8ar8jg3uv425d4r2v5cmdygkknz
