@@ -24,7 +24,10 @@ Substance (9x) elite progressive trance
 [https://tranceattic.com](https://tranceattic.com)
 
 Plasmoid/THC & Esher/THC tribute to THC:  
-[Deep Phreakin](deep-phreakin.mp3)
+[Deep Phreakin.mp3](deep-phreakin.mp3)
+
+Chotaire/BlueBox: 
+[https://chotaire.net](https://chotaire.net) + [System75.mp3](system75.mp3)
 
 ## Contact
 
