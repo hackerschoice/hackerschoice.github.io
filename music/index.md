@@ -16,6 +16,7 @@ L33tdawg (HackInTheBox Chief) and long term friend of THC. Progressive mix.
 
 Our very own DJ RevMoon/THC!  
 [https://soundcloud.com/djrevmoon](https://soundcloud.com/djrevmoon)
+[https://open.spotify.com/artist/1h8MuZgWYO7IIGQd3qSB63](https://open.spotify.com/artist/1h8MuZgWYO7IIGQd3qSB63)
 
 Jim Geovedi (HERT/Phrack) mix  
 [http://soundcloud.com/geovedi](http://soundcloud.com/geovedi)
