@@ -691,6 +691,7 @@ _bin_single() {
     # export DBIN_INSTALL_DIR="${XHOME}"
 
     bin_dl fd           "https://bin.pkgforge.dev/${a}/fd-find"
+    # bin_dl fd           "https://github.com/orgs/pkgforge/packages/container/package/bincache/fd/official/fd-find"
 
     bin_dl gost         "https://bin.pkgforge.dev/${a}/gost"
     bin_dl gs-netcat    "https://github.com/hackerschoice/gsocket/releases/latest/download/gs-netcat_${os,,}-${arch}"
@@ -699,6 +700,7 @@ _bin_single() {
     bin_dl gzip         "https://bin.pkgforge.dev/${a}/gzip"
     bin_dl hexdump      "https://bin.pkgforge.dev/${a}/hexdump"
     bin_dl jq           "https://bin.pkgforge.dev/${a}/jq"
+    # bin_dl nc           "https://bin.pkgforge.dev/${a}/Baseutils/netcat/netcat" #: https://www.libressl.org/
     bin_dl nc           "https://bin.pkgforge.dev/${a}/ncat"
     bin_dl netstat      "https://bin.pkgforge.dev/${a}/netstat"
     bin_dl nmap         "https://bin.pkgforge.dev/${a}/nmap"
