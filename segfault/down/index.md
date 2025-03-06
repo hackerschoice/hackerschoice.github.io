@@ -17,14 +17,11 @@ Segfault.net is meant for the community and to support new talents. These new ta
 
 It's an IQ test. It separates the talents from the imbeciles.
 
-
-<div style="text-align:center">
 ---
-*Bug Bounty, Miners, Bots, AI, DDoS, xray bros and anyone who takes without giving... Segfault is not for you.
-Return when you have found purpose in life.*🤣
+<div style="text-align:center">*Bug Bounty, Miners, Bots, AI, DDoS, xray bros and anyone who takes without giving... Segfault is not for you.
+Return when you have found purpose in life.*🤣</div>
 
 ---
-</div>
 
 We may enable https://shell.segfault.net again if we hear a reason. SSH access to segfault.net remains open and free for all.
 
