@@ -18,10 +18,10 @@ Segfault.net is meant for the community and to support new talents. Real talents
 It's an IQ test. It separates the talents from the imbeciles.
 
 ---
-<div style="text-align:center">Bug Bounty, Miners, Bots, AI, DDoS, xray bros and anyone who takes without giving back to the community:
-
-Segfault is not for you.
-
+<div style="text-align:center">Bug Bounty, Miners, Bots, AI, DDoS, xray bros and anyone who takes without giving back to the community:<BR>
+<BR>
+Segfault is not for you.<BR>
+<BR>
 Return when you have found a purpose in life.🤣</div>
 
 ---
