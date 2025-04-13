@@ -11,6 +11,9 @@ Our favorite tunes by some very talented friends of THC. This is what we listen 
 Spoty's (#!ADM) monthly house music. Also *LIVE* every month in Paris.  
 [https://podcasts.apple.com/ch/podcast/](https://podcasts.apple.com/ch/podcast/l%C3%A0-o%C3%B9-vous-%C3%AAtes-a-dance-music-journey/id1512731887)
 
+Larage (#!ADM):  
+[https://hearthis.at/daliquid/](https://hearthis.at/daliquid/)
+
 L33tdawg (HackInTheBox Chief) and long term friend of THC. Progressive mix.  
 [https://mixcloud.com/dhankasounds](https://mixcloud.com/dhankasounds)
 
