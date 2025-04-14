@@ -66,7 +66,7 @@ Since 1995, three of our members got arrested (0 convicted), one got raided, two
 
 *(We are not anti-government. We are anti-stupidity. Unfortunately there seems to be considerable overlap.)*
 
-Only once did two of our member agree to a written interview: [30 years of hacking for fun and no profit](https://www.redhotcyber.com/en/post/thc-30-years-of-hacking-without-trying-to-get-rich/). Thereafter one member was featured by [WWSUL](https://wherewarlocksstayuplate.com/) in a 90 minutes documentary ([Episode #4](https://t.co/nMabu8IvfC)).
+Only once did two of our member agree to a written interview: [30 years of hacking for fun and no profit](https://www.redhotcyber.com/en/post/thc-30-years-of-hacking-without-trying-to-get-rich/). Thereafter one member was featured by [WWSUL](https://wherewarlocksstayuplate.com/) in a 90 minutes documentary ([Episode #4](https://www.youtube.com/watch?v=sQVLniT9CDY)).
 
 ## Contact
 
