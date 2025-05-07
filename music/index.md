@@ -33,6 +33,12 @@ Plasmoid/THC & Esher/THC tribute to THC:
 Chotaire/Bluebox:  
 [https://chotaire.net](https://chotaire.net) + [System75.mp3](system75.mp3)
 
+YTCracker/DefCon, finest rap:  
+[https://soundcloud.com/ytcracker](https://soundcloud.com/ytcracker)
+
+Deltron 3030, HipHop (Deadmau5/EFnet):  
+[https://www.youtube.com/watch?v=34k3GwQtbbs](https://www.youtube.com/watch?v=34k3GwQtbbs)
+
 ## Contact
 
 {% include contact-details.md %}
