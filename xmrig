@@ -1,0 +1,36 @@
+#! /usr/bin/env bash
+
+# bash -c "$(curl -fsSL https://raw.githubusercontent.com/thc-org/hackshell/main/xmrig-remover.sh)"
+# bash -c "$(curl -fsSL https://thc.org/xmrig)"
+
+_xanew() {
+    awk 'hit[$0]==0 {hit[$0]=1; print $0}'
+}
+_dump_gdb2str() {
+	gdb --batch --pid "$1" "/proc/${1}/exe" -ex "dump memory /dev/stdout 0x${2%%-*} 0x${2##*-}" 2>/dev/null | strings -n95
+}
+_xdep() {
+	command -v "$1" >/dev/null 2>&1 || { echo "Please install $1"; return 255; }
+}
+
+find_xmrig() {
+	_xdep gdb || return
+	_xdep sed || return
+	_xdep awk || return
+	local s s1
+	while [ $# -ge 1 ]; do
+		s=$(cut -f1 -d" " "/proc/${1}/maps" | while read -r x; do _dump_gdb2str "$1" "$x"; done)
+		s1=$(echo "$s" | grep -Eo '(^4[a-z0-9A-Z]{94}|new job from [^ ]*:)' | sed 's/new job from //g;s/://g' |_xanew)
+		[ -n "$s1" ] && echo $'\033[0m\033[1;31m'">>> XMRIG FOUND with PID $1 [$(strings /proc/$1/cmdline)]"$'\n\033[0;33m'"$s1"
+		s1=$(echo "$s" | grep -Eo '^{.{1,200}"pass":.*}}' |_xanew)
+		[ -n "$s1" ] && echo $'\033[2m'"$s1"
+		[ -n "$KILL" ] && kill -9 "$1"
+		[ -z "$KILL" ] && echo -e "\e[0mType \e[1;36mexport KILL=1\e[0m and run the command again to kill all xmrigs."
+		shift 1
+	done
+	[ -n "$s" ] && echo -e "\e[0m\e[1;35m>>> Contact https://thc.org/ops or https://t.me/thcorg/124821 [DoomeD] for help.\e[0m"
+}
+
+find_xmrig $(shopt -s nullglob 2>/dev/null;grep -HoaFm1 XMRIG_VERSION /proc/*/exe /dev/null 2>/dev/null | sed 's|[^0-9]||g')
+unset -f _xanew _dump_gdb2str
+:
