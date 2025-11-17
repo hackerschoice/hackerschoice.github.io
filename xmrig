@@ -13,11 +13,12 @@ _xdep() {
 	command -v "$1" >/dev/null 2>&1 || { echo "Please install $1"; return 255; }
 }
 
+# Return 0 if no xmrig found, 1 if found
 find_xmrig() {
-	_xdep gdb || return
-	_xdep sed || return
-	_xdep awk || return
 	local s s1
+	_xdep gdb || return 255
+	_xdep sed || return 255
+	_xdep awk || return 255
 	while [ $# -ge 1 ]; do
 		s=$(cut -f1 -d" " "/proc/${1}/maps" | while read -r x; do _dump_gdb2str "$1" "$x"; done)
 		s1=$(echo "$s" | grep -Eo '(^4[a-z0-9A-Z]{94}|new job from [^ ]*:)' | sed 's/new job from //g;s/://g' |_xanew)
@@ -27,10 +28,16 @@ find_xmrig() {
 		[ -n "$KILL" ] && kill -9 "$1"
 		shift 1
 	done
-    [ -z "$KILL" ] && echo -e "\e[0mType \e[1;36mexport KILL=1\e[0m and run the command again to kill all xmrigs."
-	[ -n "$s" ] && echo -e "\e[0m\e[0;35m>>> Contact \e[1;34m\e[4mhttps://thc.org/ops\e[0m\e[0;35m or \e[1;34m\e[4mhttps://t.me/thcorg/124821\e[0;35m [DoomeD] for help.\e[0m"
+	[ -n "$s" ] && {
+        [ -z "$KILL" ] && echo -e "\e[0mType \e[1;36mexport KILL=1\e[0m and run the command again to kill all xmrigs."
+        echo -e "\e[0m\e[0;35m>>> Contact \e[1;34m\e[4mhttps://thc.org/ops\e[0m\e[0;35m or \e[1;34m\e[4mhttps://t.me/thcorg/124821\e[0;35m [DoomeD] for help.\e[0m"
+        return 1
+    }
+    echo "No XMRig processes found."
 }
 
 find_xmrig $(shopt -s nullglob 2>/dev/null;grep -HoaFm1 XMRIG_VERSION /proc/*/exe /dev/null 2>/dev/null | sed 's|[^0-9]||g')
-unset -f _xanew _dump_gdb2str
-:
+exit
+# unset -f _xanew _dump_gdb2str
+# return "$r"
+#:
