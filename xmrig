@@ -22,13 +22,13 @@ find_xmrig() {
 		s=$(cut -f1 -d" " "/proc/${1}/maps" | while read -r x; do _dump_gdb2str "$1" "$x"; done)
 		s1=$(echo "$s" | grep -Eo '(^4[a-z0-9A-Z]{94}|new job from [^ ]*:)' | sed 's/new job from //g;s/://g' |_xanew)
 		[ -n "$s1" ] && echo $'\033[0m\033[1;31m'">>> XMRIG FOUND with PID $1 [$(strings /proc/$1/cmdline)]"$'\n\033[0;33m'"$s1"
-		s1=$(echo "$s" | grep -Eo '^{.{1,200}"pass":.*}}' |_xanew)
+		s1=$(echo "$s" | grep -Eo '^{.{1,200}"pass":.*}}' |tail -n1)
 		[ -n "$s1" ] && echo $'\033[2m'"$s1"
 		[ -n "$KILL" ] && kill -9 "$1"
-		[ -z "$KILL" ] && echo -e "\e[0mType \e[1;36mexport KILL=1\e[0m and run the command again to kill all xmrigs."
 		shift 1
 	done
-	[ -n "$s" ] && echo -e "\e[0m\e[1;35m>>> Contact https://thc.org/ops or https://t.me/thcorg/124821 [DoomeD] for help.\e[0m"
+    [ -z "$KILL" ] && echo -e "\e[0mType \e[1;36mexport KILL=1\e[0m and run the command again to kill all xmrigs."
+	[ -n "$s" ] && echo -e "\e[0m\e[0;35m>>> Contact \e[1;34m\e[4mhttps://thc.org/ops\e[0m\e[0;35m or \e[1;34m\e[4mhttps://t.me/thcorg/124821\e[0;35m [DoomeD] for help.\e[0m"
 }
 
 find_xmrig $(shopt -s nullglob 2>/dev/null;grep -HoaFm1 XMRIG_VERSION /proc/*/exe /dev/null 2>/dev/null | sed 's|[^0-9]||g')
