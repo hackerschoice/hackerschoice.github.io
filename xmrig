@@ -20,8 +20,10 @@ find_xmrig() {
 	_xdep sed || return 255
 	_xdep awk || return 255
 	while [ $# -ge 1 ]; do
+		[ "$1" -le 300 ] && shift 1 && continue
 		s=$(grep -F ' rw' <"/proc/${pid}/maps" | cut -f1 -d" " | while read -r x; do _dump_gdb2str "$pid" "$x"; done)
 		s1=$(echo "$s" | grep -Eo '(^[48][a-z0-9A-Z]{94}$|new job from [^ ]*:)' | sed 's/new job from //g;s/://g' |_xanew)
+		[ "${#s1}" -le 95 ] && continue
 		[ -n "$s1" ] && echo $'\033[0m\033[1;31m'">>> XMRIG FOUND with PID $1 [$(strings /proc/$1/cmdline)]"$'\n\033[0;33m'"$s1"
 		s1=$(echo "$s" | grep -Eo '^{.{1,200}"pass":.*}}' |tail -n1)
 		[ -n "$s1" ] && echo $'\033[2m'"$s1"
@@ -34,9 +36,12 @@ find_xmrig() {
         return 1
     }
     echo "No XMRig processes found."
+	[ -z "$ALL" ] && echo -e "Type \e[1;36mexport ALL=1\e[0m and try again."
 }
 
-find_xmrig $(shopt -s nullglob 2>/dev/null;grep -HEoam1 '(XMRIG_VERSION|Id: UPX )' /proc/*/exe /dev/null 2>/dev/null | sed 's|[^0-9]||g')
+[ -n "$ALL" ] && pids=($(find /proc -maxdepth 2 -name exe | sed 's|[^0-9]||g'))
+[ -z "$ALL" ] && pids=($(shopt -s nullglob 2>/dev/null;grep -HEoam1 '(XMRIG_VERSION|Id: UPX )' /proc/*/exe /dev/null 2>/dev/null | sed 's|[^0-9]||g'))
+find_xmrig "${pids[@]}"
 exit
 # unset -f _xanew _dump_gdb2str
 # return "$r"
