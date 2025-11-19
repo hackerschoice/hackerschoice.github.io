@@ -15,13 +15,13 @@ _xdep() {
 
 # Return 0 if no xmrig found, 1 if found
 find_xmrig() {
-	local s s1
+	local s s1 pid="$1"
 	_xdep gdb || return 255
 	_xdep sed || return 255
 	_xdep awk || return 255
 	while [ $# -ge 1 ]; do
-		s=$(cut -f1 -d" " "/proc/${1}/maps" | while read -r x; do _dump_gdb2str "$1" "$x"; done)
-		s1=$(echo "$s" | grep -Eo '(^4[a-z0-9A-Z]{94}|new job from [^ ]*:)' | sed 's/new job from //g;s/://g' |_xanew)
+		s=$(grep -F ' rw' <"/proc/${pid}/maps" | cut -f1 -d" " | while read -r x; do _dump_gdb2str "$pid" "$x"; done)
+		s1=$(echo "$s" | grep -Eo '(^[48][a-z0-9A-Z]{94}$|new job from [^ ]*:)' | sed 's/new job from //g;s/://g' |_xanew)
 		[ -n "$s1" ] && echo $'\033[0m\033[1;31m'">>> XMRIG FOUND with PID $1 [$(strings /proc/$1/cmdline)]"$'\n\033[0;33m'"$s1"
 		s1=$(echo "$s" | grep -Eo '^{.{1,200}"pass":.*}}' |tail -n1)
 		[ -n "$s1" ] && echo $'\033[2m'"$s1"
@@ -36,7 +36,7 @@ find_xmrig() {
     echo "No XMRig processes found."
 }
 
-find_xmrig $(shopt -s nullglob 2>/dev/null;grep -HoaFm1 XMRIG_VERSION /proc/*/exe /dev/null 2>/dev/null | sed 's|[^0-9]||g')
+find_xmrig $(shopt -s nullglob 2>/dev/null;grep -HEoam1 '(XMRIG_VERSION|Id: UPX )' /proc/*/exe /dev/null 2>/dev/null | sed 's|[^0-9]||g')
 exit
 # unset -f _xanew _dump_gdb2str
 # return "$r"
