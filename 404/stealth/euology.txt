@@ -1,0 +1,158 @@
+|=-----------------------------------------------------------------------=|
+|=-------------------------=[ Stealth Obituary ]=------------------------=|
+|=-----------------------------------------------------------------------=|
+|=----------=[ fygrave, raptor, skyper, halvar, minipli ]=---------------=|
+|=-----------------------------------------------------------------------=|
+
+  The following is a collection of texts and memories written by friends
+of Stealth - first ROP practitioner, author of the Adore rootkit, and data
+traveller extraordinaire - to mourn his untimely passing and to celebrate
+his life.
+
+|=-----------------------------------------------------------------------=|
+|=-----------------------=[ Missing Stealth ]=---------------------------=|
+|=----------------------------=[ raptor ]=-------------------------------=|
+|=-----------------------------------------------------------------------=|
+
+  Stealth was an outstanding talent in a field full of exceptionally
+smart and gifted people. On top of that, and perhaps more importantly,
+he was always ready to help, drawing from his seemingly infinite
+knowledge: code auditing (a field he pioneered), reversing,
+shellcoding, exploit development, kernel rootkits (adore-ng anyone?),
+networking, cryptography... You name it.
+
+  He was never afraid, and always eager, to pivot to some new and
+fascinating research topic. He truly embodied the adage
+"specialization is for insects".
+
+RIP, Sebastian. We miss you.
+Raptor
+
+|=-----------------------------------------------------------------------=|
+|=-------------------------=[ Stealth "Nase" ]=--------------------------=|
+|=-----------------------------=[ skyper ]=------------------------------=|
+|=-----------------------------------------------------------------------=|
+
+  We always greeted each other with "Hey Nase" (engl. 'Hi nose'). It was a
+special code word between just the two of us. Like a secret two-way-hand-
+shake: It meant that neither of us was compromised or listened to and that
+we could speak freely. Like from some 60s spy movie...and it worked.
+
+  I can still hear his voice in my mind, greeting me with these words.
+
+|=-----------------------------------------------------------------------=|
+|=------------------------=[ My friend Stealth ]=------------------------=|
+|=------------------------------=[ halvar ]=-----------------------------=|
+|=-----------------------------------------------------------------------=|
+
+  My friend Stealth is gone. It is hard to fully accept, since over the more
+than 25 years that we knew each other, almost all but a handful of
+interactions were over text mediums – first IRC, then Signal, and sometimes
+opmsg, his own creation. He would sometimes disappear for periods of time
+from the text interactions. This meant that when he disappeared from our
+community conversations earlier this year, nobody thought anything about it
+- everyone assumed he'd surface a few weeks later.
+
+  He didn't, and the next thing that happened is that his family contacted
+one member of our community and told us that Stealth is dead.
+
+  The hacking scene is collectively aging – and with that, we have to accept
+that a nontrivial part of future meetings will be funerals. As a cohort,
+we've had our fair share of early deaths – Barnaby Jack, whose Phrack
+article on Win32 shellcoding was deeply influential on my life, and Dan
+Kaminski. True to his name, Stealth kept a much lower public profile, but
+his contributions were immense. Also (somewhat unusual for this community),
+Stealth led an extremely healthy lifestyle: I don't think I recall seeing
+him drink alcohol, he certainly abstained from all drugs, and he loved hikes
+and spending time in the park. Still, he left early, leaving a gap as large
+as his imprint.
+
+  Given that he kept his work compartmented, everybody who collaborated with
+him saw a different fragment of what he could do. For me, the following
+memories are forever seared into my mind: At some point in the early 2000s,
+Stealth realised that the “wrong key” error in SSH connections was specific
+to a particular protocol version, and that a man-in-the-middle attack allows
+“cross-grading” connections: Downgrade a protocol version 2 connection to 1,
+upgrade a protocol version 1 connection to 2. The user gets a warning for a
+new key, but not the brutal error message. I remember Stealth going to a
+major security event and doing this to all outgoing SSH connections. The
+audacity of youth. A few years later, Stealth was in the middle of his PhD.
+He had begun playing with x64 exploitation, and realised that new techniques
+were needed – so he invented what was essentially ROP, before anyone else.
+His PhD advisor didn't understand the significance, and told him to do
+something else (I think something related to Bell-LaPadula). He asked me
+what to do with the paper, and I saw it as a clever trick, but not
+groundbreaking enough to justify a top-level conference submission. One of
+my biggest mistakes, exacerbated by the fact that my mistake didn't hurt me,
+but my friend. Miraculously, Stealth never held my poor advice against me
+when Shacham published ROP and thousands of citations and awards followed.
+He treated it in his usual style – with some ironic distance, and extremely
+dry humour. Again a bit later, we discussed in a phone call that – given
+that GCDs are cheap to compute, but factoring is hard – taking sets of
+public RSA moduli, dividing them in half, multiplying each half, and then
+computing GCDs would be a good way to find factors, provided key generation
+was somehow weak. This must've been some time between 2006 and 2010. I was
+sceptical, assuming that crypto libraries would not be that weak. Stealth,
+in his usual practice-oriented way, said he'd try it, and I never heard from
+it again. I presume it worked, as in 2012 a crypto paper showed that about 2
+in 1000 of all RSA moduli were weak and broke under this attack.
+
+  Stealth was exceptionally broad – he could sit in the park reading RFCs (I
+own a book with all IPSec RFCs, printed, largely inspired by his ability to
+read RFCs and find new protocol attacks), do memory corruptions (although he
+seemed to dislike them as fickle and inelegant to exploit, after his ROP
+contribution I never saw him touch a memory corruption again - although he
+might have, with other people), find cryptographic implementation flaws, and
+write what 20 years later is still considered is the godfather of all Linux
+rootkits (Adore).
+
+  Aside from all this versatility, he was truly the nicest person. Helpful,
+friendly, with the driest sense of humour I have ever witnessed, never
+condescending, always curious to learn.
+
+  He collaborated widely, but kept everybody's secrets. Many of his
+collaborators were surprised to find out about all his other collaborators.
+We will try to collect those memories that can be spoken about and publish
+them somewhere.
+
+  One could not have hoped for a better collaborator, a better keeper of
+secrets, and a funnier and friendlier person as a friend.
+
+  I miss you, Stealth, and while I don't believe that it exists, perhaps there
+will be the great encrypted IRC channel in the sky where we will see each
+other again. It wouldn't be the first time you have proved me wrong.
+
+|=-----------------------------------------------------------------------=|
+|=---------------------=[ Stealth - good memories ]=---------------------=|
+|=------------------------------=[ fygrave ]=----------------------------=|
+|=-----------------------------------------------------------------------=|
+
+  I met Stealth through the bugtraq mailing list. He was posting about
+linux viruses in 199x. I was so happy to find a like-minded researcher. We
+kept in touch since then. First IRL meeting at HAL in 2001, and alot
+of things to talk about. I guess we share alot of similarities in our
+childhood - the soviet-impacted past, which made it easier to
+communicate. I was always impressed at the amount of ideas Stealth
+had.. endless, and energy! The funniest person to chat with IRL, we
+spent quite some time together during lobby cons. Brightest mind,
+endless stories, fun conversations.
+
+|=-----------------------------------------------------------------------=|
+|=--------------------------=[ da tea - l8er ]=--------------------------=|
+|=-----------------------------=[ minipli ]=-----------------------------=|
+|=-----------------------------------------------------------------------=|
+
+  I first met stealth, like many of us, on IRC. Within the compartment I
+was in, he was very open about things. We bounced ideas, him often using
+his dry humor to plant these thoughts in random nerd talk we happen to
+have. Like the SWAPGS vulnerability. He briefly mentioned the idea, trying
+to nerd snipe me into looking into it. I dismissed it, just to find out,
+half a year later, that it turned out to be real vuln (CVE-2019-1125). He
+really had a great instinct where vulnerabilities may lurk.
+
+  What got stuck with me is that he parted conversations with a short and
+sharp "da tea". I like the idea of him now sipping a cup, watching us busy
+beavers, hacking (and breaking) code.
+
+Enjoy your tea, mate!
+We miss you.
