@@ -1,0 +1,5 @@
+Disallow: /
+Disallow: /more-perl/exp
+Disallow: /more-perl/const
+Disallow: /xSports
+

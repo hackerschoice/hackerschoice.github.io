@@ -1,0 +1,18 @@
+o some tools have been made available again after some law-cases
+  show relaxing
+o most of the site is closed now to fit new cybercrime laws
+o remotor 0.21 released
+o fetcher 0.23 released
+o adore-ng 0.54 released
+o released new intercept which fixes bug with hanging HTTP sessions
+  due to a missing close()
+o released ldsniff2.c version 0.4 reflecting BSD's
+  getpass()/readpassphrase()
+o adore-ng 0.53 released which allows to relink itself into
+  kernel 2.6 LKMs (as known from the 2.4 feature)
+o adore-ng 0.52 released, honouring sysfs structure changes
+  in newer 2.6 (once again!)
+o New adore-ng version available (0.51) fixing ext2/reiserfs
+  sillyness; sysfs hiding. 64bit machine testing.
+
+

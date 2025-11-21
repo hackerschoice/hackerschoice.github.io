@@ -1,0 +1,73 @@
+#!/usr/bin/perl -W
+
+# The bits dont lie! Wanna see what the ppl all around you are surfing?
+# This can also be used to build statistics (a lot of facebook, google etc
+# clicks) as well as there are infoleaks if certain webapps put session IDs
+# in URLS :) Its time that someone writes a thesis about it!
+# Enjoy!
+
+use strict;
+
+use IO::Socket;
+
+my $idx = 0;
+my @shorteners = ('bit.ly', 'is.gd', 'tinyurl.com');
+
+sub get_rand
+{
+	my @chars = ('0'..'9', 'a'..'z', 'A'..'Z');
+	my $i = 0;
+	my $s = "";
+
+	# 5 is fun enough
+	for (; $i < 5; ++$i) {
+		$s .= @chars[int(rand(62))];
+	}
+	return $s;
+}
+
+
+sub print_reply
+{
+	my $r = shift;
+	my $peer = shift;
+	my $location = undef;
+	my $buf = "";
+
+	for (;;) {
+		$peer->recv($buf, 1024);
+		last if (length($buf) == 0);
+		last if ($buf =~ /Not Found/);
+		if ($buf =~ /Location: (.+)/) {
+			$location = $1;
+			last;
+		}
+	}
+	print $shorteners[$idx]."/$r -> ";
+	if (defined $location) {
+		print "$location\n";
+	} else {
+		print "Not Found\n";
+	}
+}
+
+
+for (;;) {
+	my $r = get_rand();
+	for ($idx = 0; $idx < 3; ++$idx) {
+		my $peer = IO::Socket::INET->new(PeerAddr => $shorteners[$idx],
+	        	                         PeerPort => 80,
+	                	                 Proto => 'tcp') or die $!;
+
+
+
+		print $peer "GET /$r HTTP/1.1\r\nHost: $shorteners[$idx]\r\n\r\n";
+
+		print_reply($r, $peer);
+		close($peer);
+
+		# be nice!
+		sleep(0.3);
+	}
+}
+

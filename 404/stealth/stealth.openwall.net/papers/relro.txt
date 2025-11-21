@@ -1,0 +1,153 @@
+RELRO & ASLR & NX
+=================
+
+Speaking about recent Linux kernel (2.6.20) with recent glibc.
+Simple buffer overflow exploits, placing shellcode somewhere on the stack
+are not possible anymore. If implemented properly, only ".text", ".init" etc. sections
+become +x during runtime. The stack gets an own section without x.
+Additionally the addresses of the mapped library are randomized by default
+on most distributions:
+
+lopht:~ # objdump -x  /bin/cat |grep STACK -A1
+   STACK off    0x0000000000000000 vaddr 0x0000000000000000 paddr 0x0000000000000000 align 2**3
+         filesz 0x0000000000000000 memsz 0x0000000000000000 flags rw-
+lopht:~ # cat /proc/self/maps
+00400000-00405000 r-xp 00000000 08:01 5984855                            /bin/cat
+00604000-00606000 rw-p 00004000 08:01 5984855                            /bin/cat
+00606000-00627000 rw-p 00606000 00:00 0                                  [heap]
+2b495e79b000-2b495e7b7000 r-xp 00000000 08:01 5837666                    /lib64/ld-2.5.so
+2b495e7b7000-2b495e7b8000 rw-p 2b495e7b7000 00:00 0
+2b495e7e3000-2b495e7e4000 rw-p 2b495e7e3000 00:00 0
+2b495e7e4000-2b495e81f000 r--p 00000000 08:01 2665928                    /usr/lib/locale/en_US.utf8/LC_CTYPE
+2b495e81f000-2b495e826000 r--s 00000000 08:01 2665862                    /usr/lib64/gconv/gconv-modules.cache
+2b495e9b7000-2b495e9b9000 rw-p 0001c000 08:01 5837666                    /lib64/ld-2.5.so
+2b495e9b9000-2b495eaf2000 r-xp 00000000 08:01 5837673                    /lib64/libc-2.5.so
+2b495eaf2000-2b495ecf1000 ---p 00139000 08:01 5837673                    /lib64/libc-2.5.so
+2b495ecf1000-2b495ecf4000 r--p 00138000 08:01 5837673                    /lib64/libc-2.5.so
+2b495ecf4000-2b495ecf6000 rw-p 0013b000 08:01 5837673                    /lib64/libc-2.5.so
+2b495ecf6000-2b495ecfc000 rw-p 2b495ecf6000 00:00 0
+7fff4c2f9000-7fff4c30f000 rw-p 7fff4c2f9000 00:00 0                      [stack]
+ffffffffff600000-ffffffffffe00000 ---p 00000000 00:00 0                  [vdso]
+lopht:~ # cat /proc/self/maps
+00400000-00405000 r-xp 00000000 08:01 5984855                            /bin/cat
+00604000-00606000 rw-p 00004000 08:01 5984855                            /bin/cat
+00606000-00627000 rw-p 00606000 00:00 0                                  [heap]
+2b1f7ed5a000-2b1f7ed76000 r-xp 00000000 08:01 5837666                    /lib64/ld-2.5.so
+2b1f7ed76000-2b1f7ed77000 rw-p 2b1f7ed76000 00:00 0
+2b1f7eda2000-2b1f7eda3000 rw-p 2b1f7eda2000 00:00 0
+2b1f7eda3000-2b1f7edde000 r--p 00000000 08:01 2665928                    /usr/lib/locale/en_US.utf8/LC_CTYPE
+2b1f7edde000-2b1f7ede5000 r--s 00000000 08:01 2665862                    /usr/lib64/gconv/gconv-modules.cache
+2b1f7ef76000-2b1f7ef78000 rw-p 0001c000 08:01 5837666                    /lib64/ld-2.5.so
+2b1f7ef78000-2b1f7f0b1000 r-xp 00000000 08:01 5837673                    /lib64/libc-2.5.so
+2b1f7f0b1000-2b1f7f2b0000 ---p 00139000 08:01 5837673                    /lib64/libc-2.5.so
+2b1f7f2b0000-2b1f7f2b3000 r--p 00138000 08:01 5837673                    /lib64/libc-2.5.so
+2b1f7f2b3000-2b1f7f2b5000 rw-p 0013b000 08:01 5837673                    /lib64/libc-2.5.so
+2b1f7f2b5000-2b1f7f2bb000 rw-p 2b1f7f2b5000 00:00 0
+7fff2bd3b000-7fff2bd50000 rw-p 7fff2bd3b000 00:00 0                      [stack]
+ffffffffff600000-ffffffffffe00000 ---p 00000000 00:00 0                  [vdso]
+lopht:~ #
+
+Even worse for the pentester, the GOT is placed at the so called "relro" section which means
+that it is made read-only after loading and relocation by the dynamic linker.
+Files have to be compiled like:
+
+    cc -Wl,-z,relro,-z,now test.c
+
+for this to happen.
+In case of a bug where the pentester is able to overwrite some bytes at an arbitrary location,
+he can't overwrite GOT entries due to read-only page permissions after linking. He can
+neither overwrite return addresses at the stack, as the stack is mapped at a randomized
+location. Only code and data segment of the ELF binary itself are at a fixed address, unless -pie
+is used during compilation, which is not the case by default (means: -pie is omitted).
+
+So, there are not much places left where pentesters have write access to and proper
+pointers are located. Fortunally for him, the list of desctructors to be called
+during fini() is:
+
+
+0x0000000000400580 <__do_global_dtors_aux+0>:   cmpb   $0x0,2099857(%rip)        # 0x601018 <completed.6094>
+0x0000000000400587 <__do_global_dtors_aux+7>:   push   %rbp
+0x0000000000400588 <__do_global_dtors_aux+8>:   mov    %rsp,%rbp
+
+0x000000000040058b <__do_global_dtors_aux+11>:  je     0x40059d <__do_global_dtors_aux+29>
+0x000000000040058d <__do_global_dtors_aux+13>:  jmp    0x4005b3 <__do_global_dtors_aux+51>
+0x000000000040058f <__do_global_dtors_aux+15>:  nop
+0x0000000000400590 <__do_global_dtors_aux+16>:  add    $0x8,%rax
+0x0000000000400594 <__do_global_dtors_aux+20>:  mov    %rax,2099829(%rip)        # 0x601010 <p.6092>
+
+0x000000000040059b <__do_global_dtors_aux+27>:  callq  *%rdx
+0x000000000040059d <__do_global_dtors_aux+29>:  mov    2099820(%rip),%rax        # 0x601010 <p.6092>
+0x00000000004005a4 <__do_global_dtors_aux+36>:  mov    (%rax),%rdx
+0x00000000004005a7 <__do_global_dtors_aux+39>:  test   %rdx,%rdx
+
+0x00000000004005aa <__do_global_dtors_aux+42>:  jne    0x400590 <__do_global_dtors_aux+16>
+0x00000000004005ac <__do_global_dtors_aux+44>:  movb   $0x1,2099813(%rip)        # 0x601018 <completed.6094>
+0x00000000004005b3 <__do_global_dtors_aux+51>:  leaveq
+0x00000000004005b4 <__do_global_dtors_aux+52>:  retq
+0x00000000004005b5 <__do_global_dtors_aux+53>:  (bad)
+0x00000000004005b7 <__do_global_dtors_aux+55>:  add    %r8b,(%rax)
+0x00000000004005ba <__do_global_dtors_aux+58>:  data16
+0x00000000004005bb <__do_global_dtors_aux+59>:  (bad)
+0x00000000004005bd <__do_global_dtors_aux+61>:  add    %r8b,(%rax)
+
+
+As can be seen, the entry point for the dtors is located at 0x601010. The address is fix
+during multiple runs. Additionally its at a writable page (see __do_global_dtors_aux+44).
+The entry condition (0x601018 == 0) is true by default. 
+This leads to the simple demo-exploit:
+
+<-- sinp -->
+#include <stdio.h>
+
+
+void here()
+{
+        printf("here\n");
+}
+
+
+void there()
+{
+        printf("there\n");
+}
+
+int main()
+{
+        size_t *p = (size_t *)0x00601010;
+
+        printf("main\n");
+
+        p[0] = (size_t)&p[2];
+//        p[1] = 0;             // 0x601018 == 0
+        p[2] = (size_t)here;
+        p[3] = (size_t)there;
+        return 0;
+}
+
+
+<-- snip -->
+
+Running it in gdb:
+
+(gdb) x/32x 0x601010
+0x601010 <p.6092>:      0x00601020      0x00000000      0x00000000      0x00000000
+0x601020:       0x00400508      0x00000000      0x00400518      0x00000000
+(gdb) x/i 0x00400508
+0x400508 <here>:        push   %rbp
+(gdb)
+
+
+shows that it successfully tampered the dtors list:
+
+root@lopht:~# ./a.out
+main
+here
+there
+root@lopht:~#
+
+Since NX, these can't be the addresses of a shellcode somewhere on the stack. But any address
+from the ".text" etc segments of the binary are fine. This can include system@plt function etc,
+if used by the program or code snippets to use my borrowed code chunks exploitation technique.
+If you have comments, please mail me.
+
+

@@ -1,0 +1,94 @@
+#!/usr/bin/perl
+
+$code = "";
+$generation = 0;
+while (<DATA>) {
+	$code .= $_;
+}
+$c = "code";
+eval $$c;
+
+__DATA__
+# more-perl Perl code morphing engine (C) 2009 Stealth
+# exponential version
+# All rights reserved, all lefts reversed.
+sub metamorph
+{
+	my $code = shift;
+	my $i = 0;
+	my @script = (), @indexes = ();
+
+	srand(time()%$$*$generation);
+
+	# build an array of the characters which build the script
+	for ($i = 0; $i < length($code); ++$i) {
+		push @script, substr($code, $i, 1);
+		push @indexes, $i;
+	}
+
+
+	# randomize script array, keep track on how we shuffled
+	# them so we can rebuild correct code later
+	fisher_yates_shuffle(\@script, \@indexes);
+
+	$i = 0;
+	$var_name = rand_string();
+	my $mcode = "";
+	for ($i = 0; $i <= $#script; ++$i) {
+		$mcode .= sprintf("\$%s%d=\"\\x%02x\";", $var_name, $indexes[$i], ord($script[$i]));
+		$mcode .= "\n" if (($i % (int(rand(20)+1))) == 0);
+	}
+
+	# calculate eval() string
+	$mcode .= "\$$var_name=";
+	for ($i = 0; $i < $#script; ++$i) {
+		$mcode .= "\$$var_name"."$i.";
+		$mcode .= "\n" if (($i % (int(rand(20)+1))) == 0);
+	}
+	$mcode .= "\$".$var_name.$i.";";
+
+	$mcode .= "\$c='$var_name';";
+	$mcode .= "eval \$$var_name;";
+	
+	return $mcode;
+}
+
+
+sub fisher_yates_shuffle
+{
+	my ($a1, $a2) = @_;
+	for (my $i = @$a1; --$i;) {
+		my $j = int(rand($i + 1));
+		next if $i == $j;
+		@$a1[$i, $j] = @$a1[$j, $i];
+		@$a2[$i, $j] = @$a2[$j, $i];
+	}
+}
+
+
+sub rand_string
+{
+	my $l = int(rand(3))+2;
+	my $string = "";
+	for (my $i = 0; $i < $l; ++$i) {
+		$string .= sprintf("%c", int(rand(20)+97));
+	}
+	return $string;
+}
+
+# this is recursive code, means you only can
+# compute 4 generations or so, since the code-size
+# is growing exponential :)
+if (defined $nc) { # delete if() for constant growth
+	$nc = metamorph($nc);
+} else { # first generation from start
+	$nc = metamorph($$c);
+}
+print $nc;
+open(O,">metamorph-$var_name-$generation");
+print O $nc;
+close O;
+#$c="nc"; uncomment for constant growth
+++$generation;
+eval $nc;
+
