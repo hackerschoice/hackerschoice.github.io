@@ -6,8 +6,8 @@
 
   The following is a collection of texts and memories written by friends of
 Stealth – first ROP practitioner, author of the Adore rootkit, and data
-traveller extraordinaire – to mourn his untimely passing and to celebrate his
-life.
+traveller extraordinaire – to mourn his untimely passing and to celebrate
+his life.
 
   His work speaks for itself:
     https://github.com/stealth
@@ -264,3 +264,25 @@ person who made others feel welcome and valued. His warmth mattered far more
 than any talent, and that's what we will remember the most. May he rest in
 peace.
 
+
+|=-----------------------------------------------------------------------=|
+|=---------------------=[ ;pPpppPPPpPPPPPpppPp ]=------------------------=|
+|=-----------------------------=[ rocky ]=-------------------------------=|
+|=-----------------------------------------------------------------------=|
+
+  27 Nov 2025 will be the first thanksgiving in the last 20+ years that I
+won't wake up to a message from Stealth starting with ;pPpppPPPpPPPPPpppPp;
+wishing me and my family a happy thanksgiving, and catching up on what
+we've both been doing since our last conversation.
+
+  We became friends quickly after he reached out to me on ircs long ago,
+first talking about our mutual love of 90s music and nature, and much later
+into shared interest on different tech subjects.  In more recent years we
+mostly talked about family and hobbies; I would randomly receive pictures
+of the fish he had caught or of the beautiful terrains he was exploring, and
+I'd fill him in on the mischief that my daughter and I were up to.
+
+  Stealth was one of the most brilliant minds from our world of hacking,
+with an equally high level of empathy and love for his friends, and someone
+that I already miss.  Long ago he wrote a famous rootkit called Adore, and
+today I have a daughter named Ava who he loved hearing about.  - rocky
