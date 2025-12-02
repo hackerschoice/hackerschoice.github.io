@@ -15,6 +15,7 @@ his life.
     https://c-skills.blogspot.com/
     https://stealth.openwall.net
 
+
 |=-----------------------------------------------------------------------=|
 |=-----------------------=[ Missing Stealth ]=---------------------------=|
 |=----------------------------=[ raptor ]=-------------------------------=|
@@ -286,3 +287,30 @@ I'd fill him in on the mischief that my daughter and I were up to.
 with an equally high level of empathy and love for his friends, and someone
 that I already miss.  Long ago he wrote a famous rootkit called Adore, and
 today I have a daughter named Ava who he loved hearing about.  - rocky
+
+|=-----------------------------------------------------------------------=|
+|=-------------------------=[ Adieu Stealth ]=---------------------------=|
+|=-----------------------------=[ citypw ]=------------------------------=|
+|=-----------------------------------------------------------------------=|
+
+  Stealth is a versatile hacker who works in many fields. The x64 ROP he
+published in the 2005 and later CVE‑2013‑1858 had a huge impact on my
+understanding of security. I even spent an entire week in a small fishing
+village in Hong Kong and try to mitigate CVE‑2013‑1858 with RBAC tweaks and
+hardening.
+
+  While at SuSE I always thought he was a hacker focused on system security,
+but I was wrong after I saw the OPMSG. I realized that he's a perfect
+example to explain the relationship between system security and
+cryptography—like Solid Snake and Liquid Snake. Stealth is a unique
+existence on this planet. When I saw the news today I could hardly believe
+it was true, but I have indeed lost a friend, a great hacker I've ever met,
+and a low-profile hero of FLOSS security.
+
+  Adieu, my friend! May we have a clubmate again!
+
+|=-----------------------------------------------------------------------=|
+|=-----------------------------------------------------------------------=|
+
+12:11 -!- stealth [~stealth@segfault.net] has joined #!segfault
+12:11 < stealth> we had joy we had fun we had a rootshell on a sun
