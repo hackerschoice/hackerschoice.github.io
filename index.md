@@ -22,12 +22,16 @@ We research and publish tools and academic papers to expose fishy IT security th
 
 ## Active Projects
 
+- [IP/Domain Lookup](https://ip.thc.org)
 - [Segfault](https://www.thc.org/segfault)
 - [AFL++](https://github.com/AFLplusplus/AFLplusplus)
+- [Dsniff](https://github.com/hackerschoice/dsniff)
 - [Global Socket Relay Network](https://www.gsocket.io)
 - [Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [IPv6 attack tool kit](https://github.com/vanhauser-thc/thc-ipv6)
 - [THC's favourite Tips, Tricks  & Hacks / Cheat Sheet](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet)
+- [Hacker friendly bash shell](https://github.com/hackerschoice/hackshell)
+- [Binary / Script encrypter](https://github.com/hackerschoice/bincrypter)
 - [IT Security and Privacy for the rebellions of the world](https://hackerschoice.medium.com/it-security-and-privacy-for-the-rebellions-of-the-world-db4023cadcca
 )
 
@@ -38,15 +42,16 @@ Archive: [https://github.com/vanhauser-thc/THC-Archive/](https://github.com/vanh
 ## Our Greatest Hit’s:
 
 ```
+2026 - World's largest rDNS database (by md)
 2025 - phrack
-2024 - <redacted>
+2024 - Bincrypter
 2023 - Disposable Root Servers (segfault.net)
 2022 - SSH-IT
 2021 - Global Socket
-2020 - THC's Cheat Sheet
+2020 - THC's Tips & Tricks (Cheat Sheet)
 2019 - Security advise for non-hackers and rebellions of the world
 2015 - AFLplusplus, a free and fast software fuzzer
-2011 - SSL-DoS, a resource exhaustion attack to take down HTTPS servers
+2011 - SSL-DoS, first resource exhaustion attack against HTTPS
 2008 - Tools to copy and forge an ePassport (RFID passport)
 2007 - Tools to receive GSM signals and to break and decode A5/1 encryption
 2005 - IPv6 attack tools 

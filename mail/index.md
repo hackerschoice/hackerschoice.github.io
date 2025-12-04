@@ -8,6 +8,13 @@ description: This project allows users to set up a free email forwarder.
 
 This project allows you to set up an email forward from `<yourname>@segfault.net` to any email address of your choosing.
 
+
+## DOWN DOWN DOWN
+
+THIS SERVICE IS CURRENTLY UNAVAILABLE BECAUSE THE VOLUNTEER WHO RAN THIS FREE SERVICE HAS GONE SILENT.
+
+IF YOU LIKE TO TAKE OVER AND RUN THIS SERVICE FOR FREE THEN PLEASE CONTACT US.
+
 ## Setup
 
 This will forward any email to `foobar@segfault.net` to `hackbart@tuta.io`:
