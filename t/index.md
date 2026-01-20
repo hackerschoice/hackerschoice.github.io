@@ -4,19 +4,13 @@ title: A Free Telegram Proxy
 description: This project allows users to bypass country blocks and add a extra layer of security to Telegram.
 ---
 
-## DOWN DOWN DOWN
-
-THIS SERVICE IS CURRENTLY UNAVAILABLE BECAUSE THE VOLUNTEER WHO RAN THIS FREE SERVICE HAS GONE SILENT.
-
-IF YOU LIKE TO TAKE OVER AND RUN THIS SERVICE FOR FREE THEN PLEASE CONTACT US.
-
 
 ## Setup
 
 Simply click on the following link to use the Proxy:
 
 {:refdef: style="text-align: center;"}
-[https://t.me/proxy?server=t.segfault.net&port=8443&secret=bcfb182a1bafbc16ea92652628133c07](https://t.me/proxy?server=t.segfault.net&port=8443&secret=bcfb182a1bafbc16ea92652628133c07)
+[https://t.me/proxy?server=t.sprl.ninja&port=443&secret=704f51b65e5c6aa8abe2cf9d88e828d6](https://t.me/proxy?server=t.sprl.ninja&port=443&secret=704f51b65e5c6aa8abe2cf9d88e828d6)
 {: refdef}
 
 Telegram will start upon clicking the link. Press ```Enable``` to accept the Proxy.
@@ -27,7 +21,7 @@ Telegram will start upon clicking the link. Press ```Enable``` to accept the Pro
 
 ## Why
 
-Because we can. This project is maintained by [LouCipher](https://t.me/thcorg).
+Because we can. This project is maintained by [Schwipp Schwapp](https://t.me/thcorg).
 
 THIS IS BETA TESTING AT THE MOMENT. TALK TO US IF YOU LIKE TO SEE ANY SPECIFIC FEATURES.
 
