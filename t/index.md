@@ -10,7 +10,7 @@ description: This project allows users to bypass country blocks and add a extra 
 Simply click on the following link to use the Proxy:
 
 {:refdef: style="text-align: center;"}
-[https://t.me/proxy?server=t.sprl.ninja&port=443&secret=704f51b65e5c6aa8abe2cf9d88e828d6](https://t.me/proxy?server=t.sprl.ninja&port=443&secret=704f51b65e5c6aa8abe2cf9d88e828d6)
+[https://t.me/proxy?server=t.segfault.net&port=443&secret=704f51b65e5c6aa8abe2cf9d88e828d6](https://t.me/proxy?server=t.segfault.net&port=443&secret=704f51b65e5c6aa8abe2cf9d88e828d6)
 {: refdef}
 
 Telegram will start upon clicking the link. Press ```Enable``` to accept the Proxy.
