@@ -15,7 +15,6 @@ his life.
     https://c-skills.blogspot.com/
     https://stealth.openwall.net
 
-
 |=-----------------------------------------------------------------------=|
 |=-----------------------=[ Missing Stealth ]=---------------------------=|
 |=----------------------------=[ raptor ]=-------------------------------=|
@@ -308,23 +307,6 @@ it was true, but I have indeed lost a friend, a great hacker I've ever met,
 and a low-profile hero of FLOSS security.
 
   Adieu, my friend! May we have a clubmate again!
-
-|=-----------------------------------------------------------------------=|
-|=------------------------=[ Legends never die ]=------------------------=|
-|=-----------------------=[ Matthias Weckbecker ]=-----------------------=|
-|=-----------------------------------------------------------------------=|
-
-I first met Sebastian when I was a student in 2007. He was one of my
-supervisors, and I couldn't have hoped for a better teacher and mentor
-than him. I have many fond memories of our discussions on software
-security and exploitation, a field Sebastian pioneered. He was deeply
-knowledgeable in many areas, such as user space exploitation, kernel
-exploitation, and cryptography. Sebastian was always eager to share
-his expertise with me and teach me. He has truly made a huge positive
-impact on my career and the scene as a whole.
-
-We will continue borrowing code chunks for fun and profit, but you
-will be greatly missed. RIP, Stealth.
 
 |=-----------------------------------------------------------------------=|
 |=-----------------------------------------------------------------------=|
