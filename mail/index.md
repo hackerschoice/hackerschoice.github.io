@@ -4,7 +4,7 @@ title: A Free Email Forwarding Server
 description: This project allows users to set up a free email forwarding.
 ---
 
-<nav style="margin-top: {{ include.margin-top }}; margin-bottom: {{ include.margin-bottom }}; height: 25px;">
+<nav style="height: 25px; margin-top: 0px; margin-bottom: 4rem;">
     <ul style="width: fit-content; padding: 0; margin: 0 auto;">
         <li style="float: left; list-style-image: none; list-style-type: none;">
             <a href="/">Home</a>
