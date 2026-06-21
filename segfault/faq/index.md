@@ -62,7 +62,6 @@ description: Frequently asked questions related to Segfault.
    Take a look at `/sec/usr/etc/rc.local`. This file is executed on bootup. There is no systemd/systemctl.
 
 1. **How can I start a Web Browse, VNC or GUI?**  
-   1. Use [https://shell.segfault.net](https://shell.segfault.net). Click "I'm new here" to create a new server. Click "I've been here" to log in to your existing server: Take your SECRET and prefix it with the short server name. Example Secret: `8lgm-XXX...`.
    1. Log in with SSH start a VNC session: `ssh -L5900:0:5900 <servername>` and execute `startxvnc`. Then connect with VNC to 127.0.0.1:5900
    1. Log in with SSH, start a XPRA session: `ssh -L2000:0:2000 <servername>` and then browse to http://127.0.0.1:2000.
    <p>
