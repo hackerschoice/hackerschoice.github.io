@@ -19,9 +19,6 @@ description: Disposable Root Servers.
 ```shell
 ssh root@segfault.net # The password is 'segfault'
 ```
-{:refdef: style="text-align: center;"}
-__NEW: Start a [Remote Desktop](https://shell.segfault.net) inside your Browser.__
-{: refdef}
 
 {:refdef: style="text-align: center;"}
 ![login screen](sf-login.png){:height="80%" width="80%"}
