@@ -50,6 +50,15 @@ See all available domains:
 curl -sS https://mail.thc.org/api/domains | jq -r '.[]'
 ```
 
+## Browsers extensions and other integrations
+
+* Mozilla Firefox Extension <https://addons.mozilla.org/en-US/firefox/addon/email-alias-manager/> 
+* Google Chrome Extension <https://chromewebstore.google.com/detail/email-alias-manager-free/ihjojmdobbcanaafcgpmagmmoaoflpjl> 
+* Telegram Bot <https://t.me/thcmail_bot> 
+* Discord App <https://discord.com/oauth2/authorize?client_id=1469840254562468013> 
+* Discord Bot, user install <https://discord.com/oauth2/authorize?client_id=1469840254562468013&integration_type=1&scope=applications.commands> 
+* Discord Bot, guild install <https://discord.com/oauth2/authorize?client_id=1469840254562468013&integration_type=0&scope=applications.commands> 
+
 ## Use your own domain
 
 You can use your own domain as well! Follow this:
