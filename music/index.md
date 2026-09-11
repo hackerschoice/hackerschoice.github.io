@@ -14,7 +14,7 @@ Spoty's (#!ADM) monthly house music. Also *LIVE* every month in Paris.
 Larage (#!ADM):  
 [https://hearthis.at/daliquid/](https://hearthis.at/daliquid/)
 
-L33tdawg (HackInTheBox Chief) and long term friend of THC. Progressive mix.  
+L33tdawg (HackInTheBox Chief) and long time friend of THC. Progressive mix.
 [https://mixcloud.com/dhankasounds](https://mixcloud.com/dhankasounds)
 
 Our very own DJ RevMoon/THC!  
